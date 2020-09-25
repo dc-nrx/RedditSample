@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		43B18002251DE2120084817A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18001251DE2120084817A /* AppDelegate.swift */; };
 		43B18004251DE2120084817A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18003251DE2120084817A /* SceneDelegate.swift */; };
-		43B18006251DE2120084817A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18005251DE2120084817A /* ViewController.swift */; };
+		43B18006251DE2120084817A /* RedditMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18005251DE2120084817A /* RedditMainVC.swift */; };
 		43B18009251DE2120084817A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43B18007251DE2120084817A /* Main.storyboard */; };
 		43B1800B251DE2140084817A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43B1800A251DE2140084817A /* Assets.xcassets */; };
 		43B1800E251DE2140084817A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43B1800C251DE2140084817A /* LaunchScreen.storyboard */; };
 		43B18019251DE2140084817A /* RedditSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18018251DE2140084817A /* RedditSampleTests.swift */; };
 		43B18024251DE2140084817A /* RedditSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18023251DE2140084817A /* RedditSampleUITests.swift */; };
+		43B18038251DE36C0084817A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18037251DE36C0084817A /* Network.swift */; };
+		43B18040251DE37C0084817A /* Reddit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1803F251DE37C0084817A /* Reddit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +40,7 @@
 		43B17FFE251DE2120084817A /* RedditSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B18001251DE2120084817A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43B18003251DE2120084817A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		43B18005251DE2120084817A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		43B18005251DE2120084817A /* RedditMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditMainVC.swift; sourceTree = "<group>"; };
 		43B18008251DE2120084817A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		43B1800A251DE2140084817A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43B1800D251DE2140084817A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +51,8 @@
 		43B1801F251DE2140084817A /* RedditSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedditSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B18023251DE2140084817A /* RedditSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditSampleUITests.swift; sourceTree = "<group>"; };
 		43B18025251DE2140084817A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43B18037251DE36C0084817A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		43B1803F251DE37C0084817A /* Reddit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reddit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +103,11 @@
 		43B18000251DE2120084817A /* RedditSample */ = {
 			isa = PBXGroup;
 			children = (
+				43B18036251DE2ED0084817A /* Controller */,
+				43B18035251DE2D60084817A /* View */,
+				43B18034251DE2CD0084817A /* Model */,
 				43B18001251DE2120084817A /* AppDelegate.swift */,
 				43B18003251DE2120084817A /* SceneDelegate.swift */,
-				43B18005251DE2120084817A /* ViewController.swift */,
 				43B18007251DE2120084817A /* Main.storyboard */,
 				43B1800A251DE2140084817A /* Assets.xcassets */,
 				43B1800C251DE2140084817A /* LaunchScreen.storyboard */,
@@ -126,6 +132,30 @@
 				43B18025251DE2140084817A /* Info.plist */,
 			);
 			path = RedditSampleUITests;
+			sourceTree = "<group>";
+		};
+		43B18034251DE2CD0084817A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				43B18037251DE36C0084817A /* Network.swift */,
+				43B1803F251DE37C0084817A /* Reddit.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		43B18035251DE2D60084817A /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		43B18036251DE2ED0084817A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				43B18005251DE2120084817A /* RedditMainVC.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,8 +288,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43B18006251DE2120084817A /* ViewController.swift in Sources */,
+				43B18040251DE37C0084817A /* Reddit.swift in Sources */,
+				43B18006251DE2120084817A /* RedditMainVC.swift in Sources */,
 				43B18002251DE2120084817A /* AppDelegate.swift in Sources */,
+				43B18038251DE36C0084817A /* Network.swift in Sources */,
 				43B18004251DE2120084817A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
