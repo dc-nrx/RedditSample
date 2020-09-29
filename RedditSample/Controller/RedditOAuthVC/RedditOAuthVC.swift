@@ -32,11 +32,34 @@ class RedditOAuthVC: UIViewController {
 	@IBOutlet private var webView: WKWebView!
 
 	//MARK:- Private Members
-	private let	clientId = Reddit.clientId
-	private let	responseType = "code"
-	private let state = UUID().uuidString
-	private let redirectURIString = Reddit.redirectURIString
-	private let duration = "permanent"
+//	private let	clientId = Reddit.clientId
+//	private let	responseType = "code"
+//	private let state = UUID().uuidString
+//	private let redirectURIString = Reddit.redirectURIString
+//	private let duration = "permanent"
+	
+	///
+	/// The initial OAth request to execute.
+	/// Please see https://github.com/reddit-archive/reddit/wiki/OAuth2 for details
+	/// (e.g. you might want to extend `scope` with extra API areas to support other requests)
+	///
+	private let oathRequest: URLRequest = {
+		let params = [
+			"client_id": Reddit.clientId,
+			"response_type": "code",
+			"state": UUID().uuidString,
+			"redirect_uri": Reddit.redirectURIString,
+			"duration": "permanent",
+			"scope": "read"
+		]
+		var components = URLComponents(string: "https://www.reddit.com/api/v1/authorize")!
+		components.queryItems = params.map(URLQueryItem.init)
+//		{ (key, value) in
+//			URLQueryItem(name: key, value: value)
+//		}
+		
+		return URLRequest(url: components.url!)
+	}()
 	
 }
 
@@ -48,17 +71,11 @@ extension RedditOAuthVC {
 //MARK:- Life Cycle
 extension RedditOAuthVC {
 	
-//	override func viewDidLoad() {
-//		super.viewDidLoad()
-//
-//		//...
-//	}
-//
-//	override func viewWillAppear(_ animated: Bool) {
-//		super.viewWillAppear(animated)
-//
-//		//...
-//	}
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		webView.load(oathRequest)
+	}
 	
 }
 
