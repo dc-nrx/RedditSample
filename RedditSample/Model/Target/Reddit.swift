@@ -8,11 +8,14 @@
 import Foundation
 
 ///
-/// A full configuration for the Reddit API
+/// Reddit API: full request list & corresponding configurations. (inspired by Moya framework)
 ///
-enum Reddit {
+enum Reddit: Target {
+	
+	typealias ResponseType = Any
 	
 	case topFeed
+	
 }
 
 //MARK:- Core
@@ -25,6 +28,10 @@ extension Reddit {
 	
 	var baseURLString: String { "https://www.reddit.com/dev/" }
 	
+	var url: URL {
+		// Intentional force unwrap (same logic as with outlets)
+		URL(string: baseURLString.appending(path))!
+	}
 }
 
 //MARK:- Path
@@ -34,6 +41,18 @@ extension Reddit {
 		switch self {
 		case .topFeed:
 			return "topFeed"
+		}
+	}
+	
+}
+
+//MARK:- Method
+extension Reddit {
+	
+	var method: RequestMethod {
+		switch self {
+		case .topFeed:
+			return .get
 		}
 	}
 	

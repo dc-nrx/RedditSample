@@ -18,7 +18,7 @@
 		43B18024251DE2140084817A /* RedditSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18023251DE2140084817A /* RedditSampleUITests.swift */; };
 		43B18038251DE36C0084817A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18037251DE36C0084817A /* Network.swift */; };
 		43B18040251DE37C0084817A /* Reddit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1803F251DE37C0084817A /* Reddit.swift */; };
-		43B18054251DEBED0084817A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18053251DEBED0084817A /* Request.swift */; };
+		43B18054251DEBED0084817A /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18053251DEBED0084817A /* Target.swift */; };
 		43B1805D251DEED30084817A /* TopPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1805C251DEED30084817A /* TopPage.swift */; };
 		43B18065251E01580084817A /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18064251E01580084817A /* ResponseData.swift */; };
 /* End PBXBuildFile section */
@@ -58,7 +58,7 @@
 		43B18025251DE2140084817A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43B18037251DE36C0084817A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		43B1803F251DE37C0084817A /* Reddit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reddit.swift; sourceTree = "<group>"; };
-		43B18053251DEBED0084817A /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		43B18053251DEBED0084817A /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		43B1805C251DEED30084817A /* TopPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPage.swift; sourceTree = "<group>"; };
 		43B18064251E01580084817A /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,6 +88,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		433C4AE8252352C800E2AFAC /* Target */ = {
+			isa = PBXGroup;
+			children = (
+				43B18053251DEBED0084817A /* Target.swift */,
+				43B1803F251DE37C0084817A /* Reddit.swift */,
+			);
+			path = Target;
+			sourceTree = "<group>";
+		};
 		43B17FF5251DE2120084817A = {
 			isa = PBXGroup;
 			children = (
@@ -145,10 +154,9 @@
 		43B18034251DE2CD0084817A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				433C4AE8252352C800E2AFAC /* Target */,
 				43B1805B251DEEB90084817A /* ResponseData */,
 				43B18037251DE36C0084817A /* Network.swift */,
-				43B1803F251DE37C0084817A /* Reddit.swift */,
-				43B18053251DEBED0084817A /* Request.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -172,8 +180,8 @@
 		43B1805B251DEEB90084817A /* ResponseData */ = {
 			isa = PBXGroup;
 			children = (
-				43B1805C251DEED30084817A /* TopPage.swift */,
 				43B18064251E01580084817A /* ResponseData.swift */,
+				43B1805C251DEED30084817A /* TopPage.swift */,
 			);
 			path = ResponseData;
 			sourceTree = "<group>";
@@ -316,7 +324,7 @@
 				43B18038251DE36C0084817A /* Network.swift in Sources */,
 				43B18004251DE2120084817A /* SceneDelegate.swift in Sources */,
 				43B18065251E01580084817A /* ResponseData.swift in Sources */,
-				43B18054251DEBED0084817A /* Request.swift in Sources */,
+				43B18054251DEBED0084817A /* Target.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
