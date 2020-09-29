@@ -29,14 +29,13 @@ class RedditOAuthVC: UIViewController {
 	var callback: Callback!
 	
 	//MARK:- Outlets
+	
+	///
+	/// The main web view for oauth user interactions
+	///
 	@IBOutlet private var webView: WKWebView!
 
 	//MARK:- Private Members
-//	private let	clientId = Reddit.clientId
-//	private let	responseType = "code"
-//	private let state = UUID().uuidString
-//	private let redirectURIString = Reddit.redirectURIString
-//	private let duration = "permanent"
 	
 	///
 	/// The initial OAth request to execute.
@@ -54,9 +53,6 @@ class RedditOAuthVC: UIViewController {
 		]
 		var components = URLComponents(string: "https://www.reddit.com/api/v1/authorize")!
 		components.queryItems = params.map(URLQueryItem.init)
-//		{ (key, value) in
-//			URLQueryItem(name: key, value: value)
-//		}
 		
 		return URLRequest(url: components.url!)
 	}()
@@ -84,8 +80,8 @@ private extension RedditOAuthVC {
 	
 }
 
-////MARK:- Protocols
-////MARK:-
-//extension RedditOAuthVC:  {
-//
-//}
+//MARK:- Protocols
+//MARK:-
+extension RedditOAuthVC: WKNavigationDelegate {
+
+}
