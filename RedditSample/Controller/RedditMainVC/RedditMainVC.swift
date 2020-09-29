@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RedditMainVC: UIViewController {
+class RedditMainVC: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()

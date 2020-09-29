@@ -15,9 +15,14 @@ enum Reddit {
 	case topFeed
 	
 	///
-	/// The app secret key required for OAuth
+	/// Tells reddit.com which app is making the request
 	///
-	var apiSecret: String { "GVsX6FPK1N9JDw" }
+	static var clientId: String { "GVsX6FPK1N9JDw" }
+	
+	///
+	/// Must be exactly the same as in the reddit app settings. Used only to make the initial oath request.
+	///
+	static var redirectURIString: String { "https://google.com" }
 }
 
 extension Reddit: Target {
