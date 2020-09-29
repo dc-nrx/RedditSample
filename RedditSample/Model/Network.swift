@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+///
+/// The single point to send requests
+///
+class Network {
+	
+	static func request() {
+		
+	}
+	
+}
