@@ -8,46 +8,28 @@
 import Foundation
 
 ///
-/// Reddit API: full request list & corresponding configurations. (inspired by Moya framework)
+/// Reddit API: full request list & corresponding configurations.
 ///
-enum Reddit: Target {
-	
-	typealias ResponseType = Any
+enum Reddit {
 	
 	case topFeed
 	
+	///
+	/// The app secret key required for OAuth
+	///
+	var apiSecret: String { "GVsX6FPK1N9JDw" }
 }
 
-//MARK:- Core
-extension Reddit {
-	
-	///
-	/// The app-specific api key required for OAuth
-	///
-	var apiKey: String { "111" }
-	
+extension Reddit: Target {
+		
 	var baseURLString: String { "https://www.reddit.com/dev/" }
-	
-	var url: URL {
-		// Intentional force unwrap (same logic as with outlets)
-		URL(string: baseURLString.appending(path))!
-	}
-}
-
-//MARK:- Path
-extension Reddit {
-	
+			
 	var path: String {
 		switch self {
 		case .topFeed:
 			return "topFeed"
 		}
 	}
-	
-}
-
-//MARK:- Method
-extension Reddit {
 	
 	var method: RequestMethod {
 		switch self {
@@ -57,3 +39,4 @@ extension Reddit {
 	}
 	
 }
+

@@ -7,10 +7,11 @@
 
 import Foundation
 
+///
+/// A full configuration for a REST API service (inspired by Moya framework; simplified)
+///
 protocol Target {
 	
-	associatedtype ResponseType
-
 	///
 	/// The base URL to append the `path` to.
 	///

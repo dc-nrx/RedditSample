@@ -12,7 +12,7 @@ import Foundation
 ///
 class Network {
 	
-	static func request() {
+	static func request(_ target: Target) {
 		
 	}
 	
