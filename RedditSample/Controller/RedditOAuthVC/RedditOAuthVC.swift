@@ -15,18 +15,13 @@ import UIKit
 class RedditOAuthVC: UIViewController {
 
 	typealias Callback = (_ error: String, _ code: String) -> ()
-	
-	convenience init(callback: @escaping Callback) {
-		self.init(nibName: "RedditOAuthVC", bundle: nil)
-		self.callback = callback
-	}
-	
+		
 	//MARK:- Public Members
 	
 	///
 	/// The callback to execute on the OAuth flow finish.
 	///
-	var callback: Callback!
+	var callback: Callback?
 	
 	//MARK:- Outlets
 	
@@ -40,7 +35,7 @@ class RedditOAuthVC: UIViewController {
 	///
 	/// The initial OAth request to execute.
 	/// Please see https://github.com/reddit-archive/reddit/wiki/OAuth2 for details
-	/// (e.g. you might want to extend `scope` with extra API areas to support other requests)
+	/// (e.g. you might need to extend the `scope` param with extra API areas to add new requests)
 	///
 	private let oathRequest: URLRequest = {
 		let params = [
@@ -70,6 +65,7 @@ extension RedditOAuthVC {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		webView.navigationDelegate = self
 		webView.load(oathRequest)
 	}
 	
@@ -81,7 +77,11 @@ private extension RedditOAuthVC {
 }
 
 //MARK:- Protocols
-//MARK:-
+//MARK:- WKNavigationDelegate
 extension RedditOAuthVC: WKNavigationDelegate {
 
+	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+		print(navigation)
+	}
+	
 }
