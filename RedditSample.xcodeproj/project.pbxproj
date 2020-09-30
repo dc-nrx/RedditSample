@@ -10,13 +10,13 @@
 		430FBC8425238F7100B37D07 /* RedditSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430FBC8325238F7100B37D07 /* RedditSession.swift */; };
 		430FBCBC2523958900B37D07 /* StoredProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430FBCBB2523958900B37D07 /* StoredProperty.swift */; };
 		430FBCC1252396DE00B37D07 /* CustomTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430FBCC0252396DE00B37D07 /* CustomTypes.swift */; };
+		430FBCDC2524AC0F00B37D07 /* RedditMainVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 430FBCDB2524AC0F00B37D07 /* RedditMainVC.storyboard */; };
 		433C4AE125234E3000E2AFAC /* RedditPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433C4AE025234E3000E2AFAC /* RedditPostCell.swift */; };
 		433C4AED2523662500E2AFAC /* RedditOAuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433C4AEC2523662500E2AFAC /* RedditOAuthVC.swift */; };
 		433C4AF725236CA600E2AFAC /* RedditOAuthVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433C4AF625236CA600E2AFAC /* RedditOAuthVC.storyboard */; };
 		43B18002251DE2120084817A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18001251DE2120084817A /* AppDelegate.swift */; };
 		43B18004251DE2120084817A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18003251DE2120084817A /* SceneDelegate.swift */; };
 		43B18006251DE2120084817A /* RedditMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18005251DE2120084817A /* RedditMainVC.swift */; };
-		43B18009251DE2120084817A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43B18007251DE2120084817A /* Main.storyboard */; };
 		43B1800B251DE2140084817A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43B1800A251DE2140084817A /* Assets.xcassets */; };
 		43B1800E251DE2140084817A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43B1800C251DE2140084817A /* LaunchScreen.storyboard */; };
 		43B18019251DE2140084817A /* RedditSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18018251DE2140084817A /* RedditSampleTests.swift */; };
@@ -49,6 +49,7 @@
 		430FBC8325238F7100B37D07 /* RedditSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditSession.swift; sourceTree = "<group>"; };
 		430FBCBB2523958900B37D07 /* StoredProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredProperty.swift; sourceTree = "<group>"; };
 		430FBCC0252396DE00B37D07 /* CustomTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTypes.swift; sourceTree = "<group>"; };
+		430FBCDB2524AC0F00B37D07 /* RedditMainVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RedditMainVC.storyboard; sourceTree = "<group>"; };
 		433C4AE025234E3000E2AFAC /* RedditPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostCell.swift; sourceTree = "<group>"; };
 		433C4AEC2523662500E2AFAC /* RedditOAuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditOAuthVC.swift; sourceTree = "<group>"; };
 		433C4AF625236CA600E2AFAC /* RedditOAuthVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RedditOAuthVC.storyboard; sourceTree = "<group>"; };
@@ -56,7 +57,6 @@
 		43B18001251DE2120084817A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43B18003251DE2120084817A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		43B18005251DE2120084817A /* RedditMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditMainVC.swift; sourceTree = "<group>"; };
-		43B18008251DE2120084817A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		43B1800A251DE2140084817A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43B1800D251DE2140084817A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43B1800F251DE2140084817A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -129,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				43B18005251DE2120084817A /* RedditMainVC.swift */,
+				430FBCDB2524AC0F00B37D07 /* RedditMainVC.storyboard */,
 			);
 			path = RedditMainVC;
 			sourceTree = "<group>";
@@ -161,7 +162,6 @@
 				43B18034251DE2CD0084817A /* Model */,
 				43B18001251DE2120084817A /* AppDelegate.swift */,
 				43B18003251DE2120084817A /* SceneDelegate.swift */,
-				43B18007251DE2120084817A /* Main.storyboard */,
 				43B1800A251DE2140084817A /* Assets.xcassets */,
 				43B1800C251DE2140084817A /* LaunchScreen.storyboard */,
 				43B1800F251DE2140084817A /* Info.plist */,
@@ -328,10 +328,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				430FBCDC2524AC0F00B37D07 /* RedditMainVC.storyboard in Resources */,
 				43B1800E251DE2140084817A /* LaunchScreen.storyboard in Resources */,
 				433C4AF725236CA600E2AFAC /* RedditOAuthVC.storyboard in Resources */,
 				43B1800B251DE2140084817A /* Assets.xcassets in Resources */,
-				43B18009251DE2120084817A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,14 +404,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		43B18007251DE2120084817A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				43B18008251DE2120084817A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		43B1800C251DE2140084817A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

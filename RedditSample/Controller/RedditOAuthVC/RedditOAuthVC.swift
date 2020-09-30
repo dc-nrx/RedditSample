@@ -14,7 +14,7 @@ import UIKit
 ///
 class RedditOAuthVC: UIViewController {
 
-	typealias Callback = (_ error: String, _ code: String) -> ()
+	typealias Callback = OptionalErrorCallback
 		
 	//MARK:- Public Members
 	
@@ -81,7 +81,7 @@ private extension RedditOAuthVC {
 extension RedditOAuthVC: WKNavigationDelegate {
 
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-		print(navigation)
+		print(navigation!)
 	}
 	
 }
