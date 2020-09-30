@@ -104,7 +104,7 @@ extension RedditOAuthVC: WKNavigationDelegate {
 		else {
 			// Regular case
 			decisionHandler(.allow)
-		} 
+		}
 	}
 	
 }

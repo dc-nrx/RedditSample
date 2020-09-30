@@ -13,6 +13,11 @@ import Foundation
 protocol Target {
 	
 	///
+	/// Http header entries
+	///
+	var httpHeader: [String: String] { get }
+	
+	///
 	/// The base URL to append the `path` to.
 	///
 	var baseURLString: String { get }
@@ -31,6 +36,11 @@ protocol Target {
 	/// An actual URL to send the request ( = `baseURLString` + `path`)
 	///
 	var url: URL { get }
+	
+	///
+	/// An optional body of the request
+	///
+	var body: Data? { get }
 }
 
 //MARK:- Convenience
