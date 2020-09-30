@@ -41,7 +41,7 @@ final class RedditSession {
 	/// - Parameter accessCodeValue: The access code granted by Reddit
 	///
 	func accessCodeRecieved(_ accessCodeValue: String, callback: OptionalErrorCallback) {
-		
+		print("\(#function)")
 		accessCode.value = accessCodeValue
 		retrieveToken(callback)
 	}
@@ -58,7 +58,8 @@ final class RedditSession {
 	/// Call this function to get a token after receiving a valid access code
 	///
 	private func retrieveToken(_ callback: OptionalErrorCallback) {
-		
+		print("\(#function)")
+		callback(nil)
 	}
 	
 }

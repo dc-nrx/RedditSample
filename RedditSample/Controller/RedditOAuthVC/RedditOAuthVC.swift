@@ -15,8 +15,13 @@ import UIKit
 class RedditOAuthVC: UIViewController {
 
 	typealias Callback = OptionalErrorCallback
-		
+	
 	//MARK:- Public Members
+	
+	///
+	/// The query param key for the Reddit access code (which is the result we expect after OAuth succeeds)
+	///
+	let codeKey = "code"
 	
 	///
 	/// The callback to execute on the OAuth flow finish.
@@ -46,7 +51,7 @@ class RedditOAuthVC: UIViewController {
 			"duration": "permanent",
 			"scope": "read"
 		]
-		var components = URLComponents(string: "https://www.reddit.com/api/v1/authorize")!
+		var components = URLComponents(string: "https://www.reddit.com/api/v1/authorize.compact")!
 		components.queryItems = params.map(URLQueryItem.init)
 		
 		return URLRequest(url: components.url!)
@@ -80,8 +85,40 @@ private extension RedditOAuthVC {
 //MARK:- WKNavigationDelegate
 extension RedditOAuthVC: WKNavigationDelegate {
 
-	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-		print(navigation!)
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+		
+		print("####### \(navigationAction.request)")
+		
+		if let absoluteURLString = navigationAction.request.url?.absoluteString,
+		   absoluteURLString.hasPrefix(Reddit.redirectURIString) {
+			// Auth succeeded case
+			print("Auth succeeded case")
+			if let code = getQueryStringParameter(url: absoluteURLString, param: codeKey) {
+				RedditSession.shared.accessCodeRecieved(code) { (error) in
+					self.callback?(nil)
+				}
+			}
+			
+			decisionHandler(.cancel)
+		}
+		else {
+			// Regular case
+			decisionHandler(.allow)
+		} 
+	}
+	
+}
+
+//MARK:- Tools
+private extension RedditOAuthVC {
+	
+	func getQueryStringParameter(url: String?, param: String) -> String? {
+		if let url = url,
+		   let urlComponents = NSURLComponents(string: url),
+		   let queryItems = (urlComponents.queryItems as [NSURLQueryItem]?) {
+			return queryItems.filter({ (item) in item.name == param }).first?.value!
+		}
+		return nil
 	}
 	
 }

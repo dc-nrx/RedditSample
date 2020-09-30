@@ -27,8 +27,8 @@ class RedditMainVC: UITableViewController {
 		}
 	}
 	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 		
 		if !RedditSession.shared.sessionInitialized {
 			authentificate()
@@ -45,7 +45,7 @@ private extension RedditMainVC {
 	///
 	func authentificate() {
 		
-		let authVC = UIStoryboard(name: "RedditMainVC", bundle: nil).instantiateInitialViewController() as! RedditOAuthVC
+		let authVC = UIStoryboard(name: "RedditOAuthVC", bundle: nil).instantiateInitialViewController() as! RedditOAuthVC
 		authVC.callback = { [weak self] error in
 			self?.dismiss(animated: true, completion: nil)
 			self?.refresh()
