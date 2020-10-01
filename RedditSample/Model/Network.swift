@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias NetworkCallback = (Error?, Data?) -> ()
+typealias NetworkCallback = (Data?, Error?) -> ()
 
 ///
 /// The single point to send requests
@@ -30,13 +30,12 @@ final class Network {
 //MARK:- Public
 extension Network {
 	
-	func request(_ request: Target, completion: @escaping NetworkCallback) {
-		
-		let url = URL(string: "https://www.example.com/")!
-		let task = URLSession.shared.dataTask(with: url) { data, response, error in
+	func request(_ request: Reddit, completion: @escaping NetworkCallback) {
+				
+		let task = URLSession.shared.dataTask(with: request.urlRequest) { data, response, error in
 			
 			if let error = error {
-				DispatchQueue.main.async { completion(error, nil) }
+				DispatchQueue.main.async { completion(nil, error) }
 				return
 			}
 			
@@ -46,14 +45,14 @@ extension Network {
 					self.handleTokenExpired(initialRequest: request, completion: completion)
 				}
 				else {
-					DispatchQueue.main.async { completion(error, nil) }
+					DispatchQueue.main.async { completion(nil, error) }
 				}
 				return
 			}
 			
-			// decode to json
-			// run completion
+			completion(data, nil)
 		}
+		
 	
 		task.resume()
 	}

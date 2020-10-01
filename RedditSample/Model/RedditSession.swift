@@ -21,15 +21,10 @@ final class RedditSession {
 	var sessionInitialized: Bool { accessCode.value != nil }
 	
 	///
-	/// The token which must be used in requests to Reddit API.
+	/// The token which must be used in requests to Reddit API (along with corresponding data).
 	/// The token is valid for 1 hour; after that it must be refreshed through `performRefreshToken`.
 	///
-	private(set) var accessToken: String?
-	
-	///
-	/// Use this to perform the refresh token request.
-	///
-	private(set) var refreshToken: String?
+	private(set) var accessToken: AccessToken?
 	
 	///
 	/// The access code needed to request/refresh the `accessToken`.
@@ -40,7 +35,7 @@ final class RedditSession {
 	/// Call this function after OAuth succeeded. It will save the access code and retrieve a token.
 	/// - Parameter accessCodeValue: The access code granted by Reddit
 	///
-	func accessCodeRecieved(_ accessCodeValue: String, callback: OptionalErrorCallback) {
+	func accessCodeRecieved(_ accessCodeValue: String, callback: @escaping OptionalErrorCallback) {
 		print("\(#function)")
 		accessCode.value = accessCodeValue
 		retrieveToken(callback)
@@ -57,9 +52,12 @@ final class RedditSession {
 	///
 	/// Call this function to get a token after receiving a valid access code
 	///
-	private func retrieveToken(_ callback: OptionalErrorCallback) {
-		print("\(#function)")
-		callback(nil)
+	private func retrieveToken(_ callback: @escaping OptionalErrorCallback) {
+		Network.shared.request(.accessToken(code: accessCode.value!)) { [weak self] (data, error) in
+			
+			self?.accessToken = try! AccessToken(jsonData: data!)			
+			callback(error)
+		}
 	}
 	
 }

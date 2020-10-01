@@ -33,14 +33,22 @@ protocol Target {
 	var method: RequestMethod { get }
 	
 	///
+	/// An optional body of the request
+	///
+	var body: Data? { get }
+	
+	//MARK:- Helpers
+	// (Have default implementations)
+	
+	///
 	/// An actual URL to send the request ( = `baseURLString` + `path`)
 	///
 	var url: URL { get }
 	
 	///
-	/// An optional body of the request
+	/// A cocoa request generated from `self` to use with URLSession
 	///
-	var body: Data? { get }
+	var urlRequest: URLRequest { get }
 }
 
 //MARK:- Convenience
@@ -51,6 +59,18 @@ extension Target {
 		URL(string: baseURLString.appending(path))!
 	}
 	
+	var urlRequest: URLRequest {
+		var result = URLRequest(url: url)
+		result.httpBody = body
+		result.allHTTPHeaderFields = httpHeader
+		switch method {
+		case .get:
+			result.httpMethod = "GET"
+		case .post:
+			result.httpMethod = "POST"
+		}
+		return result
+	}
 }
 
 enum RequestMethod: String {

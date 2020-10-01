@@ -12,7 +12,7 @@ import Foundation
 ///
 enum Reddit {
 	
-	case accessToken(code: Int, redirectURIString: String)
+	case accessToken(code: String)
 	case topFeed
 	
 	///
@@ -43,6 +43,12 @@ extension Reddit: Target {
 		if let token = RedditSession.shared.accessToken {
 			result["Authorization"] = "bearer \(token)"
 		}
+		else {
+			let str = "\(Reddit.clientId):"
+			let utf8str = str.data(using: .utf8)
+			let base64 = utf8str?.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+			result["Authorization"] = "Basic \(base64!))"
+		}
 		
 		return result
 	}
@@ -50,18 +56,18 @@ extension Reddit: Target {
 	var baseURLString: String {
 		switch self {
 		case .accessToken:
-			return "https://www.reddit.com/dev/"
+			return "https://www.reddit.com/"
 		default:
-			return "https://oauth.reddit.com/dev/"
+			return "https://oauth.reddit.com/"
 		}
 	}
 			
 	var path: String {
 		switch self {
 		case .accessToken:
-			return "v1/access_token"
+			return "api/v1/access_token"
 		case .topFeed:
-			return "v1/topFeed"
+			return "api/v1/topFeed"
 		}
 	}
 	
@@ -76,9 +82,11 @@ extension Reddit: Target {
 	
 	var body: Data? {
 		switch self {
-		case let .accessToken(code, redirectURIString):
-			let str = "grant_type=authorization_code&code=\(code)&redirect_uri=\(redirectURIString)"
+		
+		case let .accessToken(code):
+			let str = "grant_type=authorization_code&code=\(code)&redirect_uri=\(Reddit.redirectURIString)"
 			return str.data(using: .utf8)
+			
 		default:
 			return nil
 		}
