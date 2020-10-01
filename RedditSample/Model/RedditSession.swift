@@ -44,7 +44,6 @@ final class RedditSession {
 	/// - Parameter accessCodeValue: The access code granted by Reddit
 	///
 	func accessCodeRecieved(presentingController: UIViewController, _ accessCodeValue: String, callback: @escaping OptionalErrorCallback) {
-		print("\(#function)")
 		accessCode.value = accessCodeValue
 		retrieveToken(presentingController: presentingController, callback)
 	}
@@ -67,7 +66,18 @@ final class RedditSession {
 	/// In most cases you may want to resend the failed request on (successfull) callback.
 	///
 	func performRefreshToken(_ callback: OptionalErrorCallback) {
-		
+		Network.shared.request(.accessToken(
+								grantType:"refresh_token",
+								code: nil,
+								refreshToken:refreshToken.value!)
+		) { [weak self] (json, error) in
+			if error == nil {
+				self?.tokenResponseReceived(json)
+			}
+			else {
+				
+			}
+		}
 	}
 	
 }
@@ -76,10 +86,11 @@ final class RedditSession {
 private extension RedditSession {
 
 	///
-	/// Perform OAuth authentification with further data load
+	/// Perform OAuth authentification with further data load. Clears existed data on call.
 	///
 	func authentificate(presentingController: UIViewController, _ callback: @escaping OptionalErrorCallback) {
 		
+		clear()
 		let authVC = UIStoryboard(name: "RedditOAuthVC", bundle: nil).instantiateInitialViewController() as! RedditOAuthVC
 		authVC.callback = { (code, error) in
 			presentingController.dismiss(animated: true, completion: nil)
@@ -92,13 +103,14 @@ private extension RedditSession {
 	/// Call this function to get a token after receiving a valid access code
 	///
 	func retrieveToken(presentingController: UIViewController, _ callback: @escaping OptionalErrorCallback) {
-		Network.shared.request(.accessToken(code: accessCode.value!)) { [weak self] (json, error) in
+		Network.shared.request(.accessToken(
+								grantType:"authorization_code",
+								code: accessCode.value!,
+								refreshToken:nil)
+		) { [weak self] (json, error) in
 			switch error {
 			case nil:
-				#warning("check for nil")
-				let tokenData = try? AccessToken(jsonDict: json!)
-				self?.accessToken.value = tokenData?.token
-				self?.refreshToken.value = tokenData?.refreshToken
+				self?.tokenResponseReceived(json)
 			case .reddit(.invalid_grant):
 				self?.onAccessCodeExpired(presentingController: presentingController, callback)
 			default:
@@ -108,7 +120,19 @@ private extension RedditSession {
 	}
 	
 	func onAccessCodeExpired(presentingController: UIViewController, _ callback: @escaping OptionalErrorCallback) {
-		accessCode.value = nil
 		authentificate(presentingController: presentingController, callback)
+	}
+	
+	func tokenResponseReceived(_ json: JSONDict?) {
+		#warning("check for nil")
+		let tokenData = try? AccessToken(jsonDict: json!)
+		accessToken.value = tokenData?.token
+		refreshToken.value = tokenData?.refreshToken
+	}
+	
+	func clear() {
+		accessCode.value = nil
+		accessToken.value = nil
+		refreshToken.value = nil
 	}
 }

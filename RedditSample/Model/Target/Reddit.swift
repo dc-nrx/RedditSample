@@ -12,7 +12,7 @@ import Foundation
 ///
 enum Reddit {
 	
-	case accessToken(code: String)
+	case accessToken(grantType:String?, code: String?, refreshToken: String?)
 	case topFeed
 	
 	///
@@ -67,7 +67,7 @@ extension Reddit: Target {
 		case .accessToken:
 			return "api/v1/access_token"
 		case .topFeed:
-			return "api/v1/topFeed"
+			return "top"
 		}
 	}
 	
