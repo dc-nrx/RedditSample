@@ -27,6 +27,7 @@
 		43B18054251DEBED0084817A /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18053251DEBED0084817A /* Target.swift */; };
 		43B1805D251DEED30084817A /* TopPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1805C251DEED30084817A /* TopPage.swift */; };
 		43B18065251E01580084817A /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18064251E01580084817A /* ResponseData.swift */; };
+		43BF16152525E44400C616DC /* RedditError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF16142525E44400C616DC /* RedditError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		43B18053251DEBED0084817A /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		43B1805C251DEED30084817A /* TopPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPage.swift; sourceTree = "<group>"; };
 		43B18064251E01580084817A /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
+		43BF16142525E44400C616DC /* RedditError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +199,7 @@
 				43B1805B251DEEB90084817A /* ResponseData */,
 				43B18037251DE36C0084817A /* Network.swift */,
 				430FBC8325238F7100B37D07 /* RedditSession.swift */,
+				43BF16142525E44400C616DC /* RedditError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43B1805D251DEED30084817A /* TopPage.swift in Sources */,
+				43BF16152525E44400C616DC /* RedditError.swift in Sources */,
 				430FBCBC2523958900B37D07 /* StoredProperty.swift in Sources */,
 				43B18040251DE37C0084817A /* Reddit.swift in Sources */,
 				43B18006251DE2120084817A /* RedditMainVC.swift in Sources */,

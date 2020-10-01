@@ -31,7 +31,7 @@ final class Network {
 extension Network {
 	
 	func request(_ request: Reddit, completion: @escaping NetworkCallback) {
-				
+		
 		let task = URLSession.shared.dataTask(with: request.urlRequest) { data, response, error in
 			
 			if let error = error {

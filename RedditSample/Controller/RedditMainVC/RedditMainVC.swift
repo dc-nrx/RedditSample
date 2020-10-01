@@ -22,8 +22,11 @@ class RedditMainVC: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		if RedditSession.shared.sessionInitialized {
-			loadData()
+		if RedditSession.shared.sessionInitialized,
+		   items.count == 0 {
+			// Refresh only if there's no data to support state restoration
+			//TODO: use nsuseractivity instead
+			refresh()
 		}
 	}
 	
@@ -31,7 +34,9 @@ class RedditMainVC: UITableViewController {
 		super.viewDidAppear(animated)
 		
 		if !RedditSession.shared.sessionInitialized {
-			authentificate()
+			RedditSession.shared.enableAccess(presentingController: self) { [weak self] (error) in
+				self?.refresh()
+			}
 		}
 	}
 
@@ -40,19 +45,6 @@ class RedditMainVC: UITableViewController {
 //MARK:- Private
 private extension RedditMainVC {
 		
-	///
-	/// Perform OAuth authentification with further data load
-	///
-	func authentificate() {
-		
-		let authVC = UIStoryboard(name: "RedditOAuthVC", bundle: nil).instantiateInitialViewController() as! RedditOAuthVC
-		authVC.callback = { [weak self] error in
-			self?.dismiss(animated: true, completion: nil)
-			self?.refresh()
-		}
-		present(authVC, animated: true, completion: nil)
-	}
-	
 	///
 	/// Reload data
 	///

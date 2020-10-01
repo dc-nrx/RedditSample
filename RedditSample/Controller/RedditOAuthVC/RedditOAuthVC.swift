@@ -9,12 +9,16 @@ import Foundation
 import WebKit
 import UIKit
 
+enum RedditOAuthVCError: Error {
+	case noCode
+}
+
 ///
 /// A controller which provides a convenient OAuth flow to retrieve Reddit request token.
 ///
 class RedditOAuthVC: UIViewController {
 
-	typealias Callback = OptionalErrorCallback
+	typealias Callback = (_ code: String?, Error?) -> ()
 	
 	//MARK:- Public Members
 	
@@ -92,13 +96,13 @@ extension RedditOAuthVC: WKNavigationDelegate {
 		if let absoluteURLString = navigationAction.request.url?.absoluteString,
 		   absoluteURLString.hasPrefix(Reddit.redirectURIString) {
 			// Auth succeeded case
-			print("Auth succeeded case")
 			if let code = getQueryStringParameter(url: absoluteURLString, param: codeKey) {
-				RedditSession.shared.accessCodeRecieved(code) { (error) in
-					self.callback?(nil)
-				}
+				self.callback?(code, nil)
 			}
-			
+			else {
+				self.callback?(nil, RedditOAuthVCError.noCode)
+			}
+				
 			decisionHandler(.cancel)
 		}
 		else {
