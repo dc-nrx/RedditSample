@@ -8,3 +8,6 @@
 import Foundation
 
 typealias OptionalErrorCallback = (Error?) -> ()
+
+typealias JSONDict = [String: Any]
+

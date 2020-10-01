@@ -6,8 +6,3 @@
 //
 
 import Foundation
-enum RedditError: String, Error {
-	
-	case invalidGrant = "invalid_grant"
-	
-}

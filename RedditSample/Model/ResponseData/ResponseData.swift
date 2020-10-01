@@ -7,26 +7,17 @@
 
 import Foundation
 
-typealias JSONDict = [String: Any]
-
-
 //MARK:- Error
-enum ResponseDataError: Error {
-	
-	case unexpectedResponseObject(Any)
-	
-}
-
-extension ResponseDataError: LocalizedError {
-	
-	var errorDescription: String? {
-		switch self {
-		case .unexpectedResponseObject:
-			return NSLocalizedString("Unexpected response object received", comment: "")
-		}
-	}
-	
-}
+//extension NetworkError: LocalizedError {
+//	
+//	var errorDescription: String? {
+//		switch self {
+//		case .unexpectedResponseObject:
+//			return NSLocalizedString("Unexpected response object received", comment: "")
+//		}
+//	}
+//	
+//}
 
 ///
 /// Response Data
@@ -43,7 +34,7 @@ extension ResponseData {
 	init?(jsonData: Data) throws {
 		let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
 		guard let jsonDict = jsonObject as? JSONDict else {
-			throw ResponseDataError.unexpectedResponseObject(jsonObject)
+			throw NetworkError.unexpectedResponseObject
 		}
 		
 		try self.init(jsonDict: jsonDict)
