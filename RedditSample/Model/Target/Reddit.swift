@@ -40,7 +40,7 @@ extension Reddit: Target {
 			"User-Agent": "iOS:\(Bundle.main.bundleIdentifier!):\(appVersion) (by /u/\(Reddit.ownerName))"
 		]
 		
-		if let token = RedditSession.shared.accessToken {
+		if let token = RedditSession.shared.accessToken.value {
 			result["Authorization"] = "bearer \(token)"
 		}
 		else {

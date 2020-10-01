@@ -21,13 +21,18 @@ final class RedditSession {
 	/// If `false`, you need to initialize a session through performing OAuth request
 	/// and calling `accessCodeRecieved` on success.
 	///
-	var sessionInitialized: Bool { accessCode.value != nil && accessToken != nil}
+	var sessionInitialized: Bool { accessCode.value != nil && accessToken.value != nil}
 	
 	///
 	/// The token which must be used in requests to Reddit API (along with corresponding data).
 	/// The token is valid for 1 hour; after that it must be refreshed through `performRefreshToken`.
 	///
-	private(set) var accessToken: AccessToken?
+	private(set) var accessToken = StoredProperty<String>(key: "RedditSession.accessToken")
+	
+	///
+	/// Needed to refresh the `accessToken`
+	///
+	private(set) var refreshToken = StoredProperty<String>(key: "RedditSession.refreshToken")
 	
 	///
 	/// The access code needed to request/refresh the `accessToken`.
@@ -90,7 +95,10 @@ private extension RedditSession {
 		Network.shared.request(.accessToken(code: accessCode.value!)) { [weak self] (json, error) in
 			switch error {
 			case nil:
-				self?.accessToken = try? AccessToken(jsonDict: json!)
+				#warning("check for nil")
+				let tokenData = try? AccessToken(jsonDict: json!)
+				self?.accessToken.value = tokenData?.token
+				self?.refreshToken.value = tokenData?.refreshToken
 			case .reddit(.invalid_grant):
 				self?.onAccessCodeExpired(presentingController: presentingController, callback)
 			default:
