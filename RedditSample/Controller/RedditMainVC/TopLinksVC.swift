@@ -17,7 +17,7 @@ class TopLinksVC: UITableViewController {
 	///
 	/// Number of items to request per 1 page
 	///
-	let limit = 25
+	let defaultLimit: UInt = 25
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -58,8 +58,9 @@ private extension TopLinksVC {
 	///
 	func loadData() {
 		
-//		Network.shared.request(.topFeed) { (json, error) in
-////			print("\(json), \(error)")
-//		}
+		let request = API.topFeed(afterFullname: listing.last?.fullname, limit: defaultLimit)
+		Network.shared.request(request) { (json, error) in
+			print("\(json), \(error)")
+		}
 	}
 }
