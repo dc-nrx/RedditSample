@@ -57,11 +57,12 @@ final class Session {
 	///
 	/// Whenever you get a token expired error, call this function.
 	/// In most cases you may want to resend the failed request on (successfull) callback.
+	/// If `refreshToken` is empty, fallback to a `getToken` flow.
 	///
-	func refreshToken(_ callback: OptionalErrorCallback) {
+	func refreshToken(_ callback: @escaping OptionalErrorCallback) {
 		token.value = nil
 		guard let refreshTokenValue = refreshToken.value else {
-			#warning("call getToken here")
+			getToken(callback)
 			return
 		}
 		Network.shared.request(.accessToken(
