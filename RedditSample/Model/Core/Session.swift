@@ -15,7 +15,9 @@ final class Session {
 
 	static var shared = Session()
 	
-	private init() { }
+	private init() {
+//		clear()
+	}
 	
 	///
 	/// If `false`, you need to initialize a session through performing OAuth request
@@ -43,12 +45,12 @@ final class Session {
 	/// Call this method to initialize the Reddit session. It will retrieve the access code and/or token - depending on the current state.
 	/// - Parameter presentingController: A controller to present a `OAuthVC` with ( if needed)
 	///
-	func enableAccess(presentingController: UIViewController, _ callback: @escaping OptionalErrorCallback) {
+	func enableAccess(_ callback: @escaping OptionalErrorCallback) {
 		if accessCode.value != nil {
-			getToken(presentingController: presentingController, callback)
+			getToken(callback)
 		}
 		else {
-			authentificate(presentingController: presentingController, callback)
+			authentificate(callback)
 		}
 	}
 	
@@ -94,38 +96,40 @@ private extension Session {
 	///
 	/// Perform OAuth authentification with further data load. Clears existed data on call.
 	///
-	func authentificate(presentingController: UIViewController, _ callback: @escaping OptionalErrorCallback) {
+	func authentificate(_ callback: @escaping OptionalErrorCallback) {
 		
 		clear()
 		let authVC = UIStoryboard(name: "OAuthVC", bundle: nil).instantiateInitialViewController() as! OAuthVC
-		authVC.callback = { (code, error) in
-			presentingController.dismiss(animated: true, completion: nil)
-			self.accessCodeRecieved(presentingController: presentingController, code!, callback: callback)
+		authVC.callback = { [weak authVC] (code, error) in
+			authVC?.presentingViewController?.dismiss(animated: true, completion: nil)
+			self.accessCodeRecieved(code!, callback: callback)
 		}
-		presentingController.present(authVC, animated: true, completion: nil)
+		
+		let rootVC = UIApplication.shared.keyWindow?.rootViewController
+		rootVC?.present(authVC, animated: true, completion: nil)
 	}
 	
 	///
 	/// Callback for OAuth controller.
 	/// - Parameter accessCodeValue: The access code granted by Reddit
 	///
-	func accessCodeRecieved(presentingController: UIViewController, _ accessCodeValue: String, callback: @escaping OptionalErrorCallback) {
+	func accessCodeRecieved(_ accessCodeValue: String, callback: @escaping OptionalErrorCallback) {
 		accessCode.value = accessCodeValue
-		getToken(presentingController: presentingController, callback)
+		getToken(callback)
 	}
 
 	///
 	/// Whenever access code expires, it must be retrieved again along with tokens.
 	///
-	func onAccessCodeExpired(presentingController: UIViewController, _ callback: @escaping OptionalErrorCallback) {
-		authentificate(presentingController: presentingController, callback)
+	func onAccessCodeExpired(_ callback: @escaping OptionalErrorCallback) {
+		authentificate(callback)
 	}
 		
 	//MARK:- Token
 	///
 	/// Call this function to get a token after receiving a valid access code
 	///
-	func getToken(presentingController: UIViewController, _ callback: @escaping OptionalErrorCallback) {
+	func getToken(_ callback: @escaping OptionalErrorCallback) {
 		Network.shared.request(.accessToken(
 								grantType:"authorization_code",
 								code: accessCode.value!,
@@ -135,7 +139,7 @@ private extension Session {
 			case nil:
 				self?.tokenResponseReceived(json)
 			case .reddit(.invalid_grant):
-				self?.onAccessCodeExpired(presentingController: presentingController, callback)
+				self?.onAccessCodeExpired(callback)
 			default:
 				callback(error)
 			}

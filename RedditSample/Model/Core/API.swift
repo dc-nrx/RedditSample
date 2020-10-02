@@ -15,7 +15,7 @@ enum API {
 	///
 	/// Used either to get (with a `code`) or refresh (with a `refreshToken`) the access token.
 	/// - Parameter grantType: "refresh_token" if `refreshToken` != nil;
-	/// authorization_code if `code` != nil
+	/// "authorization_code" if `code` != nil
 	/// - Parameter code: Authorization code retrieved after OAuth.
 	/// - Parameter refreshToken: Refresh token.
 	/// - Returns: `AccessToken`.
@@ -36,18 +36,19 @@ enum API {
 extension API {
 
 	///
-	/// Tells reddit.com which app is making the request
+	/// Tells reddit.com which app is making the request.
 	///
 	static var clientId: String { "GVsX6FPK1N9JDw" }
 	
 	///
-	/// Must be exactly the same as in the reddit app settings. Used only to make the initial oath request.
+	/// Must be exactly the same as in the reddit app settings.
+	/// Used only to make the initial oath request; will not be shown to the user.
 	///
 	static var redirectURIString: String { "https://google.com" }
 	
 	///
 	/// Needed to add contact info to the requests header (being specific, to the `User-Agent` entry)
-	/// as required by Reddit
+	/// as required by Reddit.
 	///
 	static var ownerName: String { "dc_-_-" }
 	

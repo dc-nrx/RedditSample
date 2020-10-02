@@ -34,7 +34,7 @@ class TopLinksVC: UITableViewController {
 		super.viewDidAppear(animated)
 		// Initialize the reddit session if needed with further content refresh
 		if !Session.shared.sessionInitialized {
-			Session.shared.enableAccess(presentingController: self) { [weak self] (error) in
+			Session.shared.enableAccess { [weak self] (error) in
 				self?.refresh()
 			}
 		}
