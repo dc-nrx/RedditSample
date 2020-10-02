@@ -140,6 +140,15 @@
 			path = RedditMainVC;
 			sourceTree = "<group>";
 		};
+		436A1D342527567900D714F6 /* Listing */ = {
+			isa = PBXGroup;
+			children = (
+				43B1805C251DEED30084817A /* Link.swift */,
+				436A1D1425271CC800D714F6 /* Listing.swift */,
+			);
+			path = Listing;
+			sourceTree = "<group>";
+		};
 		43B17FF5251DE2120084817A = {
 			isa = PBXGroup;
 			children = (
@@ -226,10 +235,9 @@
 		43B1805B251DEEB90084817A /* ResponseData */ = {
 			isa = PBXGroup;
 			children = (
+				436A1D342527567900D714F6 /* Listing */,
 				43B18064251E01580084817A /* ResponseData.swift */,
-				43B1805C251DEED30084817A /* Link.swift */,
 				434599082524CD9A00B3779A /* AccessToken.swift */,
-				436A1D1425271CC800D714F6 /* Listing.swift */,
 			);
 			path = ResponseData;
 			sourceTree = "<group>";

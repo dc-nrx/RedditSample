@@ -13,7 +13,7 @@ import Foundation
 enum API {
 	
 	case accessToken(grantType:String, code: String?, refreshToken: String?)
-	case topFeed(after: String?, limit: UInt?)
+	case topFeed(afterFullname: String?, limit: UInt?)
 	
 	///
 	/// Tells reddit.com which app is making the request
@@ -51,7 +51,7 @@ extension API: Target {
 			result["Authorization"] = "Basic \(base64!))"
 		default:
 			// Regular for others (via token)
-			if let token = Session.shared.accessToken.value {
+			if let token = Session.shared.token.value {
 				result["Authorization"] = "bearer \(token)"
 			}
 		}

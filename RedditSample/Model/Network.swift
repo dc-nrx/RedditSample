@@ -9,19 +9,19 @@ import Foundation
 
 typealias NetworkCallback = (JSONDict?, NetworkError?) -> ()
 
-
 enum NetworkError: Error {
 	case unexpectedResponseObject
 	case reddit(RedditError)
-	case http
-	case system(Error)
-	
+	case http(HTTPURLResponse?)
+	case foundation(Error)
 }
 
+///
+/// Specially handeled Reddit errors (except `unknown`)
+///
 enum RedditError: String, Error {
 	case invalid_grant
 	case unknown
-	
 }
 
 
@@ -61,7 +61,7 @@ extension Network {
 			
 			// Handle standard errors
 			if let error = error {
-				DispatchQueue.main.async { completion(nil, .system(error)) }
+				DispatchQueue.main.async { completion(nil, .foundation(error)) }
 				return
 			}
 			
@@ -74,20 +74,20 @@ extension Network {
 				}
 				else {
 					// Regular case
-					DispatchQueue.main.async { completionOnMain(nil, .http) }
+					DispatchQueue.main.async { completionOnMain(nil, .http(response as? HTTPURLResponse)) }
 				}
 				return
 			}
 			
-			// Parse response
+			// Parse response (already in background)
 			if data == nil {
 				completionOnMain(nil, nil)
 			}
 			else {
 				// Only expexted response (if not empty) is a JSON
 				if let data = data,
-					let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-					let jsonDict = jsonObject as? JSONDict {
+				   let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+				   let jsonDict = jsonObject as? JSONDict {
 					// Check whether it's an error response
 					if let errorId = jsonDict[Network.errorResponseKey] as? String {
 						completionOnMain(nil, .reddit(RedditError(rawValue: errorId) ?? .unknown))
@@ -97,8 +97,9 @@ extension Network {
 					}
 				}
 				else {
-					completionOnMain(nil, NetworkError.unexpectedResponseObject)
+					completionOnMain(nil, .unexpectedResponseObject)
 				}
+			
 			}
 		}
 		
@@ -118,9 +119,9 @@ private extension Network {
 	/// Try to refresh the token and resend the request once again in success case.
 	///
 	func handleTokenExpired(initialRequest: API, completion: @escaping NetworkCallback) {
-		Session.shared.performRefreshToken { error in
+		Session.shared.refreshToken { error in
 			if let error = error {
-				completion(nil, .system(error))
+				completion(nil, .foundation(error))
 			}
 			else {
 				request(initialRequest, completion: completion)
