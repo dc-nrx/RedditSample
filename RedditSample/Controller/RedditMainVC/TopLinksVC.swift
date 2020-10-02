@@ -39,12 +39,16 @@ class TopLinksVC: UITableViewController {
 			}
 		}
 	}
-
+	
 }
 
 //MARK:- Private
 private extension TopLinksVC {
 		
+	func updateUI() {
+		tableView.reloadData()
+	}
+	
 	///
 	/// Reload data
 	///
@@ -59,8 +63,33 @@ private extension TopLinksVC {
 	func loadData() {
 		
 		let request = API.topFeed(afterFullname: listing.last?.fullname, limit: defaultLimit)
-		Network.shared.request(request) { (json, error) in
-			print("\(json), \(error)")
+		Network.shared.request(request) { [weak self] (json, error) in
+			print("### \(#function) error\(String(describing: error))")
+			if let json = json,
+			   let listing = try? Listing<Link>(jsonDict: json) {
+				print("\(listing)")
+				self?.listing.merge(with: listing)
+				self?.updateUI()
+			}
 		}
 	}
+}
+
+//MARK:- Table View Delegate
+extension TopLinksVC {
+	
+	override func numberOfSections(in tableView: UITableView) -> Int {
+		1
+	}
+	
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		listing.count
+	}
+	
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let item = listing[indexPath.row]
+		
+		return UITableViewCell()
+	}
+	
 }
