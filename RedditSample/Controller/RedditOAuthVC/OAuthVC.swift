@@ -9,14 +9,14 @@ import Foundation
 import WebKit
 import UIKit
 
-enum RedditOAuthVCError: Error {
+enum OAuthVCError: Error {
 	case noCode
 }
 
 ///
 /// A controller which provides a convenient OAuth flow to retrieve Reddit request token.
 ///
-class RedditOAuthVC: UIViewController {
+class OAuthVC: UIViewController {
 
 	typealias Callback = (_ code: String?, Error?) -> ()
 	
@@ -48,10 +48,10 @@ class RedditOAuthVC: UIViewController {
 	///
 	private let oathRequest: URLRequest = {
 		let params = [
-			"client_id": RedditAPI.clientId,
+			"client_id": API.clientId,
 			"response_type": "code",
 			"state": UUID().uuidString,
-			"redirect_uri": RedditAPI.redirectURIString,
+			"redirect_uri": API.redirectURIString,
 			"duration": "permanent",
 			"scope": "read"
 		]
@@ -64,12 +64,12 @@ class RedditOAuthVC: UIViewController {
 }
 
 //MARK:- Public
-extension RedditOAuthVC {
+extension OAuthVC {
 	
 }
 
 //MARK:- Life Cycle
-extension RedditOAuthVC {
+extension OAuthVC {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -81,26 +81,26 @@ extension RedditOAuthVC {
 }
 
 //MARK:- Private
-private extension RedditOAuthVC {
+private extension OAuthVC {
 	
 }
 
 //MARK:- Protocols
 //MARK:- WKNavigationDelegate
-extension RedditOAuthVC: WKNavigationDelegate {
+extension OAuthVC: WKNavigationDelegate {
 
 	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 		
 		print("####### \(navigationAction.request)")
 		
 		if let absoluteURLString = navigationAction.request.url?.absoluteString,
-		   absoluteURLString.hasPrefix(RedditAPI.redirectURIString) {
+		   absoluteURLString.hasPrefix(API.redirectURIString) {
 			// Auth succeeded case
 			if let code = getQueryStringParameter(url: absoluteURLString, param: codeKey) {
 				self.callback?(code, nil)
 			}
 			else {
-				self.callback?(nil, RedditOAuthVCError.noCode)
+				self.callback?(nil, OAuthVCError.noCode)
 			}
 				
 			decisionHandler(.cancel)
@@ -114,7 +114,7 @@ extension RedditOAuthVC: WKNavigationDelegate {
 }
 
 //MARK:- Tools
-private extension RedditOAuthVC {
+private extension OAuthVC {
 	
 	func getQueryStringParameter(url: String?, param: String) -> String? {
 		if let url = url,

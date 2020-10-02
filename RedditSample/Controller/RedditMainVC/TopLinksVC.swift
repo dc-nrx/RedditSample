@@ -7,12 +7,12 @@
 
 import UIKit
 
-class RedditMainVC: UITableViewController {
+class TopLinksVC: UITableViewController {
 
 	///
 	/// Shown items
 	///
-	var listing = Listing<RedditLink>()
+	var listing = Listing<Link>()
 	
 	///
 	/// Number of items to request per 1 page
@@ -22,7 +22,7 @@ class RedditMainVC: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		if RedditSession.shared.sessionInitialized,
+		if Session.shared.sessionInitialized,
 		   listing.count == 0 {
 			// Refresh only if there's no data to support state restoration
 			//TODO: use nsuseractivity instead
@@ -33,8 +33,8 @@ class RedditMainVC: UITableViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		// Initialize the reddit session if needed with further content refresh
-		if !RedditSession.shared.sessionInitialized {
-			RedditSession.shared.enableAccess(presentingController: self) { [weak self] (error) in
+		if !Session.shared.sessionInitialized {
+			Session.shared.enableAccess(presentingController: self) { [weak self] (error) in
 				self?.refresh()
 			}
 		}
@@ -43,7 +43,7 @@ class RedditMainVC: UITableViewController {
 }
 
 //MARK:- Private
-private extension RedditMainVC {
+private extension TopLinksVC {
 		
 	///
 	/// Reload data

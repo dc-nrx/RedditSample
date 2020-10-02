@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	///
 	func handleAuthState() {
 		
-		if RedditSession.shared.sessionInitialized {
+		if Session.shared.sessionInitialized {
 			
 		}
 	}

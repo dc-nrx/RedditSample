@@ -11,9 +11,9 @@ import UIKit
 ///
 /// Contains data required for OAuth Reddit API interactions (such as `accessToken`) & corresponding logic.
 ///
-final class RedditSession {
+final class Session {
 
-	static var shared = RedditSession()
+	static var shared = Session()
 	
 	private init() { }
 	
@@ -84,7 +84,7 @@ final class RedditSession {
 }
 
 //MARK:- Private
-private extension RedditSession {
+private extension Session {
 
 	///
 	/// Perform OAuth authentification with further data load. Clears existed data on call.
@@ -92,7 +92,7 @@ private extension RedditSession {
 	func authentificate(presentingController: UIViewController, _ callback: @escaping OptionalErrorCallback) {
 		
 		clear()
-		let authVC = UIStoryboard(name: "RedditOAuthVC", bundle: nil).instantiateInitialViewController() as! RedditOAuthVC
+		let authVC = UIStoryboard(name: "RedditOAuthVC", bundle: nil).instantiateInitialViewController() as! OAuthVC
 		authVC.callback = { (code, error) in
 			presentingController.dismiss(animated: true, completion: nil)
 			self.accessCodeRecieved(presentingController: presentingController, code!, callback: callback)

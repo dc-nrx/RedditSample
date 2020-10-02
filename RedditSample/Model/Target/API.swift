@@ -10,7 +10,7 @@ import Foundation
 ///
 /// Reddit API: full request list & corresponding configurations.
 ///
-enum RedditAPI {
+enum API {
 	
 	case accessToken(grantType:String, code: String?, refreshToken: String?)
 	case topFeed(after: String?, limit: UInt?)
@@ -32,26 +32,26 @@ enum RedditAPI {
 	static var ownerName: String { "dc_-_-" }
 }
 
-extension RedditAPI: Target {
+extension API: Target {
 		
 	var httpHeader: [String : String] {
 		// Standard headers
 		let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"]!
 		var result = [
-			"User-Agent": "iOS:\(Bundle.main.bundleIdentifier!):\(appVersion) (by /u/\(RedditAPI.ownerName))"
+			"User-Agent": "iOS:\(Bundle.main.bundleIdentifier!):\(appVersion) (by /u/\(API.ownerName))"
 		]
 		
 		// Authrization
 		switch self {
 		case .accessToken:
 			// Special case for access token (basic auth)
-			let str = "\(RedditAPI.clientId):"
+			let str = "\(API.clientId):"
 			let utf8str = str.data(using: .utf8)
 			let base64 = utf8str?.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
 			result["Authorization"] = "Basic \(base64!))"
 		default:
 			// Regular for others (via token)
-			if let token = RedditSession.shared.accessToken.value {
+			if let token = Session.shared.accessToken.value {
 				result["Authorization"] = "bearer \(token)"
 			}
 		}
@@ -99,7 +99,7 @@ extension RedditAPI: Target {
 			if let refreshToken = refreshToken {
 				str.append("&refresh_token=\(refreshToken)")
 			}
-			str.append("&redirect_uri=\(RedditAPI.redirectURIString)")
+			str.append("&redirect_uri=\(API.redirectURIString)")
 			return str.data(using: .utf8)
 			
 		default:

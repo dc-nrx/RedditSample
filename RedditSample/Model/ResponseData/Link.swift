@@ -7,7 +7,10 @@
 
 import Foundation
 
-struct RedditLink: ListingItem {
+///
+/// Corresponds to a "Link"(t3_) listing type.
+///
+struct Link: ListingItem {
 	
 	let fullname: String
 	let createdUtc: Date
@@ -33,9 +36,9 @@ struct RedditLink: ListingItem {
 }
 
 //MARK:- Comparable, Hashable
-extension RedditLink {
+extension Link {
 	
-	static func < (lhs: RedditLink, rhs: RedditLink) -> Bool {
+	static func < (lhs: Link, rhs: Link) -> Bool {
 		lhs.createdUtc < rhs.createdUtc
 	}
 	
