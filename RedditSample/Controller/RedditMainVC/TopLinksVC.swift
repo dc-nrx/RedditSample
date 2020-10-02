@@ -87,9 +87,10 @@ extension TopLinksVC {
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let item = listing[indexPath.row]
+		let cell = tableView.dequeueReusableCell(withIdentifier: "linkCell") as! LinkCell
+		cell.link = listing[indexPath.row]
 		
-		return UITableViewCell()
+		return cell
 	}
 	
 }

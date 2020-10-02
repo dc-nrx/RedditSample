@@ -26,8 +26,9 @@ struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData {
 		let data = jsonDict["data"] as! JSONDict
 		dist = data["dist"] as! Int
 		
-		let itemDicts = data["children"] as! [JSONDict]
-		items = try! itemDicts.map(T.init(jsonDict:)) as! [T]
+		let children = data["children"] as! [JSONDict]
+		let childrenData = children.map { $0["data"] } as! [JSONDict]
+		items = try! childrenData.map(T.init(jsonDict:)) as! [T]
 	}
 	
 	//MARK:- RandomAccessCollection
@@ -48,9 +49,12 @@ extension Listing {
 	}
 	
 	mutating func merge(with anotherListing: Self) {
-		items.append(contentsOf: anotherListing)
+		dist = Swift.max(dist, anotherListing.dist)
+		// Use `united` to avoid double callback in KVO case
+		var united = items
+		united.append(contentsOf: anotherListing)
 		// Remove duplicates & sort
-		items = Array(Set(items)).sorted()
+		items = Array(Set(united)).sorted()
 	}
 	
 }

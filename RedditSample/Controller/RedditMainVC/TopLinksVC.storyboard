@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oeo-fl-CpF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17156"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,13 +16,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="feedCell" id="htJ-CR-vSh">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="linkCell" id="htJ-CR-vSh" customClass="LinkCell" customModule="RedditSample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="129"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="htJ-CR-vSh" id="sTh-LM-nea">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="129"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fb-c5-eJ2">
+                                            <rect key="frame" x="16" y="8" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uS3-Qm-pAm">
+                                            <rect key="frame" x="16" y="37" width="382" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYP-HP-P51">
+                                            <rect key="frame" x="16" y="92" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="8fb-c5-eJ2" secondAttribute="bottom" constant="100" id="6XN-1f-vbs"/>
+                                        <constraint firstItem="uS3-Qm-pAm" firstAttribute="top" secondItem="8fb-c5-eJ2" secondAttribute="bottom" constant="8" id="8Ij-XD-Q0e"/>
+                                        <constraint firstAttribute="bottom" secondItem="fYP-HP-P51" secondAttribute="bottom" constant="16" id="DPS-Tl-53q"/>
+                                        <constraint firstItem="8fb-c5-eJ2" firstAttribute="top" secondItem="sTh-LM-nea" secondAttribute="top" constant="8" id="SSo-OP-oru"/>
+                                        <constraint firstItem="fYP-HP-P51" firstAttribute="leading" secondItem="uS3-Qm-pAm" secondAttribute="leading" id="ZKH-Lv-acd"/>
+                                        <constraint firstItem="8fb-c5-eJ2" firstAttribute="leading" secondItem="sTh-LM-nea" secondAttribute="leading" constant="16" id="bYg-dt-Pqi"/>
+                                        <constraint firstAttribute="trailing" secondItem="uS3-Qm-pAm" secondAttribute="trailing" constant="16" id="cAa-bq-y65"/>
+                                        <constraint firstAttribute="bottom" secondItem="uS3-Qm-pAm" secondAttribute="bottom" constant="71.5" id="fHa-J2-jvs"/>
+                                        <constraint firstItem="uS3-Qm-pAm" firstAttribute="leading" secondItem="8fb-c5-eJ2" secondAttribute="leading" id="hLV-RS-nRG"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="subredditNameLabel" destination="8fb-c5-eJ2" id="Rw0-qg-Vte"/>
+                                    <outlet property="timeLabel" destination="fYP-HP-P51" id="wDo-jD-xAX"/>
+                                    <outlet property="titleLabel" destination="uS3-Qm-pAm" id="JIs-ID-haJ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
