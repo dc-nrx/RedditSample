@@ -34,7 +34,7 @@ final class Session {
 	///
 	/// Needed to refresh the `accessToken`
 	///
-	private(set) var refreshToken = StoredProperty<String>(key: "RedditSession.refreshToken")
+	private var refreshToken = StoredProperty<String>(key: "RedditSession.refreshToken")
 	
 	///
 	/// The access code needed to request/refresh the `accessToken`.
@@ -84,7 +84,7 @@ final class Session {
 private extension Session {
 
 	///
-	/// Reset to the initial state
+	/// Reset to initial state
 	///
 	func clear() {
 		accessCode.value = nil
