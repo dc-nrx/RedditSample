@@ -12,7 +12,7 @@ class RedditMainVC: UITableViewController {
 	///
 	/// Shown items
 	///
-	var items = [Any]()
+	var listing = Listing<RedditLink>()
 	
 	///
 	/// Number of items to request per 1 page
@@ -23,7 +23,7 @@ class RedditMainVC: UITableViewController {
 		super.viewDidLoad()
 		
 		if RedditSession.shared.sessionInitialized,
-		   items.count == 0 {
+		   listing.count == 0 {
 			// Refresh only if there's no data to support state restoration
 			//TODO: use nsuseractivity instead
 			refresh()
@@ -49,7 +49,7 @@ private extension RedditMainVC {
 	/// Reload data
 	///
 	func refresh() {
-		items.removeAll()
+		listing.removeAll()
 		loadData()
 	}
 	
@@ -57,8 +57,9 @@ private extension RedditMainVC {
 	/// Load the next / initial page
 	///
 	func loadData() {
-		Network.shared.request(.topFeed) { (json, error) in
-//			print("\(json), \(error)")
-		}
+		
+//		Network.shared.request(.topFeed) { (json, error) in
+////			print("\(json), \(error)")
+//		}
 	}
 }

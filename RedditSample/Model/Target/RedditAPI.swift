@@ -13,7 +13,7 @@ import Foundation
 enum RedditAPI {
 	
 	case accessToken(grantType:String, code: String?, refreshToken: String?)
-	case topFeed
+	case topFeed(after: String?, limit: UInt?)
 	
 	///
 	/// Tells reddit.com which app is making the request
@@ -85,6 +85,8 @@ extension RedditAPI: Target {
 			return .get
 		}
 	}
+	
+//	var queryParams:
 	
 	var body: Data? {
 		switch self {
