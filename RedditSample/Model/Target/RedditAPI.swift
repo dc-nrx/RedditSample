@@ -10,9 +10,9 @@ import Foundation
 ///
 /// Reddit API: full request list & corresponding configurations.
 ///
-enum Reddit {
+enum RedditAPI {
 	
-	case accessToken(grantType:String?, code: String?, refreshToken: String?)
+	case accessToken(grantType:String, code: String?, refreshToken: String?)
 	case topFeed
 	
 	///
@@ -32,22 +32,28 @@ enum Reddit {
 	static var ownerName: String { "dc_-_-" }
 }
 
-extension Reddit: Target {
+extension RedditAPI: Target {
 		
 	var httpHeader: [String : String] {
+		// Standard headers
 		let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"]!
 		var result = [
-			"User-Agent": "iOS:\(Bundle.main.bundleIdentifier!):\(appVersion) (by /u/\(Reddit.ownerName))"
+			"User-Agent": "iOS:\(Bundle.main.bundleIdentifier!):\(appVersion) (by /u/\(RedditAPI.ownerName))"
 		]
 		
-		if let token = RedditSession.shared.accessToken.value {
-			result["Authorization"] = "bearer \(token)"
-		}
-		else {
-			let str = "\(Reddit.clientId):"
+		// Authrization
+		switch self {
+		case .accessToken:
+			// Special case for access token (basic auth)
+			let str = "\(RedditAPI.clientId):"
 			let utf8str = str.data(using: .utf8)
 			let base64 = utf8str?.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
 			result["Authorization"] = "Basic \(base64!))"
+		default:
+			// Regular for others (via token)
+			if let token = RedditSession.shared.accessToken.value {
+				result["Authorization"] = "bearer \(token)"
+			}
 		}
 		
 		return result
@@ -83,8 +89,15 @@ extension Reddit: Target {
 	var body: Data? {
 		switch self {
 		
-		case let .accessToken(code):
-			let str = "grant_type=authorization_code&code=\(code)&redirect_uri=\(Reddit.redirectURIString)"
+		case let .accessToken(grantType, code, refreshToken):
+			var str = "grant_type=\(grantType)"
+			if let code = code {
+				str.append("&code=\(code)")
+			}
+			if let refreshToken = refreshToken {
+				str.append("&refresh_token=\(refreshToken)")
+			}
+			str.append("&redirect_uri=\(RedditAPI.redirectURIString)")
 			return str.data(using: .utf8)
 			
 		default:

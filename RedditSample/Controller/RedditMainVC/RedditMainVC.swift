@@ -32,7 +32,7 @@ class RedditMainVC: UITableViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		
+		// Initialize the reddit session if needed with further content refresh
 		if !RedditSession.shared.sessionInitialized {
 			RedditSession.shared.enableAccess(presentingController: self) { [weak self] (error) in
 				self?.refresh()
@@ -57,6 +57,8 @@ private extension RedditMainVC {
 	/// Load the next / initial page
 	///
 	func loadData() {
-		//...
+		Network.shared.request(.topFeed) { (json, error) in
+//			print("\(json), \(error)")
+		}
 	}
 }

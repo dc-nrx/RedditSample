@@ -66,6 +66,7 @@ final class RedditSession {
 	/// In most cases you may want to resend the failed request on (successfull) callback.
 	///
 	func performRefreshToken(_ callback: OptionalErrorCallback) {
+		accessToken.value = nil
 		Network.shared.request(.accessToken(
 								grantType:"refresh_token",
 								code: nil,
@@ -75,7 +76,7 @@ final class RedditSession {
 				self?.tokenResponseReceived(json)
 			}
 			else {
-				
+				// TODO: process error
 			}
 		}
 	}

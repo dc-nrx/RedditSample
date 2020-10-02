@@ -51,7 +51,7 @@ extension Network {
 	///
 	/// Expected responses are either empty or JSON
 	///
-	func request(_ request: Reddit, completion: @escaping NetworkCallback) {
+	func request(_ request: RedditAPI, completion: @escaping NetworkCallback) {
 		
 		let completionOnMain: NetworkCallback = { (data, error) in
 			DispatchQueue.main.async { completion(data, error) }
@@ -111,14 +111,21 @@ extension Network {
 private extension Network {
 	
 	func isTokenExpiredCase(httpResponse: HTTPURLResponse) -> Bool {
-		return httpResponse.statusCode == 403
+		return httpResponse.statusCode == 401
 	}
 	
 	///
 	/// Try to refresh the token and resend the request once again in success case.
 	///
-	func handleTokenExpired(initialRequest: Target, completion: @escaping NetworkCallback) {
-		
+	func handleTokenExpired(initialRequest: RedditAPI, completion: @escaping NetworkCallback) {
+		RedditSession.shared.performRefreshToken { error in
+			if let error = error {
+				completion(nil, .system(error))
+			}
+			else {
+				request(initialRequest, completion: completion)
+			}
+		}
 	}
 	
 }

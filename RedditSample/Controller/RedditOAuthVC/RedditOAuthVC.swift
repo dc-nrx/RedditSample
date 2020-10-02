@@ -48,10 +48,10 @@ class RedditOAuthVC: UIViewController {
 	///
 	private let oathRequest: URLRequest = {
 		let params = [
-			"client_id": Reddit.clientId,
+			"client_id": RedditAPI.clientId,
 			"response_type": "code",
 			"state": UUID().uuidString,
-			"redirect_uri": Reddit.redirectURIString,
+			"redirect_uri": RedditAPI.redirectURIString,
 			"duration": "permanent",
 			"scope": "read"
 		]
@@ -94,7 +94,7 @@ extension RedditOAuthVC: WKNavigationDelegate {
 		print("####### \(navigationAction.request)")
 		
 		if let absoluteURLString = navigationAction.request.url?.absoluteString,
-		   absoluteURLString.hasPrefix(Reddit.redirectURIString) {
+		   absoluteURLString.hasPrefix(RedditAPI.redirectURIString) {
 			// Auth succeeded case
 			if let code = getQueryStringParameter(url: absoluteURLString, param: codeKey) {
 				self.callback?(code, nil)
