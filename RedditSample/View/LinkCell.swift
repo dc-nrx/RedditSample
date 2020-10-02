@@ -37,7 +37,7 @@ extension LinkCell {
 		
 		titleLabel.text = link.title
 //		userLabel.text = link.us
-		timeLabel.text = link.createdUtc.format("DD MMM")
+		timeLabel.text = link.createdUtc.format("d MMM yyyy HH:mm:ss")
 	}
 	
 }
