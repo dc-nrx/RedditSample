@@ -12,9 +12,29 @@ import Foundation
 ///
 enum API {
 	
+	///
+	/// Used either to get (with a `code`) or refresh (with a `refreshToken`) the access token.
+	/// - Parameter grantType: "refresh_token" if `refreshToken` != nil;
+	/// authorization_code if `code` != nil
+	/// - Parameter code: Authorization code retrieved after OAuth.
+	/// - Parameter refreshToken: Refresh token.
+	/// - Returns: `AccessToken`.
+	///
 	case accessToken(grantType:String, code: String?, refreshToken: String?)
+	
+	///
+	/// The top listing listing
+	/// - Parameter afterFullname: The listing item's fullname to get items after
+	/// - Parameter limit: Number of items in response. Must be in 0...100. The default value is 25.
+	/// - Returns: `Listing<Link>`
+	///
 	case topFeed(afterFullname: String?, limit: UInt?)
 	
+}
+
+//MARK:- Settings
+extension API {
+
 	///
 	/// Tells reddit.com which app is making the request
 	///
@@ -30,6 +50,7 @@ enum API {
 	/// as required by Reddit
 	///
 	static var ownerName: String { "dc_-_-" }
+	
 }
 
 extension API: Target {
