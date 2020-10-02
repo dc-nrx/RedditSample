@@ -37,10 +37,6 @@ struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData {
 	var endIndex: Int { items.endIndex}
 	
 	subscript(position: Int) -> T { items[position] }
-	
-	typealias Element = T
-	
-	typealias Index = Int
 		
 }
 
