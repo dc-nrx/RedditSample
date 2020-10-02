@@ -13,7 +13,7 @@ enum NetworkError: Error {
 	case unexpectedResponseObject
 	case reddit(RedditError)
 	case http(HTTPURLResponse?)
-	case foundation(Error)
+	case generic(Error)
 }
 
 ///
@@ -61,7 +61,7 @@ extension Network {
 			
 			// Handle standard errors
 			if let error = error {
-				DispatchQueue.main.async { completion(nil, .foundation(error)) }
+				DispatchQueue.main.async { completion(nil, .generic(error)) }
 				return
 			}
 			
@@ -119,12 +119,12 @@ private extension Network {
 	/// Try to refresh the token and resend the request once again in success case.
 	///
 	func handleTokenExpired(initialRequest: API, completion: @escaping NetworkCallback) {
-		Session.shared.refreshToken { error in
+		Session.shared.refreshToken { [weak self] error in
 			if let error = error {
-				completion(nil, .foundation(error))
+				completion(nil, .generic(error))
 			}
 			else {
-				request(initialRequest, completion: completion)
+				self?.request(initialRequest, completion: completion)
 			}
 		}
 	}

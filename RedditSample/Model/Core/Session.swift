@@ -16,6 +16,7 @@ final class Session {
 	static var shared = Session()
 	
 	private init() {
+		// Test code
 //		clear()
 	}
 	
@@ -26,7 +27,7 @@ final class Session {
 	var sessionInitialized: Bool { accessCode.value != nil && token.value != nil}
 	
 	///
-	/// The token which must be used in requests to Reddit API (along with corresponding data).
+	/// The token which must be used in requests to Reddit API.
 	/// The token is valid for 1 hour; after that it must be refreshed through `performRefreshToken`.
 	///
 	private(set) var token = StoredProperty<String>(key: "RedditSession.accessToken")
