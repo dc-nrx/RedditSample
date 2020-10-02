@@ -140,6 +140,7 @@ private extension Session {
 			switch error {
 			case nil:
 				self?.tokenResponseReceived(json)
+				callback(nil)
 			case .reddit(.invalid_grant):
 				self?.onAccessCodeExpired(callback)
 			default:
