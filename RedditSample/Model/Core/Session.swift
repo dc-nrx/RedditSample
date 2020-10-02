@@ -57,7 +57,7 @@ final class Session {
 	///
 	/// Whenever you get a token expired error, call this function.
 	/// In most cases you may want to resend the failed request on (successfull) callback.
-	/// If `refreshToken` is empty, fallback to a `getToken` flow.
+	/// If `refreshToken` is empty, fallback to the `getToken` flow.
 	///
 	func refreshToken(_ callback: @escaping OptionalErrorCallback) {
 		token.value = nil
