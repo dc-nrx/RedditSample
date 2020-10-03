@@ -30,7 +30,7 @@ class OAuthVC: UIViewController {
 	///
 	/// The callback to execute on the OAuth flow finish.
 	///
-	var callback: Callback?
+	var authFinishedCallback: Callback?
 	
 	//MARK:- Outlets
 	
@@ -97,10 +97,10 @@ extension OAuthVC: WKNavigationDelegate {
 		   absoluteURLString.hasPrefix(API.redirectURIString) {
 			// Auth succeeded case
 			if let code = getQueryStringParameter(url: absoluteURLString, param: codeKey) {
-				self.callback?(code, nil)
+				self.authFinishedCallback?(code, nil)
 			}
 			else {
-				self.callback?(nil, OAuthVCError.noCode)
+				self.authFinishedCallback?(nil, OAuthVCError.noCode)
 			}
 				
 			decisionHandler(.cancel)

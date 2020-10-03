@@ -17,7 +17,8 @@ final class Session {
 	
 	private init() {
 		// Test code
-//		clear()
+//		refreshToken.value = "296337042005-nacl7UFgmUOmBh4p0ehwiEUUUqU"
+//		token.value = nil
 	}
 	
 	///
@@ -44,10 +45,12 @@ final class Session {
 
 	///
 	/// Call this method to initialize the Reddit session. It will retrieve the access code and/or token - depending on the current state.
-	/// - Parameter presentingController: A controller to present a `OAuthVC` with ( if needed)
 	///
 	func enableAccess(_ callback: @escaping OptionalErrorCallback) {
-		if accessCode.value != nil {
+		if refreshToken.value != nil {
+			refreshToken(callback)
+		}
+		else if accessCode.value != nil {
 			getToken(callback)
 		}
 		else {
@@ -75,8 +78,10 @@ final class Session {
 				self?.tokenResponseReceived(json)
 			}
 			else {
-				// TODO: process error
+				ErrorHandler.shared.process(error: error)
 			}
+			
+			callback(error)
 		}
 	}
 	
@@ -99,16 +104,14 @@ private extension Session {
 	/// Perform OAuth authentification with further data load. Clears existed data on call.
 	///
 	func authentificate(_ callback: @escaping OptionalErrorCallback) {
-		
 		clear()
+		
 		let authVC = UIStoryboard(name: "OAuthVC", bundle: nil).instantiateInitialViewController() as! OAuthVC
-		authVC.callback = { [weak authVC] (code, error) in
+		authVC.authFinishedCallback = { [weak authVC] (code, error) in
 			authVC?.presentingViewController?.dismiss(animated: true, completion: nil)
 			self.accessCodeRecieved(code!, callback: callback)
 		}
-		
-		let rootVC = UIApplication.shared.keyWindow?.rootViewController
-		rootVC?.present(authVC, animated: true, completion: nil)
+		Alert.shared.show(controller: authVC)
 	}
 	
 	///
@@ -153,10 +156,17 @@ private extension Session {
 	/// Update stored `token` & `refreshToken`
 	///
 	func tokenResponseReceived(_ json: JSONDict?) {
-		#warning("check for nil")
-		let tokenData = try? AccessToken(jsonDict: json!)
-		token.value = tokenData?.token
-		refreshToken.value = tokenData?.refreshToken
+		
+		guard let tokenData = try? AccessToken(jsonDict: json!) else {
+			ErrorHandler.shared.process(descr: "Access token parse failed")
+			return
+		}
+		
+		token.value = tokenData.token
+		// The refresh token appears to be returned only on the initial request; avoid rewriting it with an empty value.
+		if let newRefreshToken = tokenData.refreshToken {
+			refreshToken.value = newRefreshToken
+		}
 	}
 
 }
