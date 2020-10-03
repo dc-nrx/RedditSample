@@ -16,6 +16,8 @@
 		433C4AF725236CA600E2AFAC /* OAuthVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433C4AF625236CA600E2AFAC /* OAuthVC.storyboard */; };
 		434599092524CD9A00B3779A /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434599082524CD9A00B3779A /* AccessToken.swift */; };
 		436A1D1525271CC800D714F6 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A1D1425271CC800D714F6 /* Listing.swift */; };
+		437007D72528761B004A2DCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437007D62528761B004A2DCB /* ErrorHandler.swift */; };
+		437007DC252876A7004A2DCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437007DB252876A7004A2DCB /* Alert.swift */; };
 		43B18002251DE2120084817A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18001251DE2120084817A /* AppDelegate.swift */; };
 		43B18004251DE2120084817A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18003251DE2120084817A /* SceneDelegate.swift */; };
 		43B18006251DE2120084817A /* TopLinksVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18005251DE2120084817A /* TopLinksVC.swift */; };
@@ -58,6 +60,8 @@
 		433C4AF625236CA600E2AFAC /* OAuthVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OAuthVC.storyboard; sourceTree = "<group>"; };
 		434599082524CD9A00B3779A /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		436A1D1425271CC800D714F6 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
+		437007D62528761B004A2DCB /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		437007DB252876A7004A2DCB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		43B17FFE251DE2120084817A /* RedditSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B18001251DE2120084817A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43B18003251DE2120084817A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 				430FBCBB2523958900B37D07 /* StoredProperty.swift */,
 				430FBCC0252396DE00B37D07 /* CustomTypes.swift */,
 				43E05A2C25276EC10030F6A8 /* Date+Extensions.swift */,
+				437007D62528761B004A2DCB /* ErrorHandler.swift */,
+				437007DB252876A7004A2DCB /* Alert.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -373,12 +379,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				437007DC252876A7004A2DCB /* Alert.swift in Sources */,
 				43B1805D251DEED30084817A /* Link.swift in Sources */,
 				436A1D1525271CC800D714F6 /* Listing.swift in Sources */,
 				430FBCBC2523958900B37D07 /* StoredProperty.swift in Sources */,
 				43B18040251DE37C0084817A /* API.swift in Sources */,
 				43B18006251DE2120084817A /* TopLinksVC.swift in Sources */,
 				43B18002251DE2120084817A /* AppDelegate.swift in Sources */,
+				437007D72528761B004A2DCB /* ErrorHandler.swift in Sources */,
 				433C4AED2523662500E2AFAC /* OAuthVC.swift in Sources */,
 				430FBC8425238F7100B37D07 /* Session.swift in Sources */,
 				434599092524CD9A00B3779A /* AccessToken.swift in Sources */,
