@@ -50,3 +50,12 @@ extension Link {
 		hasher.combine(fullname.data(using:.utf8)!)
 	}
 }
+
+//MARK:- Custom String Convertible
+extension Link: CustomStringConvertible {
+
+	var description: String {
+		return String("\(createdUtc) \(fullname) `\(String(describing: title).dropFirst(10).prefix(20))`\n")
+	}
+	
+}

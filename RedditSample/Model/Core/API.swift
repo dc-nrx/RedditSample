@@ -28,7 +28,7 @@ enum API {
 	/// - Parameter limit: Number of items in response. Must be in 0...100. The default value is 25.
 	/// - Returns: `Listing<Link>`
 	///
-	case topFeed(afterFullname: String?, limit: UInt?)
+	case topFeed(afterFullname: String?, limit: UInt?, count: UInt?)
 	
 }
 
@@ -108,7 +108,25 @@ extension API: Target {
 		}
 	}
 	
-//	var queryParams:
+	var query: [URLQueryItem]? {
+		switch self {
+		case let .topFeed(afterFullname, limit, count):
+			var result = [URLQueryItem]()
+			if let after = afterFullname {
+				result.append(URLQueryItem(name: "after", value: after))
+			}
+			if let limit = limit {
+				result.append(URLQueryItem(name: "limit", value: "\(limit)"))
+			}
+			if let count = count {
+				result.append(URLQueryItem(name: "count", value: "\(count)"))
+			}
+			return result
+			
+		default:
+			return nil
+		}
+	}
 	
 	var body: Data? {
 		switch self {

@@ -86,13 +86,16 @@ private extension TopLinksVC {
 	/// 	append newly loaded next page to existed data otherwise.
 	///
 	func loadData(refresh: Bool = false) {
-		guard !updateInProgress else { return }
+		guard !updateInProgress else {
+			print("\(#function) - update in progress")
+			return
+		}
 		updateInProgress = true
 		
 		// Decide whether to load the first or the next page.
-		let afterFullname = refresh ? nil : listing.last?.fullname
+		let afterFullname = refresh ? nil : listing.after
 		
-		let request = API.topFeed(afterFullname: afterFullname, limit: defaultLimit)
+		let request = API.topFeed(afterFullname: afterFullname, limit: defaultLimit, count: UInt(listing.count))
 		Network.shared.request(request) { [weak self] (json, error) in
 			// Clear existed data in case of refresh
 			if refresh {
@@ -100,7 +103,10 @@ private extension TopLinksVC {
 			}
 			if let json = json,
 			   let listing = try? Listing<Link>(jsonDict: json) {
+				print("IN:\(listing)")
+				print("EXISTED:\(self!.listing)")
 				self?.listing.merge(with: listing)
+				print("MERGED:\(self!.listing)")
 			}
 			else {
 				ErrorHandler.shared.process(error: error ?? NetworkError.unexpectedResponseObject)

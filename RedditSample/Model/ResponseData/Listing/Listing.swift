@@ -11,12 +11,11 @@ typealias ListingItem = ResponseData & Hashable & Comparable
 
 struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData {
 
-	var dist: Int
+	private(set) var after: String?
 	
 	private var items: [T]
 	
 	init() {
-		dist = 0
 		items = [T]()
 	}
 	
@@ -24,11 +23,12 @@ struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData {
 	
 	init?(jsonDict: JSONDict) throws {
 		let data = jsonDict["data"] as! JSONDict
-		dist = data["dist"] as! Int
+		after = data["after"] as? String
 		
 		let children = data["children"] as! [JSONDict]
 		let childrenData = children.map { $0["data"] } as! [JSONDict]
-		items = try! childrenData.map(T.init(jsonDict:)) as! [T]
+		let unsorted = try! childrenData.map(T.init(jsonDict:)) as! [T]
+		items = unsorted.sorted(by: >)
 	}
 	
 	//MARK:- RandomAccessCollection
@@ -38,7 +38,7 @@ struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData {
 	var endIndex: Int { items.endIndex}
 	
 	subscript(position: Int) -> T { items[position] }
-		
+	
 }
 
 //MARK:- Public
@@ -49,12 +49,22 @@ extension Listing {
 	}
 	
 	mutating func merge(with anotherListing: Self) {
-		dist = Swift.max(dist, anotherListing.dist)
+		#warning("pick the correct `after`")
+		after = anotherListing.after
 		// Use `united` to avoid double callback in KVO case
 		var united = items
 		united.append(contentsOf: anotherListing)
 		// Remove duplicates & sort
-		items = Array(Set(united)).sorted()
+		items = Array(Set(united)).sorted(by: >)
 	}
 	
 }
+
+//MARK:- Custom String Convertible
+//extension Listing: CustomStringConvertible {
+//
+//	var desctiption: String {
+//
+//	}
+//
+//}

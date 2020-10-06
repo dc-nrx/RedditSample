@@ -37,6 +37,11 @@ protocol Target {
 	///
 	var body: Data? { get }
 	
+	///
+	/// Optional query items
+	///
+	var query: [URLQueryItem]? { get }
+	
 	//MARK:- Helpers
 	// (Have default implementations)
 	
@@ -55,8 +60,12 @@ protocol Target {
 extension Target {
 	
 	var url: URL {
+		let noParameterUrlString = baseURLString.appending(path)
 		// Intentional force unwrap (same logic as with outlets)
-		URL(string: baseURLString.appending(path))!
+		var components = URLComponents(string: noParameterUrlString)!
+		components.queryItems = query
+		components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+		return components.url!
 	}
 	
 	var urlRequest: URLRequest {
