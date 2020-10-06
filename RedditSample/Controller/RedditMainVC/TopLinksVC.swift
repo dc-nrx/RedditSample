@@ -7,8 +7,14 @@
 
 import UIKit
 
+
 class TopLinksVC: UITableViewController {
 
+	private enum CoderKey: String {
+		case listing
+		case firstShownIndexPath
+	}
+	
 	///
 	/// Shown items
 	///
@@ -32,6 +38,9 @@ class TopLinksVC: UITableViewController {
 		}
 		
 		addTopRefreshControl()
+		
+//		restorationIdentifier = "TopLinksVC"
+		restorationClass = TopLinksVC.self
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +53,26 @@ class TopLinksVC: UITableViewController {
 		}
 	}
 	
+	override func encodeRestorableState(with coder: NSCoder) {
+		super.encodeRestorableState(with: coder)
+		
+		coder.encode(listing, forKey: CoderKey.listing.rawValue)
+		if let firstShownIndexPath = tableView.indexPathsForVisibleRows?.first {
+			coder.encode(firstShownIndexPath, forKey: CoderKey.firstShownIndexPath.rawValue)
+		}
+		
+		print("\(#function)")
+	}
+	
+	override func decodeRestorableState(with coder: NSCoder) {
+		super.decodeRestorableState(with: coder)
+		
+		listing = coder.decodeObject(forKey: CoderKey.listing.rawValue) as! Listing<Link>
+		if let firstShownIndexPath = coder.decodeObject(forKey: CoderKey.listing.rawValue) as? IndexPath {
+			tableView.scrollToRow(at: firstShownIndexPath, at: .top, animated: false)
+		}
+		print("\(#function)")
+	}
 }
 
 //MARK:- Actions
@@ -121,6 +150,10 @@ private extension TopLinksVC {
 			self?.updateUI()
 			self?.endRefreshigUI()
 			self?.updateInProgress = false
+			
+//			DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//				exit(0)
+//			}
 		}
 	}
 }
@@ -157,4 +190,13 @@ extension TopLinksVC {
 		}
 	}
 	
+}
+
+extension TopLinksVC: UIViewControllerRestoration {
+	
+	static func viewController(withRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
+		let vc = TopLinksVC()
+		return vc
+	}
+
 }
