@@ -48,14 +48,14 @@ extension Listing {
 		items.removeAll()
 	}
 	
-	mutating func merge(with anotherListing: Self) {
-		#warning("pick the correct `after`")
+	mutating func append(_ anotherListing: Self) {
 		after = anotherListing.after
 		// Use `united` to avoid double callback in KVO case
-		var united = items
-		united.append(contentsOf: anotherListing)
-		// Remove duplicates & sort
-		items = Array(Set(united)).sorted(by: >)
+		items.append(contentsOf: anotherListing)
+//		var united = items
+//		united.append(contentsOf: anotherListing)
+//		// Remove duplicates & sort
+//		items = Array(Set(united)).sorted(by: >)
 	}
 	
 }

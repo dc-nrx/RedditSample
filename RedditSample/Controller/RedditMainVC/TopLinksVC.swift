@@ -105,7 +105,7 @@ private extension TopLinksVC {
 			   let listing = try? Listing<Link>(jsonDict: json) {
 				print("IN:\(listing)")
 				print("EXISTED:\(self!.listing)")
-				self?.listing.merge(with: listing)
+				self?.listing.append(listing)
 				print("MERGED:\(self!.listing)")
 			}
 			else {
