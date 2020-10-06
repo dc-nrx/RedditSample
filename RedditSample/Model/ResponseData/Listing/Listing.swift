@@ -27,8 +27,7 @@ struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData {
 		
 		let children = data["children"] as! [JSONDict]
 		let childrenData = children.map { $0["data"] } as! [JSONDict]
-		let unsorted = try! childrenData.map(T.init(jsonDict:)) as! [T]
-		items = unsorted.sorted(by: >)
+		items = try! childrenData.map(T.init(jsonDict:)) as! [T]
 	}
 	
 	//MARK:- RandomAccessCollection
@@ -50,21 +49,7 @@ extension Listing {
 	
 	mutating func append(_ anotherListing: Self) {
 		after = anotherListing.after
-		// Use `united` to avoid double callback in KVO case
 		items.append(contentsOf: anotherListing)
-//		var united = items
-//		united.append(contentsOf: anotherListing)
-//		// Remove duplicates & sort
-//		items = Array(Set(united)).sorted(by: >)
 	}
 	
 }
-
-//MARK:- Custom String Convertible
-//extension Listing: CustomStringConvertible {
-//
-//	var desctiption: String {
-//
-//	}
-//
-//}

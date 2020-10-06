@@ -91,8 +91,6 @@ extension OAuthVC: WKNavigationDelegate {
 
 	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 		
-		print("####### \(navigationAction.request)")
-		
 		if let absoluteURLString = navigationAction.request.url?.absoluteString,
 		   absoluteURLString.hasPrefix(API.redirectURIString) {
 			// Auth succeeded case

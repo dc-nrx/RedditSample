@@ -86,10 +86,7 @@ private extension TopLinksVC {
 	/// 	append newly loaded next page to existed data otherwise.
 	///
 	func loadData(refresh: Bool = false) {
-		guard !updateInProgress else {
-			print("\(#function) - update in progress")
-			return
-		}
+		guard !updateInProgress else { return }
 		updateInProgress = true
 		
 		// Decide whether to load the first or the next page.
@@ -103,10 +100,7 @@ private extension TopLinksVC {
 			}
 			if let json = json,
 			   let listing = try? Listing<Link>(jsonDict: json) {
-				print("IN:\(listing)")
-				print("EXISTED:\(self!.listing)")
 				self?.listing.append(listing)
-				print("MERGED:\(self!.listing)")
 			}
 			else {
 				ErrorHandler.shared.process(error: error ?? NetworkError.unexpectedResponseObject)
