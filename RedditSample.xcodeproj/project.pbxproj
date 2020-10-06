@@ -19,7 +19,6 @@
 		437007D72528761B004A2DCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437007D62528761B004A2DCB /* ErrorHandler.swift */; };
 		437007DC252876A7004A2DCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437007DB252876A7004A2DCB /* Alert.swift */; };
 		43B18002251DE2120084817A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18001251DE2120084817A /* AppDelegate.swift */; };
-		43B18004251DE2120084817A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18003251DE2120084817A /* SceneDelegate.swift */; };
 		43B18006251DE2120084817A /* TopLinksVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B18005251DE2120084817A /* TopLinksVC.swift */; };
 		43B1800B251DE2140084817A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43B1800A251DE2140084817A /* Assets.xcassets */; };
 		43B1800E251DE2140084817A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43B1800C251DE2140084817A /* LaunchScreen.storyboard */; };
@@ -64,7 +63,6 @@
 		437007DB252876A7004A2DCB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		43B17FFE251DE2120084817A /* RedditSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B18001251DE2120084817A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		43B18003251DE2120084817A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		43B18005251DE2120084817A /* TopLinksVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLinksVC.swift; sourceTree = "<group>"; };
 		43B1800A251DE2140084817A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43B1800D251DE2140084817A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 				43B18035251DE2D60084817A /* View */,
 				43B18034251DE2CD0084817A /* Model */,
 				43B18001251DE2120084817A /* AppDelegate.swift */,
-				43B18003251DE2120084817A /* SceneDelegate.swift */,
 				43B1800A251DE2140084817A /* Assets.xcassets */,
 				43B1800C251DE2140084817A /* LaunchScreen.storyboard */,
 				43B1800F251DE2140084817A /* Info.plist */,
@@ -393,7 +390,6 @@
 				43E05A2D25276EC10030F6A8 /* Date+Extensions.swift in Sources */,
 				433C4AE125234E3000E2AFAC /* LinkCell.swift in Sources */,
 				43B18038251DE36C0084817A /* Network.swift in Sources */,
-				43B18004251DE2120084817A /* SceneDelegate.swift in Sources */,
 				430FBCC1252396DE00B37D07 /* CustomTypes.swift in Sources */,
 				43B18065251E01580084817A /* ResponseData.swift in Sources */,
 				43B18054251DEBED0084817A /* Target.swift in Sources */,
