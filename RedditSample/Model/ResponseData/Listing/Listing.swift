@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias ListingItem = ResponseData & Hashable & Comparable
+typealias ListingItem = ResponseData & Hashable & Comparable & Codable
 
-struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData {
+struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData, Codable {
 
 	private(set) var after: String?
 	
