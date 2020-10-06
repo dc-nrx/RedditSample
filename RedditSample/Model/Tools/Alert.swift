@@ -35,6 +35,6 @@ class Alert {
 	}
 	
 	//MARK:- Private
-	private var currentRootVC: UIViewController? { UIApplication.shared.keyWindow?.rootViewController }
+	private var currentRootVC: UIViewController? { AppDelegate.shared.window?.rootViewController }
 	
 }

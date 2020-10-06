@@ -10,7 +10,7 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	static let shared: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+	static let shared = UIApplication.shared.delegate as! AppDelegate
 	
 	var window: UIWindow?
 	
