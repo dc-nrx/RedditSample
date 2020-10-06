@@ -31,7 +31,7 @@ class TopLinksVC: UITableViewController {
 			loadData(refresh: true)
 		}
 		
-		addRefreshControl()
+		addTopRefreshControl()
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -63,17 +63,29 @@ private extension TopLinksVC {
 		tableView.reloadData()
 	}
 
-	func addRefreshControl() {
+	func addTopRefreshControl() {
 		tableView.refreshControl = UIRefreshControl()
 		tableView.refreshControl?.addTarget(self, action: #selector(onRefresh(_:)), for: .valueChanged)
 	}
 	
-	func endRefreshigUI() {
+	func addBottomRefreshControlIfNeeded() {
+		if tableView.tableFooterView == nil {
+			let spinner = UIActivityIndicatorView(style: .medium)
+			spinner.startAnimating()
+			spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
 
-		DispatchQueue.main.async {
-			self.tableView.refreshControl?.endRefreshing()
+			tableView.tableFooterView = spinner
 		}
-
+	}
+	
+	func showBottomRefreshControl(_ show: Bool) {
+		addBottomRefreshControlIfNeeded()
+		tableView.tableFooterView?.isHidden = !show
+	}
+	
+	func endRefreshigUI() {
+		self.tableView.refreshControl?.endRefreshing()
+		showBottomRefreshControl(false)
 	}
 }
 
@@ -140,15 +152,9 @@ extension TopLinksVC {
 		let lastSectionIndex = tableView.numberOfSections - 1
 		let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
 		if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
-			
+			showBottomRefreshControl(true)
 			loadData()
-			
-			let spinner = UIActivityIndicatorView(style: .medium)
-			spinner.startAnimating()
-			spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
-
-			self.tableView.tableFooterView = spinner
-			self.tableView.tableFooterView?.isHidden = false
 		}
 	}
+	
 }
