@@ -34,8 +34,9 @@ struct Link: ListingItem {
 		
 		if let preview = jsonDict["preview"] as? JSONDict,
 		   let imageSourcesJson = preview["images"] as? [JSONDict],
-		   let source = imageSourcesJson.first?["url"] as? String {
-			previewSource = URL(string: source)
+		   let source = imageSourcesJson.first?["source"] as? JSONDict,
+		   let urlString = source["url"] as? String {
+			previewSource = URL(string: urlString)
 		}
 		else {
 			previewSource = nil
@@ -58,7 +59,9 @@ extension Link {
 			"preview": [
 				"images": [
 					[
-						"source": previewSource?.absoluteString
+						"source": [
+							"url": previewSource?.absoluteString
+						]
 					]
 				]
 			]

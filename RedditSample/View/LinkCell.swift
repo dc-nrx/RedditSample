@@ -25,8 +25,11 @@ class LinkCell: UITableViewCell {
 	/// `ups` - `downs`
 	@IBOutlet private var ratingLabel: UILabel!
 	
-	//MARK:- Private Members
-	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		
+		linkImageView.image = nil
+	}
 }
 
 //MARK:- Public
@@ -43,6 +46,7 @@ extension LinkCell {
 				guard let `self` = self,
 					  self.link.thumbLink == url else { return }
 				self.linkImageView?.image = image
+//				self.linkImageView.sizeToFit()
 			}
 		}
 	}
