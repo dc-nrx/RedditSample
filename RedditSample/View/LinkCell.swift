@@ -37,7 +37,6 @@ extension LinkCell {
 		
 		titleLabel.text = link.title
 		timeLabel.text = link.createdUtc.format("d MMM yyyy HH:mm:ss")
-		print(link.thumbLink)
 		if let url = link.thumbLink {
 			ImagesManager.sharedInstance().loadImage(for: url) { [weak self] (image) in
 				// link could've changed at this point

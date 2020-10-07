@@ -17,7 +17,6 @@
 		434599092524CD9A00B3779A /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434599082524CD9A00B3779A /* AccessToken.swift */; };
 		435B6C5F252C9AAC0025C2EE /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C5E252C9AAC0025C2EE /* PersistentStore.swift */; };
 		435B6C64252C9BB10025C2EE /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C63252C9BB10025C2EE /* Serializable.swift */; };
-		435B6C7B252DF1110025C2EE /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C7A252DF1110025C2EE /* ImageCache.swift */; };
 		435B6C82252DF39B0025C2EE /* ImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C80252DF39B0025C2EE /* ImagesManager.m */; };
 		436A1D1525271CC800D714F6 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A1D1425271CC800D714F6 /* Listing.swift */; };
 		437007D72528761B004A2DCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437007D62528761B004A2DCB /* ErrorHandler.swift */; };
@@ -64,7 +63,6 @@
 		434599082524CD9A00B3779A /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		435B6C5E252C9AAC0025C2EE /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
 		435B6C63252C9BB10025C2EE /* Serializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
-		435B6C7A252DF1110025C2EE /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		435B6C7F252DF39A0025C2EE /* RedditSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RedditSample-Bridging-Header.h"; sourceTree = "<group>"; };
 		435B6C80252DF39B0025C2EE /* ImagesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesManager.m; sourceTree = "<group>"; };
 		435B6C81252DF39B0025C2EE /* ImagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesManager.h; sourceTree = "<group>"; };
@@ -138,7 +136,6 @@
 				430FBC8325238F7100B37D07 /* Session.swift */,
 				43B18053251DEBED0084817A /* Target.swift */,
 				43B1803F251DE37C0084817A /* API.swift */,
-				435B6C7A252DF1110025C2EE /* ImageCache.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -404,7 +401,6 @@
 				43B18002251DE2120084817A /* AppDelegate.swift in Sources */,
 				437007D72528761B004A2DCB /* ErrorHandler.swift in Sources */,
 				433C4AED2523662500E2AFAC /* OAuthVC.swift in Sources */,
-				435B6C7B252DF1110025C2EE /* ImageCache.swift in Sources */,
 				430FBC8425238F7100B37D07 /* Session.swift in Sources */,
 				434599092524CD9A00B3779A /* AccessToken.swift in Sources */,
 				43E05A2D25276EC10030F6A8 /* Date+Extensions.swift in Sources */,
