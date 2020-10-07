@@ -10,9 +10,9 @@ import UIKit
 
 class TopLinksVC: UITableViewController {
 
-	private enum CoderKey: String {
-		case listing
-		case firstShownIndexPath
+	private enum DataKey: String {
+		case listing = "TopLinksVC_listing_cache.json"
+		case firstShownRow = "TopLinksVC.firstShownIndexPath"
 	}
 	
 	///
@@ -27,20 +27,12 @@ class TopLinksVC: UITableViewController {
 	
 	private var updateInProgress = false
 	
+	//MARK:- Lifecycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		if Session.shared.sessionInitialized,
-		   listing.count == 0 {
-			// Refresh only if there's no data to support state restoration
-			//TODO: use nsuseractivity instead
-			loadData(refresh: true)
-		}
-		
+				
 		addTopRefreshControl()
-		
-//		restorationIdentifier = "TopLinksVC"
-		restorationClass = TopLinksVC.self
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -51,27 +43,43 @@ class TopLinksVC: UITableViewController {
 				self?.loadData(refresh: true)
 			}
 		}
+		else if listing.count == 0 {
+			loadData(refresh: true)
+		}
 	}
+	
+	//MARK:- State restoration
 	
 	override func encodeRestorableState(with coder: NSCoder) {
 		super.encodeRestorableState(with: coder)
-		
-		coder.encode(listing, forKey: CoderKey.listing.rawValue)
-		if let firstShownIndexPath = tableView.indexPathsForVisibleRows?.first {
-			coder.encode(firstShownIndexPath, forKey: CoderKey.firstShownIndexPath.rawValue)
-		}
-		
 		print("\(#function)")
+
+		PersistentStore.write(listing, filename: DataKey.listing.rawValue)
+		if let firstShownRow = tableView.indexPathsForVisibleRows?.first?.row {
+			coder.encode(firstShownRow, forKey: DataKey.firstShownRow.rawValue)
+			print("\(firstShownRow)")
+		}
 	}
 	
 	override func decodeRestorableState(with coder: NSCoder) {
 		super.decodeRestorableState(with: coder)
-		
-		listing = coder.decodeObject(forKey: CoderKey.listing.rawValue) as! Listing<Link>
-		if let firstShownIndexPath = coder.decodeObject(forKey: CoderKey.listing.rawValue) as? IndexPath {
-			tableView.scrollToRow(at: firstShownIndexPath, at: .top, animated: false)
+//		return
+//		return
+		let firstShownRow = coder.decodeInteger(forKey: DataKey.firstShownRow.rawValue) as? Int
+		print("\(#function), \(String(describing: firstShownRow))")
+		PersistentStore.read(filename: DataKey.listing.rawValue) { [weak self] (storedListing: Listing<Link>?) in
+			// Update data
+			if let storedListing = storedListing {
+				self?.listing = storedListing
+				self?.tableView.reloadData()
+			}
+			// Update scroll position
+			if firstShownRow != nil {
+				self?.tableView.scrollToRow(at: IndexPath(row: firstShownRow!, section: 0), at: .top, animated: false)
+			}
+			
+			print("\(#function) \(self!.listing.count)")
 		}
-		print("\(#function)")
 	}
 }
 
@@ -150,11 +158,11 @@ private extension TopLinksVC {
 			self?.updateUI()
 			self?.endRefreshigUI()
 			self?.updateInProgress = false
-			
-//			DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//				exit(0)
-//			}
 		}
+	}
+	
+	func loadSavedData() {
+		
 	}
 }
 

@@ -7,29 +7,14 @@
 
 import Foundation
 
-//MARK:- Error
-//extension NetworkError: LocalizedError {
-//	
-//	var errorDescription: String? {
-//		switch self {
-//		case .unexpectedResponseObject:
-//			return NSLocalizedString("Unexpected response object received", comment: "")
-//		}
-//	}
-//	
-//}
-
-///
-/// Response Data
-///
-protocol ResponseData {
+protocol Deserializable {
 	
 	init?(jsonData: Data) throws
 	init?(jsonDict: JSONDict) throws
-	
+
 }
 
-extension ResponseData {
+extension Deserializable {
 	
 	init?(jsonData: Data) throws {
 		let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])

@@ -29,20 +29,19 @@ struct Link: ListingItem {
 	}
 }
 
-//MARK:- Comparable, Hashable
+//MARK:- Serializable
 extension Link {
 	
-	static func < (lhs: Link, rhs: Link) -> Bool {
-		lhs.createdUtc < rhs.createdUtc
+	var json: JSONDict {
+		[
+			"name": fullname,
+			"subreddit_name_prefixed": subredditNamePrefixed,
+			"title": title,
+			"author": author,
+			"created_utc": createdUtc.timeIntervalSince1970
+		]
 	}
 	
-	static func == (lhs: Self, rhs: Self) -> Bool {
-		lhs.fullname == rhs.fullname
-	}
-	
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(fullname.data(using:.utf8)!)
-	}
 }
 
 //MARK:- Custom String Convertible
@@ -53,4 +52,3 @@ extension Link: CustomStringConvertible {
 	}
 	
 }
-

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AccessToken: ResponseData {
+struct AccessToken: Deserializable {
 	
 	let token: String
 	let refreshToken: String?

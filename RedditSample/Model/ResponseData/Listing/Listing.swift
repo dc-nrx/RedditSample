@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias ListingItem = ResponseData & Hashable & Comparable & Codable
+typealias ListingItem = Deserializable & Serializable
 
-struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData, Codable {
+struct Listing<T: ListingItem>: RandomAccessCollection, Deserializable {
 
 	private(set) var after: String?
 	
@@ -27,7 +27,7 @@ struct Listing<T: ListingItem>: RandomAccessCollection, ResponseData, Codable {
 		
 		let children = data["children"] as! [JSONDict]
 		let childrenData = children.map { $0["data"] } as! [JSONDict]
-		items = try! childrenData.map(T.init(jsonDict:)) as! [T]
+		items = try childrenData.map(T.init(jsonDict:)) as! [T]
 	}
 	
 	//MARK:- RandomAccessCollection
@@ -50,6 +50,20 @@ extension Listing {
 	mutating func append(_ anotherListing: Self) {
 		after = anotherListing.after
 		items.append(contentsOf: anotherListing)
+	}
+	
+}
+
+//MARK:-
+extension Listing: Serializable where T:Serializable {
+	
+	var json: JSONDict {
+		let itemsJson = items.map { ["data": $0.json] }
+		let data: JSONDict = [
+			"children": itemsJson,
+			"after": after
+		]
+		return [ "data": data ]
 	}
 	
 }
