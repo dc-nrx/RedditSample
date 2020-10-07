@@ -29,6 +29,8 @@
 
 @implementation ImagesManager
 
+static BOOL const saveToDisk = NO;
+
 + (instancetype)sharedInstance
 {
 	static id sharedInstance;
@@ -143,6 +145,10 @@
 
 - (void)saveToDiskImage:(UIImage *)image fromURL:(NSURL *)url
 {
+	if (!saveToDisk) {
+		return;
+	}
+	
 	NSString *path = [self localPathForResourceAtRemoteURL:url];
 	NSData *imageData = UIImagePNGRepresentation(image);
 	[imageData writeToFile:path atomically:YES];

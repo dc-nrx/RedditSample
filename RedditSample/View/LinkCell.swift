@@ -42,7 +42,7 @@ extension LinkCell {
 				// link could've changed at this point
 				guard let `self` = self,
 					  self.link.thumbLink == url else { return }
-				self.imageView?.image = image
+				self.linkImageView?.image = image
 			}
 		}
 	}

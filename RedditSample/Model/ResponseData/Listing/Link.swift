@@ -18,6 +18,7 @@ struct Link: ListingItem {
 	let title: String?
 	let author: String?
 	let thumbLink: URL?
+	let previewSource: URL?
 	
 	init?(jsonDict: JSONDict) throws {
 		fullname = jsonDict["name"] as! String
@@ -30,6 +31,16 @@ struct Link: ListingItem {
 		
 		let urlString = jsonDict["thumbnail"] as? String
 		thumbLink = URL(string: urlString ?? "")
+		
+		if let preview = jsonDict["preview"] as? JSONDict,
+		   let imageSourcesJson = preview["images"] as? [JSONDict],
+		   let source = imageSourcesJson.first?["url"] as? String {
+			previewSource = URL(string: source)
+		}
+		else {
+			previewSource = nil
+		}
+		
 	}
 }
 
@@ -43,7 +54,14 @@ extension Link {
 			"title": title,
 			"author": author,
 			"created_utc": createdUtc.timeIntervalSince1970,
-			"thumbnail": thumbLink?.absoluteString
+			"thumbnail": thumbLink?.absoluteString,
+			"preview": [
+				"images": [
+					[
+						"source": previewSource?.absoluteString
+					]
+				]
+			]
 		]
 	}
 	
