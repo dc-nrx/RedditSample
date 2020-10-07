@@ -16,11 +16,6 @@
 @property (nonatomic, strong) NSCache <NSString *, UIImage *> *downloadedImagesCache;
 
 /**
- * Persons which currently being processed by "loadAvatarFor:" method.
- */
-@property (nonatomic, strong) NSHashTable <PersonInfoProtocol> *personsInProcessing;
-
-/**
  * Completions to execute on corresponding image load finish.
  */
 @property (nonatomic, strong) NSMutableDictionary <NSString *, NSMutableArray *> *completionsForImageLoaders;
@@ -52,7 +47,6 @@
 		_downloadedImagesCache = [NSCache new];
 		_activeImageLoaderURLs = [NSMutableSet new];
 		_completionsForImageLoaders = [NSMutableDictionary new];
-		_personsInProcessing = (NSHashTable<PersonInfoProtocol> *)[NSHashTable weakObjectsHashTable];
 	}
 	return self;
 }

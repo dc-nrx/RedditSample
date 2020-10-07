@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 @import UIKit;
 typedef void (^DataManagerLoadImageCompletionBlock) (UIImage * _Nullable image);
 
-@protocol PersonInfoProtocol;
 @interface ImagesManager : NSObject
 
 #pragma mark - Cache
