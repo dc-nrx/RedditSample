@@ -14,7 +14,7 @@ class TopLinksVC: UITableViewController {
 		case listing = "TopLinksVC_listing_cache.json"
 		case firstShownRow = "TopLinksVC.firstShownIndexPath"
 	}
-	
+		
 	///
 	/// Shown items
 	///
@@ -37,14 +37,20 @@ class TopLinksVC: UITableViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		print("\(#function)")
+		
 		// Initialize the reddit session if needed with further content refresh
-		if !Session.shared.sessionInitialized {
-			Session.shared.enableAccess { [weak self] (error) in
+		let optionallyRefreshData: OptionalErrorCallback = { [weak self] _ in
+			if self?.listing.count == 0 {
 				self?.loadData(refresh: true)
 			}
 		}
-		else if listing.count == 0 {
-			loadData(refresh: true)
+		
+		if !Session.shared.sessionInitialized {
+			Session.shared.enableAccess(optionallyRefreshData)
+		}
+		else {
+			optionallyRefreshData(nil)
 		}
 	}
 	
@@ -63,9 +69,9 @@ class TopLinksVC: UITableViewController {
 	
 	override func decodeRestorableState(with coder: NSCoder) {
 		super.decodeRestorableState(with: coder)
-//		return
-//		return
-		let firstShownRow = coder.decodeInteger(forKey: DataKey.firstShownRow.rawValue) as? Int
+		updateInProgress = true
+
+		let firstShownRow = coder.decodeInteger(forKey: DataKey.firstShownRow.rawValue)
 		print("\(#function), \(String(describing: firstShownRow))")
 		PersistentStore.read(filename: DataKey.listing.rawValue) { [weak self] (storedListing: Listing<Link>?) in
 			// Update data
@@ -74,10 +80,9 @@ class TopLinksVC: UITableViewController {
 				self?.tableView.reloadData()
 			}
 			// Update scroll position
-			if firstShownRow != nil {
-				self?.tableView.scrollToRow(at: IndexPath(row: firstShownRow!, section: 0), at: .top, animated: false)
-			}
+			self?.tableView.scrollToRow(at: IndexPath(row: firstShownRow, section: 0), at: .top, animated: false)
 			
+			self?.updateInProgress = false
 			print("\(#function) \(self!.listing.count)")
 		}
 	}

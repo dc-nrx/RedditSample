@@ -112,7 +112,8 @@ extension Network {
 private extension Network {
 	
 	func isTokenExpiredCase(httpResponse: HTTPURLResponse) -> Bool {
-		return httpResponse.statusCode == 401
+		// Could be at least 401 & 403
+		return (400..<500).contains(httpResponse.statusCode)
 	}
 	
 	///

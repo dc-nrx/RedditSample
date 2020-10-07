@@ -17,6 +17,8 @@
 		434599092524CD9A00B3779A /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434599082524CD9A00B3779A /* AccessToken.swift */; };
 		435B6C5F252C9AAC0025C2EE /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C5E252C9AAC0025C2EE /* PersistentStore.swift */; };
 		435B6C64252C9BB10025C2EE /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C63252C9BB10025C2EE /* Serializable.swift */; };
+		435B6C7B252DF1110025C2EE /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C7A252DF1110025C2EE /* ImageCache.swift */; };
+		435B6C82252DF39B0025C2EE /* ImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C80252DF39B0025C2EE /* ImagesManager.m */; };
 		436A1D1525271CC800D714F6 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A1D1425271CC800D714F6 /* Listing.swift */; };
 		437007D72528761B004A2DCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437007D62528761B004A2DCB /* ErrorHandler.swift */; };
 		437007DC252876A7004A2DCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437007DB252876A7004A2DCB /* Alert.swift */; };
@@ -62,6 +64,10 @@
 		434599082524CD9A00B3779A /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		435B6C5E252C9AAC0025C2EE /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
 		435B6C63252C9BB10025C2EE /* Serializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
+		435B6C7A252DF1110025C2EE /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		435B6C7F252DF39A0025C2EE /* RedditSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RedditSample-Bridging-Header.h"; sourceTree = "<group>"; };
+		435B6C80252DF39B0025C2EE /* ImagesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesManager.m; sourceTree = "<group>"; };
+		435B6C81252DF39B0025C2EE /* ImagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesManager.h; sourceTree = "<group>"; };
 		436A1D1425271CC800D714F6 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
 		437007D62528761B004A2DCB /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		437007DB252876A7004A2DCB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -113,6 +119,8 @@
 		430FBCB225238FD300B37D07 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				435B6C81252DF39B0025C2EE /* ImagesManager.h */,
+				435B6C80252DF39B0025C2EE /* ImagesManager.m */,
 				430FBCBB2523958900B37D07 /* StoredProperty.swift */,
 				430FBCC0252396DE00B37D07 /* CustomTypes.swift */,
 				43E05A2C25276EC10030F6A8 /* Date+Extensions.swift */,
@@ -130,6 +138,7 @@
 				430FBC8325238F7100B37D07 /* Session.swift */,
 				43B18053251DEBED0084817A /* Target.swift */,
 				43B1803F251DE37C0084817A /* API.swift */,
+				435B6C7A252DF1110025C2EE /* ImageCache.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -189,6 +198,7 @@
 				43B18034251DE2CD0084817A /* Model */,
 				43B18001251DE2120084817A /* AppDelegate.swift */,
 				43B1800A251DE2140084817A /* Assets.xcassets */,
+				435B6C7F252DF39A0025C2EE /* RedditSample-Bridging-Header.h */,
 				43B1800C251DE2140084817A /* LaunchScreen.storyboard */,
 				43B1800F251DE2140084817A /* Info.plist */,
 			);
@@ -318,6 +328,7 @@
 				TargetAttributes = {
 					43B17FFD251DE2120084817A = {
 						CreatedOnToolsVersion = 12.0;
+						LastSwiftMigration = 1200;
 					};
 					43B18013251DE2140084817A = {
 						CreatedOnToolsVersion = 12.0;
@@ -385,6 +396,7 @@
 				437007DC252876A7004A2DCB /* Alert.swift in Sources */,
 				43B1805D251DEED30084817A /* Link.swift in Sources */,
 				435B6C5F252C9AAC0025C2EE /* PersistentStore.swift in Sources */,
+				435B6C82252DF39B0025C2EE /* ImagesManager.m in Sources */,
 				436A1D1525271CC800D714F6 /* Listing.swift in Sources */,
 				430FBCBC2523958900B37D07 /* StoredProperty.swift in Sources */,
 				43B18040251DE37C0084817A /* API.swift in Sources */,
@@ -392,6 +404,7 @@
 				43B18002251DE2120084817A /* AppDelegate.swift in Sources */,
 				437007D72528761B004A2DCB /* ErrorHandler.swift in Sources */,
 				433C4AED2523662500E2AFAC /* OAuthVC.swift in Sources */,
+				435B6C7B252DF1110025C2EE /* ImageCache.swift in Sources */,
 				430FBC8425238F7100B37D07 /* Session.swift in Sources */,
 				434599092524CD9A00B3779A /* AccessToken.swift in Sources */,
 				43E05A2D25276EC10030F6A8 /* Date+Extensions.swift in Sources */,
@@ -568,8 +581,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T2B993H579;
+				DEVELOPMENT_TEAM = 3Y7Z957SH7;
 				INFOPLIST_FILE = RedditSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -577,6 +591,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dc.RedditSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "RedditSample/RedditSample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -587,8 +603,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T2B993H579;
+				DEVELOPMENT_TEAM = 3Y7Z957SH7;
 				INFOPLIST_FILE = RedditSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -596,6 +613,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dc.RedditSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "RedditSample/RedditSample-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

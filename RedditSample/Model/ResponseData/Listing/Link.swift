@@ -17,6 +17,7 @@ struct Link: ListingItem {
 	let subredditNamePrefixed: String?
 	let title: String?
 	let author: String?
+	let thumbLink: URL?
 	
 	init?(jsonDict: JSONDict) throws {
 		fullname = jsonDict["name"] as! String
@@ -26,6 +27,9 @@ struct Link: ListingItem {
 		
 		let createdTstamp = jsonDict["created_utc"] as! TimeInterval
 		createdUtc = Date(timeIntervalSince1970: createdTstamp)
+		
+		let urlString = jsonDict["thumbnail"] as? String
+		thumbLink = URL(string: urlString ?? "")
 	}
 }
 
@@ -38,7 +42,8 @@ extension Link {
 			"subreddit_name_prefixed": subredditNamePrefixed,
 			"title": title,
 			"author": author,
-			"created_utc": createdUtc.timeIntervalSince1970
+			"created_utc": createdUtc.timeIntervalSince1970,
+			"thumbnail": thumbLink?.absoluteString
 		]
 	}
 	

@@ -36,8 +36,16 @@ extension LinkCell {
 		subredditNameLabel.text = link.subredditNamePrefixed
 		
 		titleLabel.text = link.title
-//		userLabel.text = link.us
 		timeLabel.text = link.createdUtc.format("d MMM yyyy HH:mm:ss")
+		print(link.thumbLink)
+		if let url = link.thumbLink {
+			ImagesManager.sharedInstance().loadImage(for: url) { [weak self] (image) in
+				// link could've changed at this point
+				guard let `self` = self,
+					  self.link.thumbLink == url else { return }
+				self.imageView?.image = image
+			}
+		}
 	}
 	
 }
