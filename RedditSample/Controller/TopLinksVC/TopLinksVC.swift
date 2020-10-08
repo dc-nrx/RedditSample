@@ -148,6 +148,11 @@ private extension TopLinksVC {
 		// Decide whether to load the first or the next page.
 		let afterFullname = refresh ? nil : listing.after
 		
+		let showProgress = listing.count == 0
+		if showProgress {
+			Alert.shared.showProgress(true)
+		}
+		
 		let request = API.topFeed(afterFullname: afterFullname, limit: defaultLimit, count: UInt(listing.count))
 		Network.shared.request(request) { [weak self] (json, error) in
 			// Clear existed data in case of refresh
@@ -165,6 +170,10 @@ private extension TopLinksVC {
 			self?.updateUI()
 			self?.endRefreshigUI()
 			self?.modelUpdateInProgress = false
+			
+			if showProgress {
+				Alert.shared.showProgress(false)
+			}
 		}
 	}
 	

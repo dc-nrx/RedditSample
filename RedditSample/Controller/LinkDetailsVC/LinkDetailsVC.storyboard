@@ -22,6 +22,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9B-vi-iqg">
                                 <rect key="frame" x="145" y="788" width="124" height="30"/>
                                 <state key="normal" title="Save to the library"/>
+                                <connections>
+                                    <action selector="onSaveImage:" destination="8Qs-2q-WqZ" eventType="touchUpInside" id="DyI-pr-dAG"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mof-dg-nuY">
                                 <rect key="frame" x="8" y="60" width="398" height="20.5"/>
@@ -47,6 +50,7 @@
                     </view>
                     <connections>
                         <outlet property="imageView" destination="6la-7y-Rih" id="tV6-xh-wyz"/>
+                        <outlet property="saveImageButton" destination="d9B-vi-iqg" id="0mV-5m-Vee"/>
                         <outlet property="titleLabel" destination="mof-dg-nuY" id="A9K-w4-hsB"/>
                     </connections>
                 </viewController>

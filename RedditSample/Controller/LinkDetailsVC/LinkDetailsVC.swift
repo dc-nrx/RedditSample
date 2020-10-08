@@ -22,6 +22,7 @@ class LinkDetailsVC: UIViewController {
 	//MARK:- Outlets
 	@IBOutlet private var imageView: UIImageView!
 	@IBOutlet private var titleLabel: UILabel!
+	@IBOutlet private var saveImageButton: UIButton!
 }
 
 //MARK:- Public
@@ -37,12 +38,15 @@ extension LinkDetailsVC {
 
 		updateUI()
 	}
-//
-//	override func viewWillAppear(_ animated: Bool) {
-//		super.viewWillAppear(animated)
-//
-//		//...
-//	}
+	
+}
+
+//MARK:- Actions
+extension LinkDetailsVC {
+	
+	@IBAction func onSaveImage(_ sender: UIButton) {
+		
+	}
 	
 }
 
@@ -50,14 +54,23 @@ extension LinkDetailsVC {
 private extension LinkDetailsVC {
 	
 	func updateUI() {
+		titleLabel.text = link.title
+		updateSaveImageButton()
 		if let url = link.mainImageURL {
 			Alert.shared.showProgress(true)
-			ImagesManager.sharedInstance().loadImage(for: url) { (image) in
+			ImagesManager.sharedInstance().loadImage(for: url) { [weak self] (image) in
 				Alert.shared.showProgress(false)
-				self.imageView.image = image
+				self?.imageView.image = image
+				self?.updateSaveImageButton()
+				if image == nil {
+					ErrorHandler.shared.process(descr: "Sorry, no regular image here\n\(url)")
+				}
 			}
 		}
-		titleLabel.text = link.title
+	}
+	
+	func updateSaveImageButton() {
+		saveImageButton.isEnabled = (imageView.image != nil)
 	}
 }
 
