@@ -19,7 +19,7 @@ struct Link: ListingItem {
 	let commentsCount: UInt
 	let subredditNamePrefixed: String?
 	let thumbLink: URL?
-	let previewSource: URL?
+	let mainImageURL: URL?
 	
 	init?(jsonDict: JSONDict) throws {
 		fullname = jsonDict["name"] as! String
@@ -33,19 +33,16 @@ struct Link: ListingItem {
 		
 		let urlString = jsonDict["thumbnail"] as? String
 		thumbLink = URL(string: urlString ?? "")
+		/// Cache the thumb
+		if let thumbLink = thumbLink {
+			ImagesManager.sharedInstance().loadImage(for: thumbLink) { _ in }
+		}
 		
-		if let preview = jsonDict["preview"] as? JSONDict,
-		   let imageSourcesJson = preview["images"] as? [JSONDict],
-		   let source = imageSourcesJson.first?["source"] as? JSONDict,
-		   let urlString = source["url"] as? String {
-			previewSource = URL(string: urlString)
+		if let url = jsonDict["url_overridden_by_dest"] as? String {
+			mainImageURL = URL(string: url)
 		}
 		else {
-			previewSource = nil
-		}
-		/// Cache the thumb
-		if let previewSource = previewSource {
-			ImagesManager.sharedInstance().loadImage(for: previewSource) { _ in }
+			mainImageURL = nil
 		}
 	}
 }
@@ -61,15 +58,7 @@ extension Link {
 			"author": author,
 			"created_utc": createdUtc.timeIntervalSince1970,
 			"thumbnail": thumbLink?.absoluteString,
-			"preview": [
-				"images": [
-					[
-						"source": [
-							"url": previewSource?.absoluteString
-						]
-					]
-				]
-			]
+			"url_overridden_by_dest": mainImageURL?.absoluteString
 		]
 	}
 	

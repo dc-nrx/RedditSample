@@ -209,6 +209,7 @@ extension TopLinksVC {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let detailsVC = UIStoryboard(name: "LinkDetailsVC", bundle: nil).instantiateInitialViewController() as! LinkDetailsVC
 		detailsVC.link = listing[indexPath.row]
+		navigationController?.pushViewController(detailsVC, animated: true)
 	}
 }
 

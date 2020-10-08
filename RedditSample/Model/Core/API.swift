@@ -30,6 +30,7 @@ enum API {
 	///
 	case topFeed(afterFullname: String?, limit: UInt?, count: UInt?)
 	
+	case previewImage(url: URL)
 }
 
 //MARK:- Settings
@@ -85,6 +86,8 @@ extension API: Target {
 		switch self {
 		case .accessToken:
 			return "https://www.reddit.com/"
+		case let .previewImage(url):
+			return url.host!
 		default:
 			return "https://oauth.reddit.com/"
 		}
@@ -96,6 +99,8 @@ extension API: Target {
 			return "api/v1/access_token"
 		case .topFeed:
 			return "top"
+		case let .previewImage(url):
+			return url.path
 		}
 	}
 	
@@ -104,6 +109,8 @@ extension API: Target {
 		case .accessToken:
 			return .post
 		case .topFeed:
+			return .get
+		case .previewImage:
 			return .get
 		}
 	}

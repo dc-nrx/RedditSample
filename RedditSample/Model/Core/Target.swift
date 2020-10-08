@@ -63,9 +63,15 @@ extension Target {
 		let noParameterUrlString = baseURLString.appending(path)
 		// Intentional force unwrap (same logic as with outlets)
 		var components = URLComponents(string: noParameterUrlString)!
-		components.queryItems = query
-		components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-		return components.url!
+		
+		if query != nil {
+			components.queryItems = query
+			components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+			return components.url!
+		}
+		else {
+			return URL(string: noParameterUrlString)!
+		}
 	}
 	
 	var urlRequest: URLRequest {

@@ -1,7 +1,63 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Qs-2q-WqZ">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Link Details-->
+        <scene sceneID="YRu-cu-5sj">
+            <objects>
+                <viewController title="Link Details" id="8Qs-2q-WqZ" customClass="LinkDetailsVC" customModule="RedditSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AZY-uE-qcn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6la-7y-Rih">
+                                <rect key="frame" x="0.0" y="96.5" width="414" height="659.5"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9B-vi-iqg">
+                                <rect key="frame" x="145" y="788" width="124" height="30"/>
+                                <state key="normal" title="Save to the library"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mof-dg-nuY">
+                                <rect key="frame" x="8" y="60" width="398" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="abL-Mr-WEd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6la-7y-Rih" firstAttribute="top" secondItem="mof-dg-nuY" secondAttribute="bottom" constant="16" id="1mU-kK-hLj"/>
+                            <constraint firstItem="mof-dg-nuY" firstAttribute="top" secondItem="abL-Mr-WEd" secondAttribute="top" constant="16" id="AXN-KS-r0M"/>
+                            <constraint firstItem="abL-Mr-WEd" firstAttribute="trailing" secondItem="6la-7y-Rih" secondAttribute="trailing" id="FKp-Kq-Iot"/>
+                            <constraint firstItem="mof-dg-nuY" firstAttribute="leading" secondItem="abL-Mr-WEd" secondAttribute="leading" constant="8" id="HC9-6G-Ngw"/>
+                            <constraint firstItem="d9B-vi-iqg" firstAttribute="centerX" secondItem="abL-Mr-WEd" secondAttribute="centerX" id="Svh-oS-tEP"/>
+                            <constraint firstItem="abL-Mr-WEd" firstAttribute="bottom" secondItem="d9B-vi-iqg" secondAttribute="bottom" constant="44" id="THf-Qf-FYM"/>
+                            <constraint firstItem="6la-7y-Rih" firstAttribute="leading" secondItem="abL-Mr-WEd" secondAttribute="leading" id="cfk-Rf-vmk"/>
+                            <constraint firstItem="abL-Mr-WEd" firstAttribute="trailing" secondItem="mof-dg-nuY" secondAttribute="trailing" constant="8" id="i39-3S-OLu"/>
+                            <constraint firstItem="mof-dg-nuY" firstAttribute="centerX" secondItem="abL-Mr-WEd" secondAttribute="centerX" id="kcR-4V-UqQ"/>
+                            <constraint firstItem="d9B-vi-iqg" firstAttribute="top" secondItem="6la-7y-Rih" secondAttribute="bottom" constant="32" id="vtd-EB-o2d"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="6la-7y-Rih" id="tV6-xh-wyz"/>
+                        <outlet property="titleLabel" destination="mof-dg-nuY" id="A9K-w4-hsB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wDf-uM-qsw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="230" y="129"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

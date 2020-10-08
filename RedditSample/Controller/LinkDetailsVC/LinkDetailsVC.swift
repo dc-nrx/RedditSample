@@ -21,6 +21,7 @@ class LinkDetailsVC: UIViewController {
 	
 	//MARK:- Outlets
 	@IBOutlet private var imageView: UIImageView!
+	@IBOutlet private var titleLabel: UILabel!
 }
 
 //MARK:- Public
@@ -49,7 +50,12 @@ extension LinkDetailsVC {
 private extension LinkDetailsVC {
 	
 	func updateUI() {
-		
+		if let url = link.mainImageURL {
+			ImagesManager.sharedInstance().loadImage(for: url) { (image) in
+				self.imageView.image = image
+			}
+		}
+		titleLabel.text = link.title
 	}
 }
 
