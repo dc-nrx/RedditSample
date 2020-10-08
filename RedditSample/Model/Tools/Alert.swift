@@ -16,6 +16,20 @@ class Alert {
 
 	static let shared = Alert()
 	
+	private let progressView: UIView = {
+		let result = UIView()
+		result.backgroundColor = UIColor(white: 0, alpha: 0.2)
+		result.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		
+		let activityIndicator = UIActivityIndicatorView(style: .medium)
+		activityIndicator.center = result.center
+		activityIndicator.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin]
+		activityIndicator.startAnimating()
+		result.addSubview(activityIndicator)
+		
+		return result
+	}()
+	
 	private init() { }
 		
 	//MARK:- Public
@@ -32,6 +46,17 @@ class Alert {
 	
 	func show(controller: UIViewController) {
 		self.currentRootVC?.present(controller, animated: true, completion: nil)
+	}
+	
+	func showProgress(_ show: Bool) {
+		if show,
+		   let currentRootVC = currentRootVC {
+			progressView.frame = currentRootVC.view.bounds
+			currentRootVC.view.addSubview(progressView)
+		}
+		else {
+			progressView.removeFromSuperview()
+		}
 	}
 	
 	//MARK:- Private

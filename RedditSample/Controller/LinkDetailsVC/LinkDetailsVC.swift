@@ -51,7 +51,9 @@ private extension LinkDetailsVC {
 	
 	func updateUI() {
 		if let url = link.mainImageURL {
+			Alert.shared.showProgress(true)
 			ImagesManager.sharedInstance().loadImage(for: url) { (image) in
+				Alert.shared.showProgress(false)
 				self.imageView.image = image
 			}
 		}
