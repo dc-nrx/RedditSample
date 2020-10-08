@@ -30,8 +30,8 @@ class LinkCell: UITableViewCell {
 	/// Link image
 	@IBOutlet private var linkImageView: UIImageView!
 	@IBOutlet private var imageHeightConstraint: NSLayoutConstraint!
-	/// `ups` - `downs`
 	@IBOutlet private var commentsLabel: UILabel!
+	@IBOutlet private var activityIndicator: UIActivityIndicatorView!
 	
 }
 
@@ -64,11 +64,14 @@ private extension LinkCell {
 		}
 		else {
 			self.updateImage(nil)
+			activityIndicator.startAnimating()
 			ImagesManager.sharedInstance().loadImage(for: url) { [weak self] (image) in
 				// link could've changed at this point
 				guard let `self` = self,
 					  self.link.thumbLink == url else { return }
 				self.updateImage(image)
+				self.activityIndicator.stopAnimating()
+				
 				self.delegate?.linkCellImageChanged(self)
 			}
 		}

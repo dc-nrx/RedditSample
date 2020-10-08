@@ -27,20 +27,20 @@
         <scene sceneID="oZk-qd-Ylo">
             <objects>
                 <tableViewController restorationIdentifier="TopLinksVC" title="Top Links" id="oeo-fl-CpF" customClass="TopLinksVC" customModule="RedditSample" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" id="FEs-bd-kiE">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" id="FEs-bd-kiE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="linkCell" id="htJ-CR-vSh" customClass="LinkCell" customModule="RedditSample" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="181"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="313"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="htJ-CR-vSh" id="sTh-LM-nea">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="181"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="313"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cps-fU-JMd">
-                                            <rect key="frame" x="20" y="11" width="355" height="159"/>
+                                            <rect key="frame" x="20" y="11" width="355" height="291"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fb-c5-eJ2">
                                                     <rect key="frame" x="0.0" y="0.0" width="355" height="17"/>
@@ -67,11 +67,17 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="aRR-uR-xSG">
+                                                    <rect key="frame" x="0.0" y="78.5" width="355" height="120"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="120" id="1ju-Ct-gDZ"/>
+                                                    </constraints>
+                                                </activityIndicatorView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tdP-Mg-d6t">
-                                                    <rect key="frame" x="0.0" y="78.5" width="355" height="55.5"/>
+                                                    <rect key="frame" x="0.0" y="206.5" width="355" height="59.5"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-sD-o2C">
-                                                    <rect key="frame" x="0.0" y="142" width="355" height="17"/>
+                                                    <rect key="frame" x="0.0" y="274" width="355" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="gmc-7q-bee"/>
                                                         <constraint firstAttribute="height" constant="17" id="i1t-pP-cxz"/>
@@ -91,6 +97,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="aRR-uR-xSG" id="we8-Y7-trp"/>
                                     <outlet property="commentsLabel" destination="QoX-sD-o2C" id="la2-Cb-KLy"/>
                                     <outlet property="linkImageView" destination="tdP-Mg-d6t" id="YN5-Vf-cVX"/>
                                     <outlet property="subredditNameLabel" destination="8fb-c5-eJ2" id="Rw0-qg-Vte"/>
