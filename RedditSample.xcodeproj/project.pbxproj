@@ -601,7 +601,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dc.RedditSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dc.RedditSample2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RedditSample/RedditSample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -623,7 +623,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dc.RedditSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dc.RedditSample2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RedditSample/RedditSample-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

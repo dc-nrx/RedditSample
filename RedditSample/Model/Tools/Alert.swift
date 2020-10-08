@@ -57,6 +57,8 @@ class Alert {
 		else {
 			progressView.removeFromSuperview()
 		}
+		
+		currentRootVC?.view.isUserInteractionEnabled = !show
 	}
 	
 	//MARK:- Private

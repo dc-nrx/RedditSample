@@ -46,6 +46,7 @@ extension LinkDetailsVC {
 	
 	@IBAction func onSaveImage(_ sender: UIButton) {
 		guard let image = imageView.image else { return }
+		
 		UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
 	}
 

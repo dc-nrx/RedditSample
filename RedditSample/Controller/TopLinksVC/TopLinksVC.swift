@@ -235,7 +235,13 @@ extension TopLinksVC: UIViewControllerRestoration {
 extension TopLinksVC: LinkCellDelegate {
 	
 	func linkCellImageChanged(_ cell: LinkCell) {
-		guard !uiUpdateInProgress else { return }
+		// Update on a high speed makes scrolling indicator behave oddly
+		let maxVelocity: CGFloat = 5
+		let scrollVelocity = tableView.panGestureRecognizer.velocity(in: tableView).y
+		print(scrollVelocity)
+		guard scrollVelocity < maxVelocity,
+			!uiUpdateInProgress else { return }
+		// Update cell heights
 		uiUpdateInProgress = true
 		tableView.beginUpdates()
 		tableView.endUpdates()
