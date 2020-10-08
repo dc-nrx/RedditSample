@@ -45,7 +45,22 @@ extension LinkDetailsVC {
 extension LinkDetailsVC {
 	
 	@IBAction func onSaveImage(_ sender: UIButton) {
-		
+		guard let image = imageView.image else { return }
+		UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+	}
+
+	//MARK: - Add image to Library
+	@objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+		if let error = error {
+			// we got back an error!
+			let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+			ac.addAction(UIAlertAction(title: "OK", style: .default))
+			present(ac, animated: true)
+		} else {
+			let ac = UIAlertController(title: "Saved!", message: "Please open \"Photos\" app to ensure that everything's fine.", preferredStyle: .alert)
+			ac.addAction(UIAlertAction(title: "OK", style: .default))
+			present(ac, animated: true)
+		}
 	}
 	
 }
