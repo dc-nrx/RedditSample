@@ -80,9 +80,9 @@ class TopLinksVC: UITableViewController {
 			if let storedListing = storedListing {
 				self?.listing = storedListing
 				self?.tableView.reloadData()
+				// Update scroll position
+				self?.tableView.scrollToRow(at: IndexPath(row: firstShownRow, section: 0), at: .top, animated: false)
 			}
-			// Update scroll position
-			self?.tableView.scrollToRow(at: IndexPath(row: firstShownRow, section: 0), at: .top, animated: false)
 			
 			self?.modelUpdateInProgress = false
 			print("\(#function) \(self!.listing.count)")
@@ -206,6 +206,10 @@ extension TopLinksVC {
 		}
 	}
 	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let detailsVC = UIStoryboard(name: "LinkDetailsVC", bundle: nil).instantiateInitialViewController() as! LinkDetailsVC
+		detailsVC.link = listing[indexPath.row]
+	}
 }
 
 extension TopLinksVC: UIViewControllerRestoration {

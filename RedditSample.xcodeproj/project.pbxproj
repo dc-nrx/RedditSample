@@ -15,6 +15,8 @@
 		433C4AED2523662500E2AFAC /* OAuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433C4AEC2523662500E2AFAC /* OAuthVC.swift */; };
 		433C4AF725236CA600E2AFAC /* OAuthVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433C4AF625236CA600E2AFAC /* OAuthVC.storyboard */; };
 		434599092524CD9A00B3779A /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434599082524CD9A00B3779A /* AccessToken.swift */; };
+		435B0EBA252F2E7300325C66 /* LinkDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B0EB9252F2E7300325C66 /* LinkDetailsVC.swift */; };
+		435B0EC2252F2F2400325C66 /* LinkDetailsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 435B0EC1252F2F2400325C66 /* LinkDetailsVC.storyboard */; };
 		435B6C5F252C9AAC0025C2EE /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C5E252C9AAC0025C2EE /* PersistentStore.swift */; };
 		435B6C64252C9BB10025C2EE /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C63252C9BB10025C2EE /* Serializable.swift */; };
 		435B6C82252DF39B0025C2EE /* ImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 435B6C80252DF39B0025C2EE /* ImagesManager.m */; };
@@ -61,6 +63,8 @@
 		433C4AEC2523662500E2AFAC /* OAuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthVC.swift; sourceTree = "<group>"; };
 		433C4AF625236CA600E2AFAC /* OAuthVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OAuthVC.storyboard; sourceTree = "<group>"; };
 		434599082524CD9A00B3779A /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
+		435B0EB9252F2E7300325C66 /* LinkDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkDetailsVC.swift; sourceTree = "<group>"; };
+		435B0EC1252F2F2400325C66 /* LinkDetailsVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LinkDetailsVC.storyboard; sourceTree = "<group>"; };
 		435B6C5E252C9AAC0025C2EE /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
 		435B6C63252C9BB10025C2EE /* Serializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
 		435B6C7F252DF39A0025C2EE /* RedditSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RedditSample-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -158,6 +162,15 @@
 			path = TopLinksVC;
 			sourceTree = "<group>";
 		};
+		435B0EB8252F2E5800325C66 /* LinkDetailsVC */ = {
+			isa = PBXGroup;
+			children = (
+				435B0EB9252F2E7300325C66 /* LinkDetailsVC.swift */,
+				435B0EC1252F2F2400325C66 /* LinkDetailsVC.storyboard */,
+			);
+			path = LinkDetailsVC;
+			sourceTree = "<group>";
+		};
 		436A1D342527567900D714F6 /* Listing */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +254,7 @@
 		43B18036251DE2ED0084817A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				435B0EB8252F2E5800325C66 /* LinkDetailsVC */,
 				433C4AF525236C9300E2AFAC /* TopLinksVC */,
 				433C4AF425236C8900E2AFAC /* RedditOAuthVC */,
 			);
@@ -362,6 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				435B0EC2252F2F2400325C66 /* LinkDetailsVC.storyboard in Resources */,
 				430FBCDC2524AC0F00B37D07 /* TopLinksVC.storyboard in Resources */,
 				43B1800E251DE2140084817A /* LaunchScreen.storyboard in Resources */,
 				433C4AF725236CA600E2AFAC /* OAuthVC.storyboard in Resources */,
@@ -405,6 +420,7 @@
 				434599092524CD9A00B3779A /* AccessToken.swift in Sources */,
 				43E05A2D25276EC10030F6A8 /* Date+Extensions.swift in Sources */,
 				433C4AE125234E3000E2AFAC /* LinkCell.swift in Sources */,
+				435B0EBA252F2E7300325C66 /* LinkDetailsVC.swift in Sources */,
 				43B18038251DE36C0084817A /* Network.swift in Sources */,
 				430FBCC1252396DE00B37D07 /* CustomTypes.swift in Sources */,
 				43B18065251E01580084817A /* Deserializable.swift in Sources */,

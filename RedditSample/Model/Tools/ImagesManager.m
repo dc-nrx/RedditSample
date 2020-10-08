@@ -29,7 +29,7 @@
 
 @implementation ImagesManager
 
-static BOOL const saveToDisk = NO;
+static BOOL const saveToDisk = YES;
 
 + (instancetype)sharedInstance
 {

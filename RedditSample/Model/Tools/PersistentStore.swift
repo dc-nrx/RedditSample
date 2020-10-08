@@ -13,7 +13,7 @@ final class PersistentStore {
 		
 		DispatchQueue.global().async {
 			// Get the url of Persons.json in document directory
-			guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+			guard let documentDirectoryUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else { return }
 			let fileUrl = documentDirectoryUrl.appendingPathComponent(filename)
 
 			// Transform array into data and save it into file
@@ -28,7 +28,7 @@ final class PersistentStore {
 	
 	static func read<T: Deserializable>(filename: String, _ completion: @escaping (T?) -> ()) {
 		// Get the url of Persons.json in document directory
-		guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+		guard let documentsDirectoryUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
 			completion(nil)
 			return
 		}
@@ -51,7 +51,6 @@ final class PersistentStore {
 				
 				completionOnMain(result)
 			} catch {
-				ErrorHandler.shared.process(error: error)
 				completionOnMain(nil)
 			}
 		}
