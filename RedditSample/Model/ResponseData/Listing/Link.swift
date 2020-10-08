@@ -14,17 +14,19 @@ struct Link: ListingItem {
 	
 	let fullname: String
 	let createdUtc: Date
+	let author: String
+	let title: String
+	let commentsCount: UInt
 	let subredditNamePrefixed: String?
-	let title: String?
-	let author: String?
 	let thumbLink: URL?
 	let previewSource: URL?
 	
 	init?(jsonDict: JSONDict) throws {
 		fullname = jsonDict["name"] as! String
 		subredditNamePrefixed = jsonDict["subreddit_name_prefixed"] as? String
-		title = jsonDict["title"] as? String
-		author = jsonDict["author"] as? String
+		author = jsonDict["author"] as! String
+		commentsCount = jsonDict["num_comments"] as? UInt ?? 0
+		title = jsonDict["title"] as! String
 		
 		let createdTstamp = jsonDict["created_utc"] as! TimeInterval
 		createdUtc = Date(timeIntervalSince1970: createdTstamp)
@@ -41,7 +43,10 @@ struct Link: ListingItem {
 		else {
 			previewSource = nil
 		}
-		
+		/// Cache the thumb
+		if let previewSource = previewSource {
+			ImagesManager.sharedInstance().loadImage(for: previewSource) { _ in }
+		}
 	}
 }
 

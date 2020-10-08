@@ -134,7 +134,7 @@ static BOOL const saveToDisk = NO;
 - (void)executeCompletionsForImageLoaderFromURLString:(NSString *)urlString withImage:(UIImage *)image
 {
 	NSMutableArray *completions = [self.completionsForImageLoaders objectForKey:urlString];
-	for (DataManagerLoadImageCompletionBlock completion in completions) {
+	for (DataManagerLoadImageCompletionBlock completion in completions.copy) {
 		completion(image);
 	}
 	

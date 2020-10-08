@@ -25,7 +25,9 @@ class TopLinksVC: UITableViewController {
 	///
 	let defaultLimit: UInt = 25
 	
-	private var updateInProgress = false
+	private var modelUpdateInProgress = false
+	
+	private var uiUpdateInProgress = false
 	
 	//MARK:- Lifecycle
 	
@@ -69,7 +71,7 @@ class TopLinksVC: UITableViewController {
 	
 	override func decodeRestorableState(with coder: NSCoder) {
 		super.decodeRestorableState(with: coder)
-		updateInProgress = true
+		modelUpdateInProgress = true
 
 		let firstShownRow = coder.decodeInteger(forKey: DataKey.firstShownRow.rawValue)
 		print("\(#function), \(String(describing: firstShownRow))")
@@ -82,7 +84,7 @@ class TopLinksVC: UITableViewController {
 			// Update scroll position
 			self?.tableView.scrollToRow(at: IndexPath(row: firstShownRow, section: 0), at: .top, animated: false)
 			
-			self?.updateInProgress = false
+			self?.modelUpdateInProgress = false
 			print("\(#function) \(self!.listing.count)")
 		}
 	}
@@ -140,8 +142,8 @@ private extension TopLinksVC {
 	/// 	append newly loaded next page to existed data otherwise.
 	///
 	func loadData(refresh: Bool = false) {
-		guard !updateInProgress else { return }
-		updateInProgress = true
+		guard !modelUpdateInProgress else { return }
+		modelUpdateInProgress = true
 		
 		// Decide whether to load the first or the next page.
 		let afterFullname = refresh ? nil : listing.after
@@ -162,7 +164,7 @@ private extension TopLinksVC {
 			
 			self?.updateUI()
 			self?.endRefreshigUI()
-			self?.updateInProgress = false
+			self?.modelUpdateInProgress = false
 		}
 	}
 	
@@ -185,6 +187,7 @@ extension TopLinksVC {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "linkCell") as! LinkCell
 		cell.link = listing[indexPath.row]
+		cell.delegate = self
 		
 		return cell
 	}
@@ -212,4 +215,17 @@ extension TopLinksVC: UIViewControllerRestoration {
 		return vc
 	}
 
+}
+
+//MARK:- Link Cell Delegate
+extension TopLinksVC: LinkCellDelegate {
+	
+	func linkCellImageChanged(_ cell: LinkCell) {
+		guard !uiUpdateInProgress else { return }
+		uiUpdateInProgress = true
+		tableView.beginUpdates()
+		tableView.endUpdates()
+		uiUpdateInProgress = false
+	}
+	
 }

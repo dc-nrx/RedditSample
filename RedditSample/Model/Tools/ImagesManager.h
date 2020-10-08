@@ -22,7 +22,7 @@ typedef void (^DataManagerLoadImageCompletionBlock) (UIImage * _Nullable image);
  * Retrieve requested image from cache.
  * @return Cached image.
  */
-- (UIImage *)getCachedImageForURL:(NSURL *)url;
+- (UIImage * _Nullable)getCachedImageForURL:(NSURL * _Nullable)url;
 
 /**
  * Retrieve requested image from cache if possible or download it first, put to cache and then execute completion.

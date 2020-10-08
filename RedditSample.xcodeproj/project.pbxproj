@@ -149,13 +149,13 @@
 			path = RedditOAuthVC;
 			sourceTree = "<group>";
 		};
-		433C4AF525236C9300E2AFAC /* RedditMainVC */ = {
+		433C4AF525236C9300E2AFAC /* TopLinksVC */ = {
 			isa = PBXGroup;
 			children = (
 				43B18005251DE2120084817A /* TopLinksVC.swift */,
 				430FBCDB2524AC0F00B37D07 /* TopLinksVC.storyboard */,
 			);
-			path = RedditMainVC;
+			path = TopLinksVC;
 			sourceTree = "<group>";
 		};
 		436A1D342527567900D714F6 /* Listing */ = {
@@ -241,7 +241,7 @@
 		43B18036251DE2ED0084817A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				433C4AF525236C9300E2AFAC /* RedditMainVC */,
+				433C4AF525236C9300E2AFAC /* TopLinksVC */,
 				433C4AF425236C8900E2AFAC /* RedditOAuthVC */,
 			);
 			path = Controller;

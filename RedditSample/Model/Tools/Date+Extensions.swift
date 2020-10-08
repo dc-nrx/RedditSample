@@ -16,4 +16,9 @@ extension Date {
 		return formatter.string(from: self)
 	}
 	
+	var agoString: String {
+		let formatter = RelativeDateTimeFormatter()
+		formatter.unitsStyle = .full
+		return formatter.localizedString(for: self, relativeTo: Date())
+	}
 }
