@@ -7,14 +7,27 @@
 
 import Foundation
 
+///
+/// Used to store data between app launches.
+/// In the current project used for state restoration only.
+///
 final class PersistentStore {
 	
+	///
+	/// Specify here the desired directory.
+	/// The most common options are `.documentDirectory` (to ensure persistance) or `.cachesDirectory` (to allow cleanup by the system)
+	///
+	static let directory: FileManager.SearchPathDirectory = .documentDirectory
+	
+	///
+	/// Write a serializable object on specified path.
+	///
 	static func write(_ item: Serializable, filename: String) {
 		
 		DispatchQueue.global().async {
 			// Get the url of Persons.json in document directory
-			guard let documentDirectoryUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else { return }
-			let fileUrl = documentDirectoryUrl.appendingPathComponent(filename)
+			guard let directoryURL = FileManager.default.urls(for: directory, in: .userDomainMask).first else { return }
+			let fileUrl = directoryURL.appendingPathComponent(filename)
 
 			// Transform array into data and save it into file
 			do {
@@ -25,10 +38,13 @@ final class PersistentStore {
 			}
 		}
 	}
-	
+
+	///
+	/// Read an object from specified path; errors (e.g. `no such file`) are handled sofly by passing `nil` in the completion block.
+	///
 	static func read<T: Deserializable>(filename: String, _ completion: @escaping (T?) -> ()) {
 		// Get the url of Persons.json in document directory
-		guard let documentsDirectoryUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+		guard let documentsDirectoryUrl = FileManager.default.urls(for: directory, in: .userDomainMask).first else {
 			completion(nil)
 			return
 		}
