@@ -106,7 +106,7 @@ private extension Session {
 	func authentificate(_ callback: @escaping OptionalErrorCallback) {
 		clear()
 		
-		let authVC = UIStoryboard(name: "OAuthVC", bundle: nil).instantiateInitialViewController() as! OAuthVC
+		let authVC = OAuthVC.loadFromStoryboard()!
 		authVC.authFinishedCallback = { [weak authVC] (code, error) in
 			authVC?.presentingViewController?.dismiss(animated: true, completion: nil)
 			self.accessCodeRecieved(code!, callback: callback)

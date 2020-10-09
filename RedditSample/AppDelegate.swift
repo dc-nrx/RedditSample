@@ -27,8 +27,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		true
 	}
 	
-//	func application(_ application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
-//		return UIStoryboard(name: identifierComponents.first!, bundle: nil).instantiateInitialViewController()
-//	}
 }
 

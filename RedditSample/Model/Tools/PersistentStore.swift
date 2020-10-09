@@ -17,7 +17,7 @@ final class PersistentStore {
 	/// Specify here the desired directory.
 	/// The most common options are `.documentDirectory` (to ensure persistance) or `.cachesDirectory` (to allow cleanup by the system)
 	///
-	static let directory: FileManager.SearchPathDirectory = .documentDirectory
+	static let directory: FileManager.SearchPathDirectory = .cachesDirectory
 	
 	///
 	/// Write a serializable object on specified path.

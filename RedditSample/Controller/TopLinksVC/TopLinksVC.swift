@@ -226,14 +226,14 @@ extension TopLinksVC {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let detailsVC = UIStoryboard(name: "LinkDetailsVC", bundle: nil).instantiateInitialViewController() as! LinkDetailsVC
+		let detailsVC = LinkDetailsVC.loadFromStoryboard()! 
 		detailsVC.link = listing[indexPath.row]
 		navigationController?.pushViewController(detailsVC, animated: true)
 	}
 }
 
 extension TopLinksVC: UIViewControllerRestoration {
-	
+
 	static func viewController(withRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
 		let vc = TopLinksVC()
 		return vc
@@ -245,12 +245,6 @@ extension TopLinksVC: UIViewControllerRestoration {
 extension TopLinksVC: LinkCellDelegate {
 	
 	func linkCellImageChanged(_ cell: LinkCell) {
-		// Update on a high speed makes scrolling indicator behave oddly
-		let maxVelocity: CGFloat = 5
-		let scrollVelocity = tableView.panGestureRecognizer.velocity(in: tableView).y
-		print(scrollVelocity)
-		guard scrollVelocity < maxVelocity,
-			!uiUpdateInProgress else { return }
 		// Update cell heights
 		uiUpdateInProgress = true
 		tableView.beginUpdates()
