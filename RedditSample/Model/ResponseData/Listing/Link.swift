@@ -33,10 +33,6 @@ struct Link: Mappable {
 		
 		let urlString = jsonDict["thumbnail"] as? String
 		thumbLink = URL(string: urlString ?? "")
-		/// Cache the thumb
-		if let thumbLink = thumbLink {
-			ImagesManager.sharedInstance().loadImage(for: thumbLink) { _ in }
-		}
 		
 		if let url = jsonDict["url_overridden_by_dest"] as? String {
 			mainImageURL = URL(string: url)

@@ -126,12 +126,14 @@ private extension Network {
 	/// Try to refresh the token and resend the request once again in success case.
 	///
 	func handleTokenExpired(initialRequest: API, completion: @escaping NetworkCallback) {
-		Session.shared.refreshToken { [weak self] error in
-			if let error = error {
-				DispatchQueue.onMain { completion(nil, .generic(error)) }
-			}
-			else {
-				self?.request(initialRequest, completion: completion)
+		DispatchQueue.onMain {
+			Session.shared.refreshToken { [weak self] error in
+				if let error = error {
+					completion(nil, .generic(error))
+				}
+				else {
+					self?.request(initialRequest, completion: completion)
+				}
 			}
 		}
 	}

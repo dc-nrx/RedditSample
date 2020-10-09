@@ -103,6 +103,8 @@ private extension Session {
 		clear()
 		
 		let authVC = OAuthVC.loadFromStoryboard()!
+		let navigationWrapper = UINavigationController(rootViewController: authVC)
+		
 		authVC.authFinishedCallback = { [weak authVC] (code, error) in
 			authVC?.presentingViewController?.dismiss(animated: true) {
 				if let accessCode = code {
@@ -115,7 +117,7 @@ private extension Session {
 			}
 		}
 		
-		Alert.shared.show(controller: authVC)
+		Alert.shared.show(controller: navigationWrapper)
 	}
 	
 	///

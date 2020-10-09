@@ -35,11 +35,6 @@ class TopLinksVC: UITableViewController {
 	private var modelUpdateInProgress = false
 	
 	///
-	/// Needed to void redundant table view updated on cells height change
-	///
-	private var uiUpdateInProgress = false
-	
-	///
 	/// A sentinel value for "no open row" case to store in coder under `DataKey.openedRow` key.
 	///
 	private let kNoOpenRowSentinelValue: Int = -1
