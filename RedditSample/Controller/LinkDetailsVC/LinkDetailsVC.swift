@@ -22,6 +22,8 @@ class LinkDetailsVC: UIViewController {
 		}
 	}
 	
+	private var photosAccessDenied: Bool { PHPhotoLibrary.authorizationStatus(for: .addOnly) == .denied }
+	
 	//MARK:- Outlets
 	@IBOutlet private var imageView: UIImageView!
 	@IBOutlet private var titleLabel: UILabel!
@@ -40,24 +42,15 @@ extension LinkDetailsVC {
 	
 	@IBAction func onSaveImage(_ sender: UIButton) {
 		guard let image = imageView.image else { return }
-		if PHPhotoLibrary.authorizationStatus(for: .addOnly) == .denied {
-			Alert.shared.show(title: "Access denied", message: "Please enable access in system preferences")
-		}
-		else {
-			UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-		}
+		UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
 	}
 
 	@objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
 		if let error = error {
-			// we got back an error!
-			let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-			ac.addAction(UIAlertAction(title: "OK", style: .default))
-			present(ac, animated: true)
+			let message: String = photosAccessDenied ? "Please enable access in system preferences" : error.localizedDescription
+			Alert.shared.show(title: "Save error", message: message)
 		} else {
-			let ac = UIAlertController(title: "Saved!", message: "Please open \"Photos\" app to ensure that everything's fine.", preferredStyle: .alert)
-			ac.addAction(UIAlertAction(title: "OK", style: .default))
-			present(ac, animated: true)
+			Alert.shared.show(title: "Saved!", message: "Please open \"Photos\" app to ensure that everything's fine.")
 		}
 	}
 	
