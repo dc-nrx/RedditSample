@@ -8,14 +8,24 @@
 import Foundation
 import UIKit
 
+///
+/// A helper class to show alerts & loaders.
+/// All the things are shown over the current root vc (see `currentRootVC`).
+///
 class Alert {
 	
+	///
+	/// Extend it to support alerts with action(s)
+	///
 	enum Actions {
 		case none
 	}
 
 	static let shared = Alert()
 	
+	///
+	/// An overlay progress view
+	///
 	private let progressView: UIView = {
 		let result = UIView()
 		result.backgroundColor = UIColor(white: 0, alpha: 0.2)
@@ -33,6 +43,10 @@ class Alert {
 	private init() { }
 		
 	//MARK:- Public
+	
+	///
+	/// Show an alert
+	///
 	func show(title: String?, message: String?, actions: Actions = .none) {
 		let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		
@@ -44,10 +58,16 @@ class Alert {
 		show(controller: alertVC)
 	}
 	
+	///
+	/// Show a custom controller in a popover
+	///
 	func show(controller: UIViewController) {
 		self.currentRootVC?.present(controller, animated: true, completion: nil)
 	}
 	
+	///
+	/// Show / hide a progress view (completelly blocks user interations)
+	///
 	func showProgress(_ show: Bool) {
 		if show,
 		   let currentRootVC = currentRootVC {
