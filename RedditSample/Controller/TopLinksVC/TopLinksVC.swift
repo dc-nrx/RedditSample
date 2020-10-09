@@ -148,20 +148,19 @@ private extension TopLinksVC {
 			
 	///
 	/// Load the next / initial page
-	/// - Parameter refresh: If `true`, rewrite existed data newly loaded first page;
-	/// 	append newly loaded next page to existed data otherwise.
+	/// - Parameter refresh: If `true`, rewrite existed data with a newly loaded first page;
+	/// 	otherwise append a newly loaded next page to the existed data.
 	///
 	func loadData(refresh: Bool = false) {
 		guard !modelUpdateInProgress else { return }
 		modelUpdateInProgress = true
-		
-		// Decide whether to load the first or the next page.
-		let afterFullname = refresh ? nil : listing.after
-		
-		let showProgress = listing.count == 0
+		// Show progress only for initial load & without manual refresh
+		let showProgress = listing.count == 0 && !tableView.refreshControl!.isRefreshing
 		if showProgress {
 			Alert.shared.showProgress(true)
 		}
+		// Decide whether to load the first or the next page.
+		let afterFullname = refresh ? nil : listing.after
 		
 		let request = API.topFeed(afterFullname: afterFullname, limit: defaultLimit, count: UInt(listing.count))
 		Network.shared.request(request) { [weak self] (json, error) in
@@ -187,17 +186,10 @@ private extension TopLinksVC {
 		}
 	}
 	
-	func loadSavedData() {
-		
-	}
 }
 
 //MARK:- Table View Data Source
 extension TopLinksVC {
-	
-	override func numberOfSections(in tableView: UITableView) -> Int {
-		1
-	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		listing.count
