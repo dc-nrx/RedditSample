@@ -132,12 +132,18 @@ private extension Session {
 		
 	//MARK:- Token
 	///
-	/// Call this function to get a token after receiving a valid access code
+	/// Call this function to get a token after receiving a valid access code.
+	/// If `accessCode` is empty, falls back
 	///
 	func getToken(_ callback: @escaping OptionalErrorCallback) {
+		guard let accessCodeValue = accessCode.value else {
+			authentificate(callback)
+			return
+		}
+		
 		Network.shared.request(.accessToken(
 								grantType:"authorization_code",
-								code: accessCode.value!,
+								code: accessCodeValue,
 								refreshToken:nil)
 		) { [weak self] (json, error) in
 			switch error {
