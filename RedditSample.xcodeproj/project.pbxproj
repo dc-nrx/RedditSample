@@ -148,13 +148,13 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		433C4AF425236C8900E2AFAC /* RedditOAuthVC */ = {
+		433C4AF425236C8900E2AFAC /* OAuthVC */ = {
 			isa = PBXGroup;
 			children = (
 				433C4AEC2523662500E2AFAC /* OAuthVC.swift */,
 				433C4AF625236CA600E2AFAC /* OAuthVC.storyboard */,
 			);
-			path = RedditOAuthVC;
+			path = OAuthVC;
 			sourceTree = "<group>";
 		};
 		433C4AF525236C9300E2AFAC /* TopLinksVC */ = {
@@ -260,7 +260,7 @@
 			children = (
 				435B0EB8252F2E5800325C66 /* LinkDetailsVC */,
 				433C4AF525236C9300E2AFAC /* TopLinksVC */,
-				433C4AF425236C8900E2AFAC /* RedditOAuthVC */,
+				433C4AF425236C8900E2AFAC /* OAuthVC */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

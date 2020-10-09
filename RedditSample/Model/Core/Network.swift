@@ -41,9 +41,7 @@ final class Network {
 		return result
 	}()
 	
-	private init() {
-		
-	}
+	private init() { }
 
 }
 

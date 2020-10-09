@@ -33,16 +33,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="linkCell" id="htJ-CR-vSh" customClass="LinkCell" customModule="RedditSample" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="318"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="374"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="htJ-CR-vSh" id="sTh-LM-nea">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="318"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="374"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cps-fU-JMd">
-                                            <rect key="frame" x="20" y="11" width="355" height="296"/>
+                                        <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cps-fU-JMd">
+                                            <rect key="frame" x="20" y="11" width="355" height="352"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fb-c5-eJ2">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fb-c5-eJ2">
                                                     <rect key="frame" x="0.0" y="0.0" width="355" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="bmx-mL-3Q9"/>
@@ -52,13 +52,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uS3-Qm-pAm">
-                                                    <rect key="frame" x="0.0" y="25" width="355" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="25" width="355" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYP-HP-P51">
-                                                    <rect key="frame" x="0.0" y="53.5" width="355" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYP-HP-P51">
+                                                    <rect key="frame" x="0.0" y="54" width="355" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="0pT-wg-Tef"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="Tlp-QF-fTG"/>
@@ -68,16 +68,19 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="aRR-uR-xSG">
-                                                    <rect key="frame" x="0.0" y="78.5" width="355" height="120"/>
+                                                    <rect key="frame" x="0.0" y="79" width="355" height="120"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="120" id="1ju-Ct-gDZ"/>
                                                     </constraints>
                                                 </activityIndicatorView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tdP-Mg-d6t">
-                                                    <rect key="frame" x="0.0" y="206.5" width="355" height="64.5"/>
+                                                    <rect key="frame" x="0.0" y="207" width="355" height="120"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="120" id="Ac0-i5-EAD"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-sD-o2C">
-                                                    <rect key="frame" x="0.0" y="279" width="355" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-sD-o2C">
+                                                    <rect key="frame" x="0.0" y="335" width="355" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="gmc-7q-bee"/>
                                                         <constraint firstAttribute="height" constant="17" id="i1t-pP-cxz"/>

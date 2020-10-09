@@ -227,7 +227,6 @@ extension TopLinksVC {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "linkCell") as! LinkCell
 		cell.link = listing[indexPath.row]
-		cell.delegate = self
 		
 		return cell
 	}
@@ -249,17 +248,4 @@ extension TopLinksVC {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		openLinkDetails(link: listing[indexPath.row])
 	}
-}
-
-//MARK:- Link Cell Delegate
-extension TopLinksVC: LinkCellDelegate {
-	
-	func linkCellImageChanged(_ cell: LinkCell) {
-		guard !uiUpdateInProgress else { return }
-		uiUpdateInProgress = true
-		// Update cell heights
-		tableView.performBatchUpdates(nil, completion: nil)
-		uiUpdateInProgress = false
-	}
-	
 }

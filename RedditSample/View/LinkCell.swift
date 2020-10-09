@@ -8,14 +8,8 @@
 import Foundation
 import UIKit
 
-protocol LinkCellDelegate: AnyObject {
-	func linkCellImageChanged(_ cell: LinkCell)
-}
-
 class LinkCell: UITableViewCell {
-	
-	weak var delegate: LinkCellDelegate?
-	
+		
 	//MARK:- Public Members
 	var link: Link! {
 		didSet {
@@ -48,11 +42,6 @@ extension LinkCell {
 		handleImage()
 	}
 	
-	override func prepareForReuse() {
-		super.prepareForReuse()
-		
-		self.activityIndicator.stopAnimating()
-	}
 }
 
 //MARK:- Private
@@ -63,28 +52,32 @@ private extension LinkCell {
 			self.updateImage(nil)
 			return
 		}
-		
 		if let cachedImage = ImagesManager.sharedInstance().getCachedImage(for: url) {
 			self.updateImage(cachedImage)
 		}
 		else {
-			self.updateImage(nil)
-			activityIndicator.startAnimating()
+			self.updateImage(nil, loadingInProgress: true)
 			ImagesManager.sharedInstance().loadImage(for: url) { [weak self] (image) in
 				// link could've changed at this point
 				guard let `self` = self,
 					  self.link.thumbLink == url else { return }
 				self.updateImage(image)
 				self.activityIndicator.stopAnimating()
-				
-				self.delegate?.linkCellImageChanged(self)
 			}
 		}
 	}
 	
-	func updateImage(_ image: UIImage?) {
+	func updateImage(_ image: UIImage?, loadingInProgress: Bool = false) {
 		self.linkImageView?.image = image
 		self.linkImageView.isHidden = (image == nil)
+		
+		if loadingInProgress {
+			activityIndicator.startAnimating()
+		}
+		else {
+			activityIndicator.stopAnimating()
+		}
+		
 	}
 	
 }
