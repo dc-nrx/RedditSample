@@ -10,9 +10,13 @@ import UIKit
 
 class TopLinksVC: UITableViewController {
 
+	///
+	/// Keys for persistant data storage (both in persistant store & via NSCoder)
+	///
 	private enum DataKey: String {
 		case listing = "TopLinksVC_listing_cache.json"
 		case firstShownRow = "TopLinksVC.firstShownIndexPath"
+		case openedLink = "TopLinksVC.openedLinkFullname"
 	}
 		
 	///
@@ -25,8 +29,14 @@ class TopLinksVC: UITableViewController {
 	///
 	let defaultLimit: UInt = 25
 	
+	///
+	/// Needed to avoid redundant requests & conflicts between updates from persistant store / backend
+	///
 	private var modelUpdateInProgress = false
 	
+	///
+	/// Needed to void redundant table view updated on cells height change
+	///
 	private var uiUpdateInProgress = false
 	
 	//MARK:- Lifecycle

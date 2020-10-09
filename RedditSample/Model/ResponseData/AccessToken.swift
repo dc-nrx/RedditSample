@@ -11,9 +11,6 @@ struct AccessToken: Deserializable {
 	
 	let token: String
 	let refreshToken: String?
-//	let type: String
-//	let expiresIn: TimeInterval
-//	let scope: String
 	
 	init?(jsonDict: JSONDict) throws {
 		token = jsonDict["access_token"] as! String

@@ -1,17 +1,25 @@
 //
-//  ResponseData.swift
+//  Serializable.swift
 //  RedditSample
 //
-//  Created by Dmytro Chapovskyi on 25.09.2020.
+//  Created by Dmytro Chapovskyi on 06.10.2020.
 //
 
 import Foundation
 
+typealias Mappable = Deserializable & Serializable
+
+//MARK:-
+protocol Serializable {
+	
+	var json: JSONDict { get }
+}
+
+//MARK:-
 protocol Deserializable {
 	
 	init?(jsonData: Data) throws
 	init?(jsonDict: JSONDict) throws
-
 }
 
 extension Deserializable {
@@ -24,5 +32,4 @@ extension Deserializable {
 		
 		try self.init(jsonDict: jsonDict)
 	}
-	
 }

@@ -6,7 +6,11 @@
 //
 
 import Foundation
+import Photos
 
+///
+/// Link details; current implemetation contains only title, image & ability to save the image into the photos library.
+///
 class LinkDetailsVC: UIViewController {
 
 	//MARK:- Public Members
@@ -46,11 +50,14 @@ extension LinkDetailsVC {
 	
 	@IBAction func onSaveImage(_ sender: UIButton) {
 		guard let image = imageView.image else { return }
-		
-		UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+		if PHPhotoLibrary.authorizationStatus(for: .addOnly) == .denied {
+			Alert.shared.show(title: "Access denied", message: "Please enable access in system preferences")
+		}
+		else {
+			UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+		}
 	}
 
-	//MARK: - Add image to Library
 	@objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
 		if let error = error {
 			// we got back an error!

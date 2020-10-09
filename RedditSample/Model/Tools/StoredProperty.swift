@@ -9,7 +9,7 @@
 import Foundation
 
 ///
-/// Use this to
+/// A convenience class to store/retrieve stuff in UserDefaults
 ///
 class StoredProperty<T> {
 	

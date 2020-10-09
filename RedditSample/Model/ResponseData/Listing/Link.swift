@@ -10,7 +10,7 @@ import Foundation
 ///
 /// Corresponds to a "Link"(t3_) listing type.
 ///
-struct Link: ListingItem {
+struct Link: Mappable {
 	
 	let fullname: String
 	let createdUtc: Date

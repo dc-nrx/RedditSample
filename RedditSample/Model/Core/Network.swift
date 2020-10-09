@@ -9,6 +9,9 @@ import Foundation
 
 typealias NetworkCallback = (JSONDict?, NetworkError?) -> ()
 
+///
+/// Custom errors
+///
 enum NetworkError: Error {
 	case unexpectedResponseObject
 	case reddit(RedditError)
@@ -23,7 +26,6 @@ enum RedditError: String, Error {
 	case invalid_grant
 	case unknown
 }
-
 
 ///
 /// The single point to send requests
@@ -50,9 +52,12 @@ extension Network {
 	
 	///
 	/// Expected responses are either empty or JSON
+	/// - parameter request: A request to execute (see `API` to add new / change existed requests).
+	/// - parameter completion: A completion block; always runs on the main thread.
 	///
 	func request(_ request: API, completion: @escaping NetworkCallback) {
 		
+		// Add a convenience wrapper (completion should be run on the main thread)
 		let completionOnMain: NetworkCallback = { (data, error) in
 			DispatchQueue.main.async { completion(data, error) }
 		}
@@ -79,7 +84,7 @@ extension Network {
 				return
 			}
 			
-			// Parse response (already in background)
+			// Parse response (already in the background)
 			if data == nil {
 				completionOnMain(nil, nil)
 			}
@@ -111,6 +116,9 @@ extension Network {
 //MARK:- Private
 private extension Network {
 	
+	///
+	/// Check whether we've got a token expired error which should be handeled in a special way (see `handleTokenExpired...`)
+	///
 	func isTokenExpiredCase(httpResponse: HTTPURLResponse) -> Bool {
 		// Could be at least 401 & 403
 		return (400..<500).contains(httpResponse.statusCode)
