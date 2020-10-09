@@ -15,7 +15,7 @@ final class ErrorHandler {
 
 	//MARK:- Public
 	
-	func process(error: Error?) {
+	func process(_ error: Error?) {
 		var message: String
 		if let localizedError = error as? LocalizedError {
 			message = localizedError.localizedDescription

@@ -63,7 +63,7 @@ final class Alert {
 	/// Show a custom controller in a popover
 	///
 	func show(controller: UIViewController) {
-		DispatchQueue.asyncOnMainIfNeeded {
+		DispatchQueue.onMain {
 			self.currentRootVC?.present(controller, animated: true, completion: nil)
 		}
 	}
@@ -72,7 +72,7 @@ final class Alert {
 	/// Show / hide a progress view (completelly blocks user interations)
 	///
 	func showProgress(_ show: Bool) {
-		DispatchQueue.asyncOnMainIfNeeded {
+		DispatchQueue.onMain {
 			if show,
 			   let currentRootVC = self.currentRootVC {
 				self.progressView.frame = currentRootVC.view.bounds

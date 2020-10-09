@@ -173,7 +173,7 @@ private extension TopLinksVC {
 				self?.listing.append(listing)
 			}
 			else {
-				ErrorHandler.shared.process(error: error ?? NetworkError.unexpectedResponseObject)
+				ErrorHandler.shared.process(error ?? NetworkError.unexpectedResponseObject)
 			}
 			
 			self?.updateUI()

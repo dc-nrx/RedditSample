@@ -25,16 +25,14 @@ final class PersistentStore {
 	static func write(_ item: Serializable, filename: String) {
 		
 		DispatchQueue.global().async {
-			// Get the url of Persons.json in document directory
 			guard let directoryURL = FileManager.default.urls(for: directory, in: .userDomainMask).first else { return }
 			let fileUrl = directoryURL.appendingPathComponent(filename)
 
-			// Transform array into data and save it into file
 			do {
 				let data = try JSONSerialization.data(withJSONObject: item.json, options: [])
 				try data.write(to: fileUrl, options: [])
 			} catch {
-				ErrorHandler.shared.process(error: error)
+				ErrorHandler.shared.process(error)
 			}
 		}
 	}
@@ -43,7 +41,7 @@ final class PersistentStore {
 	/// Read an object from specified path; errors (e.g. `no such file`) are handled sofly by passing `nil` in the completion block.
 	///
 	static func read<T: Deserializable>(filename: String, _ completion: @escaping (T?) -> ()) {
-		// Get the url of Persons.json in document directory
+
 		guard let documentsDirectoryUrl = FileManager.default.urls(for: directory, in: .userDomainMask).first else {
 			completion(nil)
 			return
@@ -51,7 +49,7 @@ final class PersistentStore {
 		let fileUrl = documentsDirectoryUrl.appendingPathComponent(filename)
 
 		let completionOnMain: ((T?) -> ()) = { (result: T?) in
-			DispatchQueue.main.async {
+			DispatchQueue.onMain {
 				completion(result)
 			}
 		}

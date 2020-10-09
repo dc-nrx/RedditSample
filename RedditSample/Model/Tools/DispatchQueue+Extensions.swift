@@ -9,7 +9,10 @@ import Foundation
 
 extension DispatchQueue {
 	
-	static func asyncOnMainIfNeeded(_ block: @escaping ()->()) {
+	///
+	/// Execute `block` on the main thread (either sync if already on the main, or async if not)
+	///
+	static func onMain(_ block: @escaping ()->()) {
 		if Thread.isMainThread {
 			block()
 		}

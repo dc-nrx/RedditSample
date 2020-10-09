@@ -74,7 +74,7 @@ final class Session {
 				self?.tokenResponseReceived(json)
 			}
 			else {
-				ErrorHandler.shared.process(error: error)
+				ErrorHandler.shared.process(error)
 			}
 			
 			callback(error)

@@ -66,7 +66,7 @@ extension Network {
 			
 			// Handle standard errors
 			if let error = error {
-				DispatchQueue.main.async { completion(nil, .generic(error)) }
+				completionOnMain(nil, .generic(error))
 				return
 			}
 			
@@ -79,7 +79,7 @@ extension Network {
 				}
 				else {
 					// Regular case
-					DispatchQueue.main.async { completionOnMain(nil, .http(response as? HTTPURLResponse)) }
+					completionOnMain(nil, .http(response as? HTTPURLResponse))
 				}
 				return
 			}
@@ -120,7 +120,7 @@ private extension Network {
 	/// Check whether we've got a token expired error which should be handeled in a special way (see `handleTokenExpired...`)
 	///
 	func isTokenExpiredCase(httpResponse: HTTPURLResponse) -> Bool {
-		// Could be at least 401 & 403
+		// Could be at least 401 & 403 (no docs, so just guessing)
 		return (400..<500).contains(httpResponse.statusCode)
 	}
 	
@@ -130,7 +130,7 @@ private extension Network {
 	func handleTokenExpired(initialRequest: API, completion: @escaping NetworkCallback) {
 		Session.shared.refreshToken { [weak self] error in
 			if let error = error {
-				completion(nil, .generic(error))
+				DispatchQueue.onMain { completion(nil, .generic(error)) }
 			}
 			else {
 				self?.request(initialRequest, completion: completion)
