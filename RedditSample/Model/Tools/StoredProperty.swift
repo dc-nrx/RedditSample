@@ -11,7 +11,7 @@ import Foundation
 ///
 /// A convenience class to store/retrieve stuff in UserDefaults
 ///
-class StoredProperty<T> {
+final class StoredProperty<T> {
 	
 	let key: String
 	let userDefaults: UserDefaults

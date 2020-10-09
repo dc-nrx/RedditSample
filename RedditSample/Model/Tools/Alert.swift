@@ -12,7 +12,7 @@ import UIKit
 /// A helper class to show alerts & loaders.
 /// All the things are shown over the current root vc (see `currentRootVC`).
 ///
-class Alert {
+final class Alert {
 	
 	///
 	/// Extend it to support alerts with action(s)

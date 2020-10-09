@@ -15,7 +15,7 @@ protocol Target {
 	///
 	/// Http header entries
 	///
-	var httpHeader: [String: String] { get }
+	var httpHeaders: [String: String] { get }
 	
 	///
 	/// The base URL to append the `path` to.
@@ -63,21 +63,15 @@ extension Target {
 		let noParameterUrlString = baseURLString.appending(path)
 		// Intentional force unwrap (same logic as with outlets)
 		var components = URLComponents(string: noParameterUrlString)!
-		
-		if query != nil {
-			components.queryItems = query
-			components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-			return components.url!
-		}
-		else {
-			return URL(string: noParameterUrlString)!
-		}
+		components.queryItems = query
+		components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+		return components.url!
 	}
 	
 	var urlRequest: URLRequest {
 		var result = URLRequest(url: url)
 		result.httpBody = body
-		result.allHTTPHeaderFields = httpHeader
+		result.allHTTPHeaderFields = httpHeaders
 		switch method {
 		case .get:
 			result.httpMethod = "GET"

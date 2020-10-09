@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ErrorHandler {
+final class ErrorHandler {
 	
 	static let shared = ErrorHandler()
 	
