@@ -10,7 +10,7 @@
         <!--Navigation Controller-->
         <scene sceneID="gBy-iz-P5b">
             <objects>
-                <navigationController id="7eV-Po-2mn" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="TopLinksNavigationVC" id="7eV-Po-2mn" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0DL-Oh-QcG">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -33,14 +33,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="linkCell" id="htJ-CR-vSh" customClass="LinkCell" customModule="RedditSample" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="316.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="318"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="htJ-CR-vSh" id="sTh-LM-nea">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="316.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="318"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cps-fU-JMd">
-                                            <rect key="frame" x="20" y="11" width="355" height="294.5"/>
+                                            <rect key="frame" x="20" y="11" width="355" height="296"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fb-c5-eJ2">
                                                     <rect key="frame" x="0.0" y="0.0" width="355" height="17"/>
@@ -74,10 +74,10 @@
                                                     </constraints>
                                                 </activityIndicatorView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tdP-Mg-d6t">
-                                                    <rect key="frame" x="0.0" y="206.5" width="355" height="63"/>
+                                                    <rect key="frame" x="0.0" y="206.5" width="355" height="64.5"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-sD-o2C">
-                                                    <rect key="frame" x="0.0" y="277.5" width="355" height="17"/>
+                                                    <rect key="frame" x="0.0" y="279" width="355" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="gmc-7q-bee"/>
                                                         <constraint firstAttribute="height" constant="17" id="i1t-pP-cxz"/>

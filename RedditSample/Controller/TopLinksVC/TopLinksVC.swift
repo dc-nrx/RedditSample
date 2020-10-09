@@ -224,15 +224,6 @@ extension TopLinksVC {
 	}
 }
 
-extension TopLinksVC: UIViewControllerRestoration {
-
-	static func viewController(withRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
-		let vc = TopLinksVC()
-		return vc
-	}
-
-}
-
 //MARK:- Link Cell Delegate
 extension TopLinksVC: LinkCellDelegate {
 	
