@@ -21,28 +21,18 @@ class LinkDetailsVC: UIViewController {
 			}
 		}
 	}
-	//MARK:- Private Members
 	
 	//MARK:- Outlets
 	@IBOutlet private var imageView: UIImageView!
 	@IBOutlet private var titleLabel: UILabel!
 	@IBOutlet private var saveImageButton: UIButton!
-}
 
-//MARK:- Public
-extension LinkDetailsVC {
-	
-}
-
-//MARK:- Life Cycle
-extension LinkDetailsVC {
-	
+	//MARK:- Life Cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		updateUI()
 	}
-	
 }
 
 //MARK:- Actions
@@ -96,9 +86,3 @@ private extension LinkDetailsVC {
 		saveImageButton.isEnabled = (imageView.image != nil)
 	}
 }
-
-////MARK:- Protocols
-////MARK:-
-//extension LinkDetailsVC:  {
-//
-//}
