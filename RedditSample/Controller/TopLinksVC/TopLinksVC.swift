@@ -228,8 +228,9 @@ extension TopLinksVC {
 extension TopLinksVC: LinkCellDelegate {
 	
 	func linkCellImageChanged(_ cell: LinkCell) {
-		// Update cell heights
+		guard !uiUpdateInProgress else { return }
 		uiUpdateInProgress = true
+		// Update cell heights
 		tableView.performBatchUpdates(nil, completion: nil)
 		uiUpdateInProgress = false
 	}
