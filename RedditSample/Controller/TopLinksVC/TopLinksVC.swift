@@ -16,18 +16,18 @@ class TopLinksVC: UITableViewController {
 	private enum DataKey: String {
 		case listing = "TopLinksVC_listing_cache.json"
 		case firstShownRow = "TopLinksVC.firstShownIndexPath"
-		case openedLink = "TopLinksVC.openedLinkFullname"
+		case openedRow = "TopLinksVC.openedRow"
 	}
-		
+	
 	///
 	/// Shown items
 	///
-	var listing = Listing<Link>()
+	private var listing = Listing<Link>()
 	
 	///
 	/// Number of items to request per 1 page
 	///
-	let defaultLimit: UInt = 25
+	private let kDefaultLimit: UInt = 25
 	
 	///
 	/// Needed to avoid redundant requests & conflicts between updates from persistant store / backend
@@ -39,6 +39,11 @@ class TopLinksVC: UITableViewController {
 	///
 	private var uiUpdateInProgress = false
 	
+	///
+	/// A sentinel value for "no open row" case to store in coder under `DataKey.openedRow` key.
+	///
+	private let kNoOpenRowSentinelValue: Int = -1
+	
 	//MARK:- Lifecycle
 	
 	override func viewDidLoad() {
@@ -49,7 +54,6 @@ class TopLinksVC: UITableViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		print("\(#function)")
 		
 		// Initialize the reddit session if needed with further content refresh
 		let optionallyRefreshData: OptionalErrorCallback = { [weak self] _ in
@@ -70,13 +74,14 @@ class TopLinksVC: UITableViewController {
 	
 	override func encodeRestorableState(with coder: NSCoder) {
 		super.encodeRestorableState(with: coder)
-		print("\(#function)")
 
 		PersistentStore.write(listing, filename: DataKey.listing.rawValue)
-		if let firstShownRow = tableView.indexPathsForVisibleRows?.first?.row {
-			coder.encode(firstShownRow, forKey: DataKey.firstShownRow.rawValue)
-			print("\(firstShownRow)")
-		}
+		
+		let firstShownRow = tableView.indexPathsForVisibleRows?.first?.row ?? 0
+		coder.encode(firstShownRow, forKey: DataKey.firstShownRow.rawValue)
+		
+		coder.encode(openedRowIndex, forKey: DataKey.openedRow.rawValue)
+		
 	}
 	
 	override func decodeRestorableState(with coder: NSCoder) {
@@ -84,18 +89,23 @@ class TopLinksVC: UITableViewController {
 		modelUpdateInProgress = true
 
 		let firstShownRow = coder.decodeInteger(forKey: DataKey.firstShownRow.rawValue)
-		print("\(#function), \(String(describing: firstShownRow))")
+		let openedRow = coder.decodeInteger(forKey: DataKey.openedRow.rawValue)
 		PersistentStore.read(filename: DataKey.listing.rawValue) { [weak self] (storedListing: Listing<Link>?) in
 			// Update data
+			guard let `self` = self else { return }
 			if let storedListing = storedListing {
-				self?.listing = storedListing
-				self?.tableView.reloadData()
+				self.listing = storedListing
+				self.tableView.reloadData()
 				// Update scroll position
-				self?.tableView.scrollToRow(at: IndexPath(row: firstShownRow, section: 0), at: .top, animated: false)
+				self.tableView.scrollToRow(at: IndexPath(row: firstShownRow, section: 0), at: .top, animated: false)
+				// Open link details if needed
+				if openedRow < self.listing.count,
+				   openedRow != self.kNoOpenRowSentinelValue {
+					self.openLinkDetails(link: self.listing[openedRow])
+				}
 			}
 			
-			self?.modelUpdateInProgress = false
-			print("\(#function) \(self!.listing.count)")
+			self.modelUpdateInProgress = false
 		}
 	}
 }
@@ -112,7 +122,7 @@ extension TopLinksVC {
 //MARK:- Private
 //MARK:- UI Components
 private extension TopLinksVC {
-
+	
 	func updateUI() {
 		tableView.reloadData()
 	}
@@ -141,6 +151,25 @@ private extension TopLinksVC {
 		self.tableView.refreshControl?.endRefreshing()
 		showBottomRefreshControl(false)
 	}
+	
+	func openLinkDetails(link: Link) {
+		let detailsVC = LinkDetailsVC.loadFromStoryboard()!
+		detailsVC.link = link
+		navigationController?.pushViewController(detailsVC, animated: true)
+	}
+	
+	///
+	/// A helper var to get the currently presented LinkVC
+	///
+	var openedRowIndex: Int {
+		if let presentedLinkVC = (navigationController?.viewControllers.first { $0 is LinkDetailsVC }) as? LinkDetailsVC,
+		   let index = (listing.firstIndex {$0.fullname == presentedLinkVC.link.fullname}) {
+			return index
+		}
+		else {
+			return kNoOpenRowSentinelValue
+		}
+	}
 }
 
 //MARK:- Data Retrieve
@@ -162,7 +191,7 @@ private extension TopLinksVC {
 		// Decide whether to load the first or the next page.
 		let afterFullname = refresh ? nil : listing.after
 		
-		let request = API.topFeed(afterFullname: afterFullname, limit: defaultLimit, count: UInt(listing.count))
+		let request = API.topFeed(afterFullname: afterFullname, limit: kDefaultLimit, count: UInt(listing.count))
 		Network.shared.request(request) { [weak self] (json, error) in
 			// Clear existed data in case of refresh
 			if refresh {
@@ -218,9 +247,7 @@ extension TopLinksVC {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let detailsVC = LinkDetailsVC.loadFromStoryboard()! 
-		detailsVC.link = listing[indexPath.row]
-		navigationController?.pushViewController(detailsVC, animated: true)
+		openLinkDetails(link: listing[indexPath.row])
 	}
 }
 

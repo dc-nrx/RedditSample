@@ -48,6 +48,11 @@ extension LinkCell {
 		handleImage()
 	}
 	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		
+		self.activityIndicator.stopAnimating()
+	}
 }
 
 //MARK:- Private
