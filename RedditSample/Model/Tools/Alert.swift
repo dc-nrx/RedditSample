@@ -11,6 +11,7 @@ import UIKit
 ///
 /// A helper class to show alerts & loaders.
 /// All the things are shown over the current root vc (see `currentRootVC`).
+/// Is thread safe.
 ///
 final class Alert {
 	
@@ -62,23 +63,27 @@ final class Alert {
 	/// Show a custom controller in a popover
 	///
 	func show(controller: UIViewController) {
-		self.currentRootVC?.present(controller, animated: true, completion: nil)
+		DispatchQueue.asyncOnMainIfNeeded {
+			self.currentRootVC?.present(controller, animated: true, completion: nil)
+		}
 	}
 	
 	///
 	/// Show / hide a progress view (completelly blocks user interations)
 	///
 	func showProgress(_ show: Bool) {
-		if show,
-		   let currentRootVC = currentRootVC {
-			progressView.frame = currentRootVC.view.bounds
-			currentRootVC.view.addSubview(progressView)
+		DispatchQueue.asyncOnMainIfNeeded {
+			if show,
+			   let currentRootVC = self.currentRootVC {
+				self.progressView.frame = currentRootVC.view.bounds
+				currentRootVC.view.addSubview(self.progressView)
+			}
+			else {
+				self.progressView.removeFromSuperview()
+			}
+			
+			self.currentRootVC?.view.isUserInteractionEnabled = !show
 		}
-		else {
-			progressView.removeFromSuperview()
-		}
-		
-		currentRootVC?.view.isUserInteractionEnabled = !show
 	}
 	
 	//MARK:- Private

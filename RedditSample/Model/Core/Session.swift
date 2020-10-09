@@ -15,11 +15,7 @@ final class Session {
 
 	static var shared = Session()
 	
-	private init() {
-		// Test code
-//		refreshToken.value = "296337042005-nacl7UFgmUOmBh4p0ehwiEUUUqU"
-//		token.value = nil
-	}
+	private init() { }
 	
 	///
 	/// If `false`, you need to initialize a session through performing OAuth request
@@ -108,9 +104,17 @@ private extension Session {
 		
 		let authVC = OAuthVC.loadFromStoryboard()!
 		authVC.authFinishedCallback = { [weak authVC] (code, error) in
-			authVC?.presentingViewController?.dismiss(animated: true, completion: nil)
-			self.accessCodeRecieved(code!, callback: callback)
+			authVC?.presentingViewController?.dismiss(animated: true) {
+				if let accessCode = code {
+					self.accessCodeRecieved(accessCode, callback: callback)
+				}
+				else {
+					Alert.shared.show(title: "Access denied",
+									  message: "Please allow access in order to see the top posts.")
+				}
+			}
 		}
+		
 		Alert.shared.show(controller: authVC)
 	}
 	

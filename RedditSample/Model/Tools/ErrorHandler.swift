@@ -27,14 +27,10 @@ final class ErrorHandler {
 			message = "Something went wrong"
 		}
 		
-		DispatchQueue.main.async {
-			Alert.shared.show(title: "Error", message: message)
-		}
+		Alert.shared.show(title: "Error", message: message)
 	}
 	
 	func process(descr: String) {
-		DispatchQueue.main.async {
-			Alert.shared.show(title: "Error", message: descr)
-		}
+		Alert.shared.show(title: "Error", message: descr)
 	}
 }
