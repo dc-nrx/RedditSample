@@ -22,12 +22,11 @@ class LinkDetailsVC: UIViewController {
 		}
 	}
 	
-	private var photosAccessDenied: Bool { PHPhotoLibrary.authorizationStatus(for: .addOnly) == .denied }
-	
 	//MARK:- Outlets
 	@IBOutlet private var imageView: UIImageView!
 	@IBOutlet private var titleLabel: UILabel!
 	@IBOutlet private var saveImageButton: UIButton!
+	@IBOutlet private var imageActivityIndicator: UIActivityIndicatorView!
 
 	//MARK:- Life Cycle
 	override func viewDidLoad() {
@@ -47,7 +46,8 @@ extension LinkDetailsVC {
 
 	@objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
 		if let error = error {
-			let message: String = photosAccessDenied ? "Please enable access in system preferences" : error.localizedDescription
+			let isPhotosAccessDenied = PHPhotoLibrary.authorizationStatus(for: .addOnly) == .denied
+			let message: String = isPhotosAccessDenied ? "Please enable access in system preferences" : error.localizedDescription
 			Alert.shared.show(title: "Save error", message: message)
 		} else {
 			Alert.shared.show(title: "Saved!", message: "Please open \"Photos\" app to ensure that everything's fine.")
@@ -63,9 +63,9 @@ private extension LinkDetailsVC {
 		titleLabel.text = link.title
 		updateSaveImageButton()
 		if let url = link.mainImageURL {
-			Alert.shared.showProgress(true)
+			imageActivityIndicator.startAnimating()
 			ImagesManager.sharedInstance().loadImage(for: url) { [weak self] (image) in
-				Alert.shared.showProgress(false)
+				self?.imageActivityIndicator.stopAnimating()
 				self?.imageView.image = image
 				self?.updateSaveImageButton()
 				if image == nil {
