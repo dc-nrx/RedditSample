@@ -72,17 +72,21 @@ extension Network {
 	/// - parameter completion: A completion block; always runs on the main thread.
 	///
 	func request(_ request: API, completion: @escaping NetworkCallback) {
-		
 		// Add a convenience wrapper (completion should be run on the main thread)
 		let completionOnMain: NetworkCallback = { (data, error) in
 			DispatchQueue.main.async { completion(data, error) }
 		}
 		
 		let task = URLSession.shared.dataTask(with: request.urlRequest) { data, response, error in
-			
 			// Handle standard errors
 			if let error = error {
-				completionOnMain(nil, .generic(error))
+				if self.isConnectionFailed(error: error) {
+					self.temporaryDisable()
+					completionOnMain(nil, .connectionLost)
+				}
+				else {
+					completionOnMain(nil, .generic(error))
+				}
 				return
 			}
 			
@@ -160,8 +164,7 @@ private extension Network {
 	/// No `Reachability` framework, so that's the best way to catch the connection issues.
 	///
 	func isConnectionFailed(error: Error) -> Bool {
-		if let nserror = error as? CustomNSError,
-		   nserror.errorCode == -1004 {
+		if (error as NSError).code == -1004 {
 			return true
 		}
 		else {
@@ -170,13 +173,14 @@ private extension Network {
 	}
 	
 	///
-	/// Call this function to temporary disable requests (common case - connection failure)
+	/// Call this function to track connection loss.
 	///
-	func disable(interval: TimeInterval = 5) {
+	func temporaryDisable(interval: TimeInterval = 5) {
 		disableTimer?.invalidate()
 		connectionLost = true
 		disableTimer = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
 			self?.connectionLost = false
 		}
+		RunLoop.main.add(disableTimer!, forMode: .default)
 	}
 }

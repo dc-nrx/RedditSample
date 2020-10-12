@@ -234,7 +234,8 @@ extension TopLinksVC {
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		let lastSectionIndex = tableView.numberOfSections - 1
 		let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
-		if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
+		if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex,
+		   !Network.shared.connectionLost {	// avoid 1oo5oo requests per second
 			showBottomRefreshControl(true)
 			loadData()
 		}
