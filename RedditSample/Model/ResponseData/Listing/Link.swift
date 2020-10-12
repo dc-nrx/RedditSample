@@ -57,6 +57,7 @@ extension Link {
 		[
 			"name": fullname,
 			"subreddit_name_prefixed": subredditNamePrefixed,
+			"num_comments": commentsCount,
 			"title": title,
 			"author": author,
 			"created_utc": createdUtc.timeIntervalSince1970,
