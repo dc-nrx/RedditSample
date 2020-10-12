@@ -22,7 +22,7 @@ class TopLinksVC: UITableViewController {
 	///
 	/// Shown items
 	///
-	private var listing = Listing<Link>()
+	private var links = Listing<Link>()
 	
 	///
 	/// Number of items to request per 1 page
@@ -52,7 +52,7 @@ class TopLinksVC: UITableViewController {
 		
 		// Initialize the reddit session if needed with further content refresh
 		let optionallyRefreshData: OptionalErrorCallback = { [weak self] _ in
-			if self?.listing.count == 0 {
+			if self?.links.count == 0 {
 				self?.loadData(refresh: true)
 			}
 		}
@@ -70,7 +70,7 @@ class TopLinksVC: UITableViewController {
 	override func encodeRestorableState(with coder: NSCoder) {
 		super.encodeRestorableState(with: coder)
 
-		PersistentStore.write(listing, filename: DataKey.listing.rawValue)
+		PersistentStore.write(links, filename: DataKey.listing.rawValue)
 		
 		let firstShownRow = tableView.indexPathsForVisibleRows?.first?.row ?? 0
 		coder.encode(firstShownRow, forKey: DataKey.firstShownRow.rawValue)
@@ -89,14 +89,14 @@ class TopLinksVC: UITableViewController {
 			// Update data
 			guard let `self` = self else { return }
 			if let storedListing = storedListing {
-				self.listing = storedListing
+				self.links = storedListing
 				self.tableView.reloadData()
 				// Update scroll position
 				self.tableView.scrollToRow(at: IndexPath(row: firstShownRow, section: 0), at: .top, animated: false)
 				// Open link details if needed
-				if openedRow < self.listing.count,
+				if openedRow < self.links.count,
 				   openedRow != self.kNoOpenRowSentinelValue {
-					self.openLinkDetails(link: self.listing[openedRow])
+					self.openLinkDetails(link: self.links[openedRow])
 				}
 			}
 			
@@ -158,7 +158,7 @@ private extension TopLinksVC {
 	///
 	var openedRowIndex: Int {
 		if let presentedLinkVC = (navigationController?.viewControllers.first { $0 is LinkDetailsVC }) as? LinkDetailsVC,
-		   let index = (listing.firstIndex {$0.fullname == presentedLinkVC.link.fullname}) {
+		   let index = (links.firstIndex {$0.fullname == presentedLinkVC.link.fullname}) {
 			return index
 		}
 		else {
@@ -179,22 +179,22 @@ private extension TopLinksVC {
 		guard !modelUpdateInProgress else { return }
 		modelUpdateInProgress = true
 		// Show progress only for initial load & without manual refresh
-		let showProgress = listing.count == 0 && !tableView.refreshControl!.isRefreshing
+		let showProgress = links.count == 0 && !tableView.refreshControl!.isRefreshing
 		if showProgress {
 			Alert.shared.showProgress(true)
 		}
 		// Decide whether to load the first or the next page.
-		let afterFullname = refresh ? nil : listing.after
+		let afterFullname = refresh ? nil : links.after
 		
-		let request = API.topFeed(afterFullname: afterFullname, limit: kDefaultLimit, count: UInt(listing.count))
+		let request = API.topFeed(afterFullname: afterFullname, limit: kDefaultLimit, count: UInt(links.count))
 		Network.shared.request(request) { [weak self] (json, error) in
 			// Clear existed data in case of refresh
 			if refresh {
-				self?.listing.removeAll()
+				self?.links.removeAll()
 			}
 			if let json = json,
 			   let listing = try? Listing<Link>(jsonDict: json) {
-				self?.listing.append(listing)
+				self?.links.append(listing)
 			}
 			else {
 				ErrorHandler.shared.process(error ?? NetworkError.unexpectedResponseObject)
@@ -216,12 +216,12 @@ private extension TopLinksVC {
 extension TopLinksVC {
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		listing.count
+		links.count
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "linkCell") as! LinkCell
-		cell.link = listing[indexPath.row]
+		cell.link = links[indexPath.row]
 		
 		return cell
 	}
@@ -241,6 +241,6 @@ extension TopLinksVC {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		openLinkDetails(link: listing[indexPath.row])
+		openLinkDetails(link: links[indexPath.row])
 	}
 }
