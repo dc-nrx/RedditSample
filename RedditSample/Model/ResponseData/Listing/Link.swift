@@ -61,7 +61,8 @@ extension Link {
 			"author": author,
 			"created_utc": createdUtc.timeIntervalSince1970,
 			"thumbnail": thumbLink?.absoluteString,
-			"url_overridden_by_dest": mainImageURL?.absoluteString
+			"url_overridden_by_dest": mainImageURL?.absoluteString,
+			"thumbnail_height": thumbHeight
 		]
 	}
 	

@@ -52,25 +52,23 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uS3-Qm-pAm">
-                                                    <rect key="frame" x="0.0" y="25" width="355" height="21"/>
+                                                    <rect key="frame" x="0.0" y="25" width="355" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYP-HP-P51">
-                                                    <rect key="frame" x="0.0" y="54" width="355" height="17"/>
+                                                    <rect key="frame" x="0.0" y="53.5" width="355" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="0pT-wg-Tef"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="Tlp-QF-fTG"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-sD-o2C">
-                                                    <rect key="frame" x="0.0" y="79" width="355" height="17"/>
+                                                    <rect key="frame" x="0.0" y="78.5" width="355" height="17"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="gmc-7q-bee"/>
                                                         <constraint firstAttribute="height" constant="17" id="i1t-pP-cxz"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -78,15 +76,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="aRR-uR-xSG">
-                                                    <rect key="frame" x="0.0" y="104" width="355" height="120"/>
+                                                    <rect key="frame" x="0.0" y="103.5" width="355" height="120"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="120" id="1ju-Ct-gDZ"/>
+                                                        <constraint firstAttribute="height" priority="950" constant="120" id="1ju-Ct-gDZ"/>
                                                     </constraints>
                                                 </activityIndicatorView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tdP-Mg-d6t">
-                                                    <rect key="frame" x="0.0" y="232" width="355" height="120"/>
+                                                    <rect key="frame" x="0.0" y="231.5" width="355" height="120.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="120" id="Ac0-i5-EAD"/>
+                                                        <constraint firstAttribute="height" priority="950" constant="120" id="Ac0-i5-EAD"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -102,10 +100,12 @@
                                 <connections>
                                     <outlet property="activityIndicator" destination="aRR-uR-xSG" id="we8-Y7-trp"/>
                                     <outlet property="commentsLabel" destination="QoX-sD-o2C" id="la2-Cb-KLy"/>
-                                    <outlet property="linkImageView" destination="tdP-Mg-d6t" id="YN5-Vf-cVX"/>
                                     <outlet property="subredditNameLabel" destination="8fb-c5-eJ2" id="Rw0-qg-Vte"/>
+                                    <outlet property="thumbView" destination="tdP-Mg-d6t" id="YN5-Vf-cVX"/>
                                     <outlet property="titleLabel" destination="uS3-Qm-pAm" id="JIs-ID-haJ"/>
                                     <outlet property="userDateLabel" destination="fYP-HP-P51" id="wDo-jD-xAX"/>
+                                    <outletCollection property="imageHeightConstraints" destination="Ac0-i5-EAD" collectionClass="NSMutableArray" id="aeR-jM-itM"/>
+                                    <outletCollection property="imageHeightConstraints" destination="1ju-Ct-gDZ" collectionClass="NSMutableArray" id="TO7-Pa-iLp"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

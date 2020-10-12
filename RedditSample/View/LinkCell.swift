@@ -22,8 +22,8 @@ class LinkCell: UITableViewCell {
 	@IBOutlet private var userDateLabel: UILabel!
 	@IBOutlet private var titleLabel: UILabel!
 	/// Link image
-	@IBOutlet private var linkImageView: UIImageView!
-	@IBOutlet private var imageHeightConstraint: NSLayoutConstraint!
+	@IBOutlet private var thumbView: UIImageView!
+	@IBOutlet private var imageHeightConstraints: [NSLayoutConstraint]!
 	@IBOutlet private var commentsLabel: UILabel!
 	@IBOutlet private var activityIndicator: UIActivityIndicatorView!
 	
@@ -52,6 +52,7 @@ private extension LinkCell {
 			self.updateImage(nil)
 			return
 		}
+		imageHeightConstraints.forEach { $0.constant = CGFloat(link.thumbHeight ?? 0) }
 		if let cachedImage = ImagesManager.sharedInstance().getCachedImage(for: url) {
 			self.updateImage(cachedImage)
 		}
@@ -68,8 +69,8 @@ private extension LinkCell {
 	}
 	
 	func updateImage(_ image: UIImage?, loadingInProgress: Bool = false) {
-		self.linkImageView?.image = image
-		self.linkImageView.isHidden = (image == nil)
+		self.thumbView?.image = image
+		self.thumbView.isHidden = (image == nil)
 		
 		if loadingInProgress {
 			activityIndicator.startAnimating()
