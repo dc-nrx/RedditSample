@@ -14,6 +14,7 @@ typealias NetworkCallback = (JSONDict?, NetworkError?) -> ()
 ///
 enum NetworkError: Error {
 	case unexpectedResponseObject
+	case connectionLost
 	case reddit(RedditError)
 	case http(HTTPURLResponse?)
 	case generic(Error)
@@ -34,14 +35,31 @@ final class Network {
 	
 	static let shared = Network()
 	
+	private init() { }
+	
+	///
+	/// Kind of substitute for `Reachability` framework's connection status. Should be managed
+	/// through the `disable(interval:)` method only.
+	///
+	private(set) var connectionLost = false
+	
+	///
+	/// A key to get custom reddit errors from.
+	///
 	private static let errorResponseKey = "error"
 	
+	///
+	/// A session to send requests with.
+	///
 	private let session: URLSession = {
 		var result = URLSession(configuration: .default)
 		return result
 	}()
 	
-	private init() { }
+	///
+	/// A disable timer to handle network loss - see `connectionLost` and `disable(interval:)` for details.
+	///
+	private var disableTimer: Timer?
 
 }
 
@@ -49,7 +67,7 @@ final class Network {
 extension Network {
 	
 	///
-	/// Expected responses are either empty or JSON
+	/// Expected responses are either empty or JSON.
 	/// - parameter request: A request to execute (see `API` to add new / change existed requests).
 	/// - parameter completion: A completion block; always runs on the main thread.
 	///
@@ -138,4 +156,27 @@ private extension Network {
 		}
 	}
 	
+	///
+	/// No `Reachability` framework, so that's the best way to catch the connection issues.
+	///
+	func isConnectionFailed(error: Error) -> Bool {
+		if let nserror = error as? CustomNSError,
+		   nserror.errorCode == -1004 {
+			return true
+		}
+		else {
+			return false
+		}
+	}
+	
+	///
+	/// Call this function to temporary disable requests (common case - connection failure)
+	///
+	func disable(interval: TimeInterval = 5) {
+		disableTimer?.invalidate()
+		connectionLost = true
+		disableTimer = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
+			self?.connectionLost = false
+		}
+	}
 }
