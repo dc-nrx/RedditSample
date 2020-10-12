@@ -19,6 +19,7 @@ struct Link: Mappable {
 	let commentsCount: UInt
 	let subredditNamePrefixed: String?
 	let thumbLink: URL?
+	let thumbHeight: Float?
 	let mainImageURL: URL?
 	
 	init?(jsonDict: JSONDict) throws {
@@ -31,9 +32,15 @@ struct Link: Mappable {
 		let createdTstamp = jsonDict["created_utc"] as! TimeInterval
 		createdUtc = Date(timeIntervalSince1970: createdTstamp)
 		
-		let urlString = jsonDict["thumbnail"] as? String
-		thumbLink = URL(string: urlString ?? "")
+		if let urlString = jsonDict["thumbnail"] as? String,
+			urlString.hasPrefix("http") {	// Could be a dummy value "self" (at least)
+			thumbLink = URL(string: urlString)
+		}
+		else {
+			thumbLink = nil
+		}
 		
+		thumbHeight = jsonDict["thumbnail_height"] as? Float
 		if let url = jsonDict["url_overridden_by_dest"] as? String {
 			mainImageURL = URL(string: url)
 		}
