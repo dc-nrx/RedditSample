@@ -1,7 +1,8 @@
 A sample reddit client with OAuth & basic functionality.
 
-**Requirements**:
+**Requirements & restrictions**:
   - No 3d party libs
+  - Implement storyboard-based interface (no SwiftUI)
   - Login with OAuth
   - Top posts feed (with pagination and refresh)
   - App state preservation/restoration
