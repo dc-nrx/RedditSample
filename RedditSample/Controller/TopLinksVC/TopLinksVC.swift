@@ -142,19 +142,10 @@ private extension TopLinksVC {
 		tableView.tableFooterView?.isHidden = !show
 	}
 	
-	func endRefreshigUI(completion: (()->())?) {
-		CATransaction.begin()
-		CATransaction.setCompletionBlock { () -> Void in
-			/* wait for endRefreshing animation to complete
-			  before reloadData so table view does not flicker to top
-			  then continue endRefreshing animation */
-			completion?()
-		}
-
-		self.tableView.refreshControl?.endRefreshing()
+	func endRefreshigUI() {
+		tableView.refreshControl?.endRefreshing()
 		showBottomRefreshControl(false)
-		
-		CATransaction.commit()
+		updateUI()
 	}
 	
 	func openLinkDetails(link: Link) {
@@ -209,8 +200,7 @@ private extension TopLinksVC {
 			else {
 				ErrorHandler.shared.process(error ?? NetworkError.unexpectedResponseObject)
 			}
-			
-			self?.endRefreshigUI { self?.updateUI() }
+			self?.endRefreshigUI()
 			self?.modelUpdateInProgress = false
 			
 			if showProgress {
