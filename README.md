@@ -8,4 +8,5 @@ A sample reddit client with OAuth & basic functionality.
   - App state preservation/restoration
   - Saving pictures in the picture gallery
   - Details with a full-sized picture (if there is one)
+  - No processing of other content details except for images
   - Extendable model
